@@ -28,6 +28,8 @@ namespace TokenTracker.ViewModels
         {
             ReloadCommand.Execute(null);
 
+            Title = "Token Tracker";
+
             tokenInfoService.StartTokenUpdates();
             tokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
         }

@@ -3,7 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.CustomNavigationView"
-    BarBackgroundColor="Blue"
+    BarBackgroundColor="#81919c"
     BarTextColor="White"
     BackgroundColor="Transparent">
 </NavigationPage>

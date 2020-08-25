@@ -20,6 +20,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Inconsolata-Regular.ttf" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Inconsolata-SemiBold.ttf" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Bold.ttf" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -45,6 +47,8 @@
       <DependentUpon>CustomNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Token.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -57,5 +61,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\TokenInfo\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Resources\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
   </ItemGroup>
 </Project>
