@@ -22,15 +22,15 @@
                     BindableLayout.ItemsSource="{Binding Tokens}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <controls:TokenView BackgroundColor="#c5c5c5" HighlightColor="#9dea3c" Margin="1" Token="{Binding .}" />
-
+                            <controls:TokenView
+                                BackgroundColor="#c5c5c5"
+                                HighlightColor="#9dea3c"
+                                Margin="1"
+                                Token="{Binding .}" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>
             </ScrollView>
         </Grid>
-        <!--<ContentView BackgroundColor="Pink">
-            <Button Command="{Binding ReloadCommand}" Text="Reload" HorizontalOptions="Center" VerticalOptions="Center"/>
-        </ContentView>-->
     </ContentPage.Content>
 </ContentPage>
