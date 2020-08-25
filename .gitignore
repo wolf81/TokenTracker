@@ -1,3 +1,6 @@
+# Crash reports
+mono_crash.*.json
+
 # globs
 Makefile.in
 *.userprefs

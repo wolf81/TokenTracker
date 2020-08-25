@@ -3,9 +3,68 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenListView"
-	xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"    
+    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.Content>
-        <ContentView BackgroundColor="Pink" />
+        <Grid>
+            <ScrollView>
+                <FlexLayout
+                    Margin="0,2,0,2"
+                    Wrap="Wrap"
+                    JustifyContent="Center"
+                    Direction="Row"
+                    AlignContent="Start"
+                    BindableLayout.ItemsSource="{Binding Tokens}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                BackgroundColor="LightGray"
+                                WidthRequest="120"
+                                HeightRequest="60"
+                                Margin="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                        Height="*" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition
+                                        Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="*" />
+                                    <ColumnDefinition
+                                        Width="Auto" />
+                                    <ColumnDefinition
+                                        Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    LineBreakMode="MiddleTruncation"
+                                    Text="{Binding Symbol}"
+                                    FontFamily="Inconsolata-SemiBold"
+                                    FontSize="Medium"
+                                    TextColor="Black"
+                                    HorizontalOptions="Center" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    FontFamily="Inconsolata-Regular"
+                                    FontSize="Medium"
+                                    Text="{Binding PriceUSD, StringFormat='{0:F5}'}"
+                                    TextColor="Black"
+                                    HorizontalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </Grid>
+        <!--<ContentView BackgroundColor="Pink">
+            <Button Command="{Binding ReloadCommand}" Text="Reload" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </ContentView>-->
     </ContentPage.Content>
 </ContentPage>

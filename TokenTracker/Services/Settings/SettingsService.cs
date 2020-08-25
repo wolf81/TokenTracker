@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -9,7 +10,10 @@ namespace TokenTracker.Services
         #region Setting Constants
 
         private const string IdUseMocks = "use_mocks";
+        private const string IdTrackedTokens = "tracked_tokens";
+
         private readonly bool UseMocksDefault = true;
+        private readonly List<string> TrackedTokensDefault = new List<string> { "BTC", "ETH", "XRP" };
 
         #endregion
 
@@ -19,14 +23,15 @@ namespace TokenTracker.Services
             set => AddOrUpdateValue(IdUseMocks, value);
         }
 
-        #region Public Methods
+        public List<string> TrackedTokens {
+            get => GetValueOrDefault(IdTrackedTokens, TrackedTokensDefault);
+            set => AddOrUpdateValue(IdTrackedTokens, value);
+        }
 
-        public Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
-        public Task AddOrUpdateValue(string key, string value) => AddOrUpdateValueInternal(key, value);
-        public bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
-        public string GetValueOrDefault(string key, string defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
-
-        #endregion
+        private Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
+        private Task AddOrUpdateValue(string key, List<string> value) => AddOrUpdateValueInternal(key, value);
+        private bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
+        private List<string> GetValueOrDefault(string key, List<string> defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
 
         #region Internal Implementation
 
