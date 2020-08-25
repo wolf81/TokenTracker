@@ -5,6 +5,8 @@
     x:Class="TokenTracker.Views.TokenListView"
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     BackgroundColor="#e7e7e7"
     Title="{Binding Title}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
