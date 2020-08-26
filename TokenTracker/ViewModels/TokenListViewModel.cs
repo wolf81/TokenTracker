@@ -42,13 +42,15 @@ namespace TokenTracker.ViewModels
 
         private void Edit(object parameter)
         {
-            if (Tokens.Contains(Token.AddToken) == false)
+            if (Tokens.Contains(Token.AddToken))
             {
-                Tokens.Add(Token.AddToken);
+                TokenInfoService.StartTokenUpdates();
+                Tokens.Remove(Token.AddToken);
             }
             else
             {
-                Tokens.Remove(Token.AddToken);
+                TokenInfoService.StopTokenUpdates();
+                Tokens.Add(Token.AddToken);
             }
         }
 

@@ -28,12 +28,12 @@ namespace TokenTracker.Services
 
         public void StartTokenUpdates()
         {
-            webSocket.Connect();
+            webSocket.ConnectAsync();
         }
 
         public void StopTokenUpdates()
         {
-            webSocket.Close();
+            webSocket.CloseAsync();
         }
 
         public async Task<IEnumerable<Token>> GetTokensAsync()
@@ -101,7 +101,7 @@ namespace TokenTracker.Services
 
         private void Handle_WebSocket_OnError(object sender, ErrorEventArgs e)
         {
-            Console.WriteLine($"[WS] error {e.Message}");
+            Console.WriteLine($"[WS] error {e?.Message}");
         }
 
         #endregion
