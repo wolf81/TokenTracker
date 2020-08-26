@@ -21,7 +21,7 @@ namespace TokenTracker.ViewModels
 
         public ICommand TokenActionCommand => new Command(async (p) => await PerformTokenActionAsync(p));
 
-        private ObservableCollection<Token> tokens;
+        private ObservableCollection<Token> tokens = new ObservableCollection<Token> { };
         public ObservableCollection<Token> Tokens
         {
             get => tokens;

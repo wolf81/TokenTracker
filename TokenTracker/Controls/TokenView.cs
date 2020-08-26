@@ -13,6 +13,7 @@ namespace TokenTracker.Controls
 
         private readonly Label priceLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-Regular", FontSize = DefaultFontSize };
         private readonly Label symbolLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-SemiBold", FontSize = DefaultFontSize };
+        private readonly Image addImage = new Image { Source = ImageSource.FromResource("TokenTracker.Resources.ic_add_b.png"), Aspect = Aspect.AspectFit, HeightRequest = 32, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
 
         public ICommand Command {
             get => (ICommand)GetValue(CommandProperty);
@@ -127,6 +128,12 @@ namespace TokenTracker.Controls
                 if (token != Token.AddToken)
                 {
                     ShowHighlightAnimation();
+                }
+                else
+                {
+                    var grid = new Grid { };
+                    grid.Children.Add(addImage);
+                    Content = grid;
                 }
             }
         }
