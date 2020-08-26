@@ -4,23 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenListView"
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
+    xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="True"
     BackgroundColor="#e7e7e7"
-    Title="{Binding Title}"    
+    Title="{Binding Title}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" Command="{Binding EditCommand}" />
+        <ToolbarItem
+            Text="Edit"
+            Command="{Binding EditCommand}" />
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>        
+    <ContentPage.Content>
         <Grid>
             <ScrollView>
                 <FlexLayout
                     Margin="0,2,0,2"
                     Wrap="Wrap"
                     JustifyContent="Center"
-                    Direction="Row"                     
+                    Direction="Row"
                     AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Tokens}">
                     <BindableLayout.ItemTemplate>
@@ -29,6 +32,7 @@
                                 BackgroundColor="#c5c5c5"
                                 HighlightColor="#9dea3c"
                                 Margin="1"
+                                Command="{Binding TokenActionCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenListViewModel}}}"
                                 Token="{Binding .}" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

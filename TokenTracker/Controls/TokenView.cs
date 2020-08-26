@@ -1,4 +1,5 @@
-﻿using TokenTracker.Extensions;
+﻿using System.Windows.Input;
+using TokenTracker.Extensions;
 using TokenTracker.Models;
 using Xamarin.Forms;
 
@@ -6,11 +7,20 @@ namespace TokenTracker.Controls
 {
     public class TokenView : ContentView
     {
+        private readonly TapGestureRecognizer TapRecognizer = new TapGestureRecognizer();
+
         private const double DefaultFontSize = 14;
 
         private readonly Label priceLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-Regular", FontSize = DefaultFontSize };
         private readonly Label symbolLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-SemiBold", FontSize = DefaultFontSize };
 
+        public ICommand Command {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenView), null, BindingMode.TwoWay);
+        
         public Color HighlightColor
         {
             get => (Color)GetValue(HighlightColorProperty);
@@ -38,6 +48,8 @@ namespace TokenTracker.Controls
         {
             WidthRequest = 120;
             HeightRequest = 60;
+
+            GestureRecognizers.Add(TapRecognizer);
 
             var grid = new Grid
             {
@@ -67,11 +79,35 @@ namespace TokenTracker.Controls
             grid.Children.Add(priceLabel);
             Grid.SetRow(priceLabel, 2);
             Grid.SetColumn(priceLabel, 1);
-
+            
             Content = grid;
+
+            InputTransparent = false;
+        }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+
+            if (Parent == null)
+            {
+                TapRecognizer.Tapped -= Handle_TapRecognizer_Tapped;
+            }
+            else
+            {
+                TapRecognizer.Tapped += Handle_TapRecognizer_Tapped;
+            }
         }
 
         #region Private
+
+        private void Handle_TapRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+            if (Command is ICommand command)
+            {
+                command.Execute(Token);
+            }
+        }
 
         private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {

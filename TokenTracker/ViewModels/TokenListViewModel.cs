@@ -19,6 +19,8 @@ namespace TokenTracker.ViewModels
 
         public ICommand EditCommand => new Command(Edit);
 
+        public ICommand TokenActionCommand => new Command(PerformTokenAction);
+
         private ObservableCollection<Token> tokens;
         public ObservableCollection<Token> Tokens
         {
@@ -54,6 +56,14 @@ namespace TokenTracker.ViewModels
         {
             var tokens = await TokenInfoService.GetTokensAsync("bitcoin");
             Tokens = new ObservableCollection<Token>(tokens);
+        }
+
+        private void PerformTokenAction(object parameter)
+        { 
+            if (parameter is Token token)
+            {
+                Console.WriteLine($"tapped: {token.Symbol}");
+            }
         }
 
         private void Handle_TokenInfoService_TokensUpdated(object sender, Dictionary<string, decimal> tokenPriceInfo)
