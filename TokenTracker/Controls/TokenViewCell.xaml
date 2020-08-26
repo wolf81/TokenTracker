@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Controls.TokenViewCell"
+    xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    Height="44">
+    <ViewCell.View> 
+        <Grid Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" x:Name="nameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Inconsolata-Regular" FontSize="Large" TextColor="Black" />
+            <Label Grid.Column="1" x:Name="symbolLabel" HorizontalOptions="End"  VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Inconsolata-SemiBold" FontSize="Large" TextColor="Black" />
+            <Image Grid.Column="2" Source="{local:ImageResource TokenTracker.Resources.ic_add_b.png}" Aspect="AspectFit" HeightRequest="32"/>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

@@ -22,11 +22,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\edit_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_edit_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\TokenViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_add_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -58,6 +63,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ImageResourceExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml.cs">
       <DependentUpon>TokenListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenViewCell.xaml.cs">
+      <DependentUpon>TokenViewCell.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

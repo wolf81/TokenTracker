@@ -6,15 +6,30 @@
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     Title="{Binding Title}"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:controls="clr-namespace:TokenTracker.Controls"
     ios:Page.UseSafeArea="True"
     BackgroundColor="#e7e7e7"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Placeholder="Enter name or symbol"></SearchBar>
-            <ListView BackgroundColor="Transparent">
-                <ListView.Footer><ContentView /></ListView.Footer>
-
+            <SearchBar
+                x:Name="searchBar"
+                Placeholder="Enter name or symbol"
+                IsSpellCheckEnabled="False"                
+                SearchCommand="{Binding SearchTokenCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+            <ListView
+                BackgroundColor="Transparent"
+                SelectionMode="None"
+                ItemsSource="{Binding Tokens}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TokenViewCell Token="{Binding .}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ContentView />
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

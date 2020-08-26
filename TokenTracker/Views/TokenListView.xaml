@@ -15,7 +15,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Edit"
-            IconImageSource="{local:ImageResource TokenTracker.Resources.edit_w.png}"
+            IconImageSource="{local:ImageResource TokenTracker.Resources.ic_edit_w.png}"
             Command="{Binding EditCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
