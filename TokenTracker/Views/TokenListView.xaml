@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenListView"
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
+    xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
@@ -14,6 +15,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Edit"
+            IconImageSource="{local:ImageResource TokenTracker.Resources.edit_w.png}"
             Command="{Binding EditCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

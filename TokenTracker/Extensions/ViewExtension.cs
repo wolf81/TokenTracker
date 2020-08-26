@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace TokenTracker.Extensions
 {
-    public static class ViewExtensions
+    public static class ViewExtension
     {
         public static Task<bool> ColorTo(this VisualElement self, Color fromColor, Color toColor, Action<Color> callback, uint length = 250, Easing easing = null)
         {

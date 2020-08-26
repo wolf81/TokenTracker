@@ -10,10 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CustomNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -23,6 +19,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Bold.ttf" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Regular.ttf" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenSearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\edit_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -40,9 +41,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Navigation\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Navigation\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml.cs">
-      <DependentUpon>TokenListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\ITokenInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\CoinCapTokenInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\MockTokenInfoService.cs" />
@@ -52,10 +50,14 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Token.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenView.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenSearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\TokenSearchView.xaml.cs">
       <DependentUpon>TokenSearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ImageResourceExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml.cs">
+      <DependentUpon>TokenListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
