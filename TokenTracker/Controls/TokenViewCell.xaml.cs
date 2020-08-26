@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TokenTracker.Models;
+﻿using TokenTracker.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
