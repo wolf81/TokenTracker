@@ -20,7 +20,7 @@ namespace TokenTracker.Controls
             set => SetValue(CommandProperty, value);
         }
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenView), null, BindingMode.TwoWay);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenView), null, BindingMode.OneWay);
         
         public Color HighlightColor
         {

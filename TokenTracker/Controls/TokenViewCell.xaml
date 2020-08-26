@@ -14,7 +14,11 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" x:Name="nameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
             <Label Grid.Column="1" x:Name="symbolLabel" HorizontalOptions="End" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
-            <Image Grid.Column="2" Source="{local:ImageResource TokenTracker.Resources.ic_add_b.png}" Aspect="AspectFit" HeightRequest="32"/>
+            <Image Grid.Column="2" Source="{local:ImageResource TokenTracker.Resources.ic_add_b.png}" Aspect="AspectFit" HeightRequest="32">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Handle_TapRecognizer_Tapped" />
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </ViewCell.View>
 </ViewCell>

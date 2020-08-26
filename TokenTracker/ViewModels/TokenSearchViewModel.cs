@@ -16,6 +16,8 @@ namespace TokenTracker.ViewModels
 
         public ICommand SearchTokenCommand => new Command<string>(async (q) => await SearchTokenAsync(q));
 
+        public ICommand AddTokenCommand => new Command<Token>(AddToken);
+
         private List<Token> tokens;
         public List<Token> Tokens {
             get => tokens;
@@ -46,6 +48,11 @@ namespace TokenTracker.ViewModels
             {
                 Tokens.Clear();
             }
+        }
+
+        private void AddToken(Token token)
+        {
+            Console.WriteLine($"Add {token.Symbol}");
         }
 
         #endregion

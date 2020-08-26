@@ -1,4 +1,5 @@
-﻿using TokenTracker.Models;
+﻿using System.Windows.Input;
+using TokenTracker.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,6 +14,14 @@ namespace TokenTracker.Controls
         }
 
         public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenViewCell), null, propertyChanged: Handle_PropertyChanged);
+
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenViewCell), null, BindingMode.OneWay);
 
         public TokenViewCell()
         {
@@ -30,6 +39,11 @@ namespace TokenTracker.Controls
         {
             nameLabel.Text = Token?.Name ?? "";
             symbolLabel.Text = Token?.Symbol ?? "";
+        }
+
+        private void Handle_TapRecognizer_Tapped(object sender, System.EventArgs e)
+        {
+            Command?.Execute(Token);
         }
 
         #endregion
