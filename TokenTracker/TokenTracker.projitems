@@ -22,6 +22,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Inconsolata-SemiBold.ttf" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Bold.ttf" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Nunito-Regular.ttf" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenSearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -49,6 +53,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Token.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenSearchViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenSearchView.xaml.cs">
+      <DependentUpon>TokenSearchView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

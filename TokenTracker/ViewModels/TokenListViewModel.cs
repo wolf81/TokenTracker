@@ -19,7 +19,7 @@ namespace TokenTracker.ViewModels
 
         public ICommand EditCommand => new Command(Edit);
 
-        public ICommand TokenActionCommand => new Command(PerformTokenAction);
+        public ICommand TokenActionCommand => new Command(async (p) => await PerformTokenActionAsync(p));
 
         private ObservableCollection<Token> tokens;
         public ObservableCollection<Token> Tokens
@@ -58,11 +58,16 @@ namespace TokenTracker.ViewModels
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
-        private void PerformTokenAction(object parameter)
+        private async Task PerformTokenActionAsync(object parameter)
         { 
             if (parameter is Token token)
             {
                 Console.WriteLine($"tapped: {token.Symbol}");
+
+                if (token == Token.AddToken)
+                {
+                    await NavigationService.NavigateToAsync<TokenSearchViewModel>();
+                }
             }
         }
 

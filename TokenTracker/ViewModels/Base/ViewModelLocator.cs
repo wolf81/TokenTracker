@@ -31,16 +31,8 @@ namespace TokenTracker.ViewModels.Base
             _container = new TinyIoCContainer();
 
             // View models - by default, TinyIoC will register concrete classes as multi-instance.
-            //_container.Register<LoginViewModel>();
-            //_container.Register<CardsViewModel>();
-            //_container.Register<CardPowerViewModel>();
-            //_container.Register<CardConnectViewModel>();
-            //_container.Register<MainMenuViewModel>();
-            //_container.Register<SplashViewModel>();
-            //_container.Register<PasswordRecoveryViewModel>();
-            //_container.Register<ApproveCardViewModel>();
-            //_container.Register<ManageCardViewModel>();
-            //_container.Register<SyncCardViewModel>();
+            _container.Register<TokenListViewModel>();
+            _container.Register<TokenSearchViewModel>();
 
             // Services - by default, TinyIoC will register interface registrations as singletons.
             _container.Register<INavigationService, NavigationService>();
