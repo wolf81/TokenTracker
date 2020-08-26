@@ -8,16 +8,19 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="True"
     BackgroundColor="#e7e7e7"
-    Title="{Binding Title}"
+    Title="{Binding Title}"    
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
-    <ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Command="{Binding EditCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>        
         <Grid>
             <ScrollView>
                 <FlexLayout
                     Margin="0,2,0,2"
                     Wrap="Wrap"
                     JustifyContent="Center"
-                    Direction="Row"
+                    Direction="Row"                     
                     AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Tokens}">
                     <BindableLayout.ItemTemplate>

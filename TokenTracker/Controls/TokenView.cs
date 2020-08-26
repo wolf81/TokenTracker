@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using TokenTracker.Extensions;
+﻿using TokenTracker.Extensions;
 using TokenTracker.Models;
 using Xamarin.Forms;
 
@@ -7,8 +6,10 @@ namespace TokenTracker.Controls
 {
     public class TokenView : ContentView
     {
-        private readonly Label priceLabel = new Label { Text = "Bla", HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-Regular", FontSize = 14 };
-        private readonly Label symbolLabel = new Label { Text = "Hi", HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-SemiBold", FontSize = 14 };
+        private const double DefaultFontSize = 14;
+
+        private readonly Label priceLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-Regular", FontSize = DefaultFontSize };
+        private readonly Label symbolLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-SemiBold", FontSize = DefaultFontSize };
 
         public Color HighlightColor
         {
@@ -17,6 +18,14 @@ namespace TokenTracker.Controls
         }
 
         public static readonly BindableProperty HighlightColorProperty = BindableProperty.Create(nameof(HighlightColor), typeof(Color), typeof(TokenView), Color.Green);
+
+        public double FontSize
+        {
+            get => (double)GetValue(FontSizeProperty);
+            set => SetValue(FontSizeProperty, value);
+        }
+
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TokenView), DefaultFontSize, propertyChanged: Handle_PropertyChanged);
 
         public Token Token {
             get => (Token)GetValue(TokenProperty);
@@ -62,6 +71,8 @@ namespace TokenTracker.Controls
             Content = grid;
         }
 
+        #region Private
+
         private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             (bindable as TokenView).Update();
@@ -69,17 +80,28 @@ namespace TokenTracker.Controls
 
         private void Update()
         {
-            priceLabel.Text = string.Format("{0:0.00#####}", Token.PriceUSD);
-            symbolLabel.Text = Token.Symbol;
+            symbolLabel.FontSize = FontSize;
+            priceLabel.FontSize = FontSize;
 
-            StartAnimation();
+            if (Token is Token token)
+            {
+                priceLabel.Text = string.Format("{0:0.00#####}", token.PriceUSD);
+                symbolLabel.Text = token.Symbol;
+
+                if (token != Token.AddToken)
+                {
+                    ShowHighlightAnimation();
+                }
+            }
         }
 
-        private async void StartAnimation()
+        private async void ShowHighlightAnimation()
         {
             var color = BackgroundColor;
             await this.ColorTo(BackgroundColor, HighlightColor, (c) => { BackgroundColor = c; }, 250, Easing.CubicInOut);
             BackgroundColor = color;
         }
+
+        #endregion
     }
 }

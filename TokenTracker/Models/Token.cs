@@ -34,11 +34,12 @@ namespace TokenTracker.Models
         public decimal PriceUSD { get; set; }
 
         [JsonProperty("changePercent24Hr", NullValueHandling = NullValueHandling.Ignore)]
-        public decimal Change24 { get; private set; } = long.MaxValue;
+        public decimal Change24 { get; private set; } = decimal.MaxValue;
 
         public object Clone()
         {
-            return new Token {
+            return new Token
+            {
                 Id = Id,
                 Symbol = Symbol,
                 Name = Name,
@@ -46,5 +47,7 @@ namespace TokenTracker.Models
                 Change24 = Change24,
             };
         }
+
+        public static Token AddToken = new Token { Id = new Guid().ToString() };
     }
 }

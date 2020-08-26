@@ -13,10 +13,12 @@ namespace TokenTracker.ViewModels
 {
     public class TokenListViewModel : ViewModelBase
     {
-        private ITokenInfoService tokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
+        private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
-        
+
+        public ICommand EditCommand => new Command(Edit);
+
         private ObservableCollection<Token> tokens;
         public ObservableCollection<Token> Tokens
         {
@@ -30,15 +32,27 @@ namespace TokenTracker.ViewModels
 
             Title = "Token Tracker";
 
-            tokenInfoService.StartTokenUpdates();
-            tokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
+            TokenInfoService.StartTokenUpdates();
+            TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
         }
 
         #region Private
 
+        private void Edit(object parameter)
+        {
+            if (Tokens.Contains(Token.AddToken) == false)
+            {
+                Tokens.Add(Token.AddToken);
+            }
+            else
+            {
+                Tokens.Remove(Token.AddToken);
+            }
+        }
+
         private async Task GetTokenInfoAsync()
         {
-            var tokens = await tokenInfoService.GetTokensAsync("bitcoin");
+            var tokens = await TokenInfoService.GetTokensAsync("bitcoin");
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
