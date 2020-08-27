@@ -17,8 +17,6 @@ namespace TokenTracker.ViewModels
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
 
-        public ICommand EditCommand => new Command(Edit);
-
         public ICommand TokenActionCommand => new Command(async (p) => await PerformTokenActionAsync(p));
 
         private ObservableCollection<Token> tokens = new ObservableCollection<Token> { };
@@ -40,20 +38,6 @@ namespace TokenTracker.ViewModels
 
         #region Private
 
-        private void Edit(object parameter)
-        {
-            if (Tokens.Contains(Token.AddToken))
-            {
-                TokenInfoService.StartTokenUpdates();
-                Tokens.Remove(Token.AddToken);
-            }
-            else
-            {
-                TokenInfoService.StopTokenUpdates();
-                Tokens.Add(Token.AddToken);
-            }
-        }
-
         private async Task GetTokenInfoAsync()
         {
             var tokens = await TokenInfoService.GetTokensAsync("bitcoin");
@@ -66,7 +50,7 @@ namespace TokenTracker.ViewModels
             {
                 Console.WriteLine($"tapped: {token.Symbol}");
 
-                if (token == Token.AddToken)
+                if (token == Token.Dummy)
                 {
                     await NavigationService.NavigateToAsync<TokenSearchViewModel>();
                 }

@@ -125,7 +125,7 @@ namespace TokenTracker.Controls
                 priceLabel.Text = string.Format("{0:0.00#####}", token.PriceUSD);
                 symbolLabel.Text = token.Symbol;
 
-                if (token != Token.AddToken)
+                if (token != Token.Dummy)
                 {
                     ShowHighlightAnimation();
                 }

@@ -41,8 +41,10 @@ namespace TokenTracker.Controls
             symbolLabel.Text = Token?.Symbol ?? "";
         }
 
-        private void Handle_TapRecognizer_Tapped(object sender, System.EventArgs e)
+        private void Handle_TokenViewCell_Tapped(object sender, System.EventArgs e)
         {
+            checkmarkImage.IsVisible = !checkmarkImage.IsVisible;
+
             Command?.Execute(Token);
         }
 

@@ -32,6 +32,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_add_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_checkmark_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">

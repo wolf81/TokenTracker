@@ -4,21 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Controls.TokenViewCell"
     xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    Tapped="Handle_TokenViewCell_Tapped"
     Height="44">
     <ViewCell.View> 
         <Grid Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="32" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" x:Name="nameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
             <Label Grid.Column="1" x:Name="symbolLabel" HorizontalOptions="End" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
-            <Image Grid.Column="2" Source="{local:ImageResource TokenTracker.Resources.ic_add_b.png}" Aspect="AspectFit" HeightRequest="32">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Handle_TapRecognizer_Tapped" />
-                </Image.GestureRecognizers>
-            </Image>
+            <Image Grid.Column="2" x:Name="checkmarkImage" Source="{local:ImageResource TokenTracker.Resources.ic_checkmark_b.png}" Aspect="AspectFit" IsVisible="False" />
         </Grid>
     </ViewCell.View>
 </ViewCell>

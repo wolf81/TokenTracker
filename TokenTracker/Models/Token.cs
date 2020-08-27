@@ -48,6 +48,6 @@ namespace TokenTracker.Models
             };
         }
 
-        public static Token AddToken = new Token { Id = new Guid().ToString() };
+        public static Token Dummy = new Token { Id = new Guid().ToString() };
     }
 }
