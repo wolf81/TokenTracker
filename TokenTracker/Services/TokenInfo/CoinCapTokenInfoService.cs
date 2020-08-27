@@ -15,6 +15,10 @@ namespace TokenTracker.Services
 
         public event EventHandler<Dictionary<string, decimal>> TokensUpdated;
 
+        public event EventHandler<ConnectionState> ConnectionStateChanged;
+
+        public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
+
         public CoinCapTokenInfoService()
         {
             webSocket = new WebSocket("wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin");
@@ -28,11 +32,17 @@ namespace TokenTracker.Services
 
         public void StartTokenUpdates()
         {
+            if (State == ConnectionState.Busy || State == ConnectionState.Connected) { return; }
+            OnConnectionStateChanged(ConnectionState.Busy);
+
             webSocket.ConnectAsync();
         }
 
         public void StopTokenUpdates()
         {
+            if (State == ConnectionState.Busy || State == ConnectionState.Disconnected) { return; }
+            OnConnectionStateChanged(ConnectionState.Busy);
+
             webSocket.CloseAsync();
         }
 
@@ -86,22 +96,38 @@ namespace TokenTracker.Services
             Console.WriteLine($"[WS] message: {e.Data}");
 
             var tokenPriceInfo = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(e.Data);
-            TokensUpdated?.Invoke(this, tokenPriceInfo);
+            OnTokensUpdated(tokenPriceInfo);
         }
 
         private void Handle_WebSocket_OnOpen(object sender, EventArgs e)
         {
             Console.WriteLine("[WS] open");
+
+            OnConnectionStateChanged(ConnectionState.Connected);
         }
 
         private void Handle_WebSocket_OnClose(object sender, CloseEventArgs e)
         {
             Console.WriteLine("[WS] close");
+
+            OnConnectionStateChanged(ConnectionState.Disconnected);
         }
 
         private void Handle_WebSocket_OnError(object sender, ErrorEventArgs e)
         {
             Console.WriteLine($"[WS] error {e?.Message}");
+        }
+
+        private void OnConnectionStateChanged(ConnectionState state)
+        {
+            State = state;
+
+            ConnectionStateChanged?.Invoke(this, state);
+        }
+
+        private void OnTokensUpdated(Dictionary<string, decimal> tokenPriceInfo)
+        {
+            TokensUpdated?.Invoke(this, tokenPriceInfo);
         }
 
         #endregion

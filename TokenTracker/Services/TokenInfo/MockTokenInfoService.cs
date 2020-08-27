@@ -9,6 +9,8 @@ namespace TokenTracker.Services
     {
         public event EventHandler<Dictionary<string, decimal>> TokensUpdated;
 
+        public event EventHandler<ConnectionState> ConnectionStateChanged;
+
         public void StartTokenUpdates()
         {
             throw new NotImplementedException();

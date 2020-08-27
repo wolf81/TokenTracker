@@ -5,9 +5,13 @@ using TokenTracker.Models;
 
 namespace TokenTracker.Services
 {
+    public enum ConnectionState { Busy, Connected, Disconnected }
+
     public interface ITokenInfoService
     {
         event EventHandler<Dictionary<string, decimal>> TokensUpdated;
+
+        event EventHandler<ConnectionState> ConnectionStateChanged;
 
         void StartTokenUpdates();
 

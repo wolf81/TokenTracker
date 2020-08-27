@@ -27,6 +27,8 @@ namespace TokenTracker.Views
             base.OnDisappearing();
 
             TokenInfoService.StopTokenUpdates();
+
+            TokenInfoService.ConnectionStateChanged -= Handle_TokenInfoService_ConnectionStateChanged;
         }
 
         protected override void OnAppearing()
@@ -35,6 +37,8 @@ namespace TokenTracker.Views
 
             UpdateModeToggleItem();
             UpdateForCurrentMode();
+
+            TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
         }
 
         private void Handle_ModeToggleItem_Clicked(object sender, System.EventArgs e)
@@ -45,6 +49,11 @@ namespace TokenTracker.Views
 
             UpdateModeToggleItem();
             UpdateForCurrentMode();
+        }
+
+        private void Handle_TokenInfoService_ConnectionStateChanged(object sender, ConnectionState state)
+        {
+            Device.BeginInvokeOnMainThread(() => modeToggleItem.IsEnabled = state != ConnectionState.Busy);
         }
 
         private void UpdateModeToggleItem()
@@ -76,11 +85,11 @@ namespace TokenTracker.Views
                 switch (Mode)
                 {
                     case ViewMode.Edit:
+                        TokenInfoService.StopTokenUpdates();
                         if (viewModel.Tokens.Contains(Token.Dummy) == false)
                         {
                             viewModel.Tokens.Add(Token.Dummy);
                         }
-                        TokenInfoService.StopTokenUpdates();
                         break;
                     case ViewMode.View:
                         viewModel.Tokens.Remove(Token.Dummy);

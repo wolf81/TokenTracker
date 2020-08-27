@@ -48,8 +48,6 @@ namespace TokenTracker.ViewModels
         { 
             if (parameter is Token token)
             {
-                Console.WriteLine($"tapped: {token.Symbol}");
-
                 if (token == Token.Dummy)
                 {
                     await NavigationService.NavigateToAsync<TokenSearchViewModel>();
