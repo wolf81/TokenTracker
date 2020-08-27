@@ -68,6 +68,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenViewCell.xaml.cs">
       <DependentUpon>TokenViewCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -82,5 +83,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Resources\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Message\" />
   </ItemGroup>
 </Project>
