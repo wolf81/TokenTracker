@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TokenTracker.Models;
+using TokenTracker.ViewModels.Base;
 
 namespace TokenTracker.Services
 {
@@ -19,13 +20,19 @@ namespace TokenTracker.Services
 
         public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
 
+        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
+
         public CoinCapTokenInfoService()
         {
-            webSocket = new WebSocket("wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin");
-            webSocket.OnMessage += Handle_WebSocket_OnMessage;
-            webSocket.OnOpen += Handle_WebSocket_OnOpen;
-            webSocket.OnClose += Handle_WebSocket_OnClose;
-            webSocket.OnError += Handle_WebSocket_OnError;
+            var query = string.Join(',', SettingsService.TrackedTokens);
+            if (query.Length > 0)
+            {
+                webSocket = new WebSocket($"wss://ws.coincap.io/prices?assets={query}");
+                webSocket.OnMessage += Handle_WebSocket_OnMessage;
+                webSocket.OnOpen += Handle_WebSocket_OnOpen;
+                webSocket.OnClose += Handle_WebSocket_OnClose;
+                webSocket.OnError += Handle_WebSocket_OnError;
+            }
         }
 
         #region ITokenInfoService

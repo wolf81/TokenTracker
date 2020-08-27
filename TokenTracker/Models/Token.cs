@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using SQLite;
 
 namespace TokenTracker.Models
 {
@@ -21,6 +22,7 @@ namespace TokenTracker.Models
 
     public class Token : ICloneable
     {
+        [PrimaryKey]
         [JsonProperty("id")]
         public string Id { get; set; }
 
@@ -48,6 +50,6 @@ namespace TokenTracker.Models
             };
         }
 
-        public static Token Dummy = new Token { Id = new Guid().ToString() };
+        public static Token Dummy = new Token { Id = Guid.NewGuid().ToString() };
     }
 }

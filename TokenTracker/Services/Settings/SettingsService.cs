@@ -13,7 +13,7 @@ namespace TokenTracker.Services
         private const string IdTrackedTokens = "tracked_tokens";
 
         private readonly bool UseMocksDefault = true;
-        private readonly List<string> TrackedTokensDefault = new List<string> { "BTC", "ETH", "XRP" };
+        private readonly List<string> TrackedTokensDefault = new List<string> { "bitcoin", "ethereum", "ripple" };
 
         #endregion
 

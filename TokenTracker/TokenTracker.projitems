@@ -69,6 +69,8 @@
       <DependentUpon>TokenViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\ITokenCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\TokenCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -84,5 +86,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Message\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\TokenCache\" />
   </ItemGroup>
 </Project>

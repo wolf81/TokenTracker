@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using TinyIoC;
 using TokenTracker.Services;
+using TokenTracker.Services.TokenCache;
 using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels.Base
@@ -38,6 +39,7 @@ namespace TokenTracker.ViewModels.Base
             _container.Register<INavigationService, NavigationService>();
             _container.Register<ISettingsService, SettingsService>();
             _container.Register<ITokenInfoService, CoinCapTokenInfoService>();
+            _container.Register<ITokenCache, TokenCache>();
         }
 
         public static void UpdateDependencies(bool useMockServices)

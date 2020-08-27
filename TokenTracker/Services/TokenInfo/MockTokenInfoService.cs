@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using TokenTracker.Models;
-using Xamarin.Forms;
 
 namespace TokenTracker.Services
 {
@@ -26,6 +24,7 @@ namespace TokenTracker.Services
             new Token { Id = "etc", Symbol = "ETC", Name = "Ethereum Classic", PriceUSD = new decimal(321.3344), Change24 = new decimal(2.24) },
             new Token { Id = "vet", Symbol = "VET", Name = "VeChain", PriceUSD = new decimal(44.3213), Change24 = new decimal(0.53) },
             new Token { Id = "dog", Symbol = "DOGE", Name = "Dogecoin", PriceUSD = new decimal(33.3133), Change24 = new decimal(-0.56) },
+            new Token { Id = "xrp", Symbol = "XRP", Name = "Ripple", PriceUSD = new decimal(45.332), Change24 = new decimal(1.23) },
         };
 
         public MockTokenInfoService()

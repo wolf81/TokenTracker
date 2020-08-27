@@ -20,7 +20,7 @@ namespace TokenTracker
         {
             _settingsService = ViewModelLocator.Resolve<ISettingsService>();
 
-            _settingsService.UseMocks = true;
+            _settingsService.UseMocks = false;
 
             ViewModelLocator.UpdateDependencies(_settingsService.UseMocks);
         }

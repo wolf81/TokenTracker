@@ -139,6 +139,9 @@
     <PackageReference Include="Microcharts.Forms">
       <Version>0.9.5.7</Version>
     </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.7.335</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
