@@ -43,8 +43,6 @@ namespace TokenTracker.Views
 
         private void Handle_ModeToggleItem_Clicked(object sender, System.EventArgs e)
         {
-            System.Console.WriteLine("CLICKED");
-
             Mode = (Mode == ViewMode.Edit) ? ViewMode.View : ViewMode.Edit;
 
             UpdateModeToggleItem();
