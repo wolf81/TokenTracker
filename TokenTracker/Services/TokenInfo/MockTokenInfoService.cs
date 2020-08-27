@@ -18,10 +18,14 @@ namespace TokenTracker.Services
 
         private readonly List<Token> tokens = new List<Token>
         {
-            new Token("btc", "BTC", "Bitcoin", new decimal(2356.5335), 0),
-            new Token("bcc", "BCS", "Bitcoin Cash", new decimal(24.76445), 0),
-            new Token("btg", "BTG", "Bitcoin Gold", new decimal(45.6666), 0),
-            new Token("omg", "OMG", "Omise GO", new decimal(6.454666), 0),
+            new Token { Id = "btc", Symbol = "BTC", Name = "Bitcoin", PriceUSD = new decimal(2356.5335435), Change24 = new decimal(3.56) },
+            new Token { Id = "bch", Symbol = "BCH", Name = "Bitcoin Cash", PriceUSD = new decimal(123.554453453), Change24 = new decimal(1.55) },
+            new Token { Id = "bcd", Symbol = "BCD", Name = "Bitcoin Diamond", PriceUSD = new decimal(434.55334543), Change24 = new decimal(-1.25) },
+            new Token { Id = "omg", Symbol = "OMG", Name = "Omise GO", PriceUSD = new decimal(6.5453), Change24 = new decimal(-2.44) },
+            new Token { Id = "eth", Symbol = "ETH", Name = "Ethereum", PriceUSD = new decimal(442.554345), Change24 = new decimal(4.44) },
+            new Token { Id = "etc", Symbol = "ETC", Name = "Ethereum Classic", PriceUSD = new decimal(321.3344), Change24 = new decimal(2.24) },
+            new Token { Id = "vet", Symbol = "VET", Name = "VeChain", PriceUSD = new decimal(44.3213), Change24 = new decimal(0.53) },
+            new Token { Id = "dog", Symbol = "DOGE", Name = "Dogecoin", PriceUSD = new decimal(33.3133), Change24 = new decimal(-0.56) },
         };
 
         public MockTokenInfoService()

@@ -22,36 +22,32 @@ namespace TokenTracker.Models
     public class Token : ICloneable
     {
         [JsonProperty("id")]
-        public string Id { get; private set; }
+        public string Id { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get; private set; }
+        public string Symbol { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [JsonProperty("priceUsd")]
         public decimal PriceUSD { get; set; }
 
         [JsonProperty("changePercent24Hr", NullValueHandling = NullValueHandling.Ignore)]
-        public decimal Change24 { get; private set; } = decimal.MaxValue;
+        public decimal Change24 { get; set; } = decimal.MaxValue;
 
         public object Clone()
         {
-            return new Token(Id, Symbol, Name, PriceUSD, Change24);
+            return new Token
+            {
+                Id = Id,
+                Symbol = Symbol,
+                Name = Name,
+                PriceUSD = PriceUSD,
+                Change24 = Change24,
+            };
         }
 
-        public static Token Dummy = new Token(new Guid().ToString());
-
-        public Token(string id) : this(id, null, null, 0, 0) { }
-
-        public Token(string id, string symbol, string name, decimal priceUSD, decimal change24)
-        {
-            Id = id;
-            Symbol = symbol;
-            Name = name;
-            PriceUSD = priceUSD;
-            Change24 = change24;
-        }
+        public static Token Dummy = new Token { Id = new Guid().ToString() };
     }
 }
