@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using TokenTracker.Models;
 using TokenTracker.Services;
+using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
@@ -13,9 +14,13 @@ namespace TokenTracker.Views
 
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+
         private ToolbarItem modeToggleItem = new ToolbarItem { Text = "Edit" };
 
         private ViewMode Mode { get; set; } = ViewMode.View;
+
+        private bool isConfigured = false;
 
         public TokenListView()
         {
@@ -76,7 +81,7 @@ namespace TokenTracker.Views
             modeToggleItem.Clicked += Handle_ModeToggleItem_Clicked;
         }
 
-        private void UpdateForCurrentMode()
+        private async void UpdateForCurrentMode()
         {
             if (BindingContext is TokenListViewModel viewModel)
             {
@@ -91,6 +96,14 @@ namespace TokenTracker.Views
                         break;
                     case ViewMode.View:
                         viewModel.Tokens.Remove(Token.Dummy);
+
+                        if (isConfigured == false)
+                        {
+                            var tokens = await TokenCache.GetTokensAsync();
+                            var tokenIds = tokens.Select((t) => t.Id);
+                            TokenInfoService.Configure(tokenIds);
+                        }
+
                         TokenInfoService.StartTokenUpdates();
                         break;
                 }

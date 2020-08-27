@@ -13,6 +13,8 @@ namespace TokenTracker.Services
 
         event EventHandler<ConnectionState> ConnectionStateChanged;
 
+        void Configure(IEnumerable<string> tokenIds);
+
         void StartTokenUpdates();
 
         void StopTokenUpdates();

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.Services.Message;
+using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -17,11 +18,13 @@ namespace TokenTracker.ViewModels
 
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+
         private IMessageService MessageService => DependencyService.Get<IMessageService>();
 
         public ICommand SearchTokenCommand => new Command<string>(async (q) => await SearchTokenAsync(q));
 
-        public ICommand AddTokenCommand => new Command<Token>(AddToken);
+        public ICommand AddTokenCommand => new Command<Token>(async (t) => await AddTokenAsync(t));
 
         private List<Token> tokens;
         public List<Token> Tokens {
@@ -55,16 +58,18 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private void AddToken(Token token)
+        private async Task AddTokenAsync(Token token)
         {
             if (tokensToAdd.Contains(token))
             {
                 MessageService.Show($"Remove {token.Symbol}", DisplayDuration.Short);
+                await TokenCache.RemoveTokenAsync(token);
             }
             else
             {
                 tokensToAdd.Add(token);
                 MessageService.Show($"Add {token.Symbol}", DisplayDuration.Short);
+                await TokenCache.AddTokenAsync(token);
             }
         }
 

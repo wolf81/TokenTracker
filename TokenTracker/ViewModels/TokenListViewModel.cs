@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.Services;
+using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -14,6 +14,8 @@ namespace TokenTracker.ViewModels
     public class TokenListViewModel : ViewModelBase
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
+
+        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
 
@@ -32,15 +34,14 @@ namespace TokenTracker.ViewModels
 
             Title = "Token Tracker";
 
-            TokenInfoService.StartTokenUpdates();
             TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
         }
 
         #region Private
 
         private async Task GetTokenInfoAsync()
-        {
-            var tokens = await TokenInfoService.GetTokensAsync("bitcoin");
+        {            
+            var tokens = await TokenCache.GetTokensAsync();
             Tokens = new ObservableCollection<Token>(tokens);
         }
 

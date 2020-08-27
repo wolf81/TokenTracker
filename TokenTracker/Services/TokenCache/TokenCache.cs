@@ -14,7 +14,9 @@ namespace TokenTracker.Services.TokenCache
         private static readonly string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "cache.db");
 
         public TokenCache()
-        {            
+        {
+            Console.WriteLine($"Cache path: {filepath}");
+
             database = new SQLiteAsyncConnection(filepath);
             database.CreateTableAsync<Token>().Wait();
         }

@@ -6,34 +6,18 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TokenTracker.Models;
-using TokenTracker.ViewModels.Base;
 
 namespace TokenTracker.Services
 {
     public class CoinCapTokenInfoService : ITokenInfoService
     {
-        private readonly WebSocket webSocket;
+        private WebSocket webSocket;
 
         public event EventHandler<Dictionary<string, decimal>> TokensUpdated;
 
         public event EventHandler<ConnectionState> ConnectionStateChanged;
 
         public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
-
-        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
-
-        public CoinCapTokenInfoService()
-        {
-            var query = string.Join(',', SettingsService.TrackedTokens);
-            if (query.Length > 0)
-            {
-                webSocket = new WebSocket($"wss://ws.coincap.io/prices?assets={query}");
-                webSocket.OnMessage += Handle_WebSocket_OnMessage;
-                webSocket.OnOpen += Handle_WebSocket_OnOpen;
-                webSocket.OnClose += Handle_WebSocket_OnClose;
-                webSocket.OnError += Handle_WebSocket_OnError;
-            }
-        }
 
         #region ITokenInfoService
 
@@ -85,6 +69,19 @@ namespace TokenTracker.Services
             }
 
             return result;
+        }
+
+        public void Configure(IEnumerable<string> tokenIds)
+        {
+            var query = string.Join(',', tokenIds);
+            if (query.Length > 0)
+            {
+                webSocket = new WebSocket($"wss://ws.coincap.io/prices?assets={query}");
+                webSocket.OnMessage += Handle_WebSocket_OnMessage;
+                webSocket.OnOpen += Handle_WebSocket_OnOpen;
+                webSocket.OnClose += Handle_WebSocket_OnClose;
+                webSocket.OnError += Handle_WebSocket_OnError;
+            }
         }
 
         #endregion

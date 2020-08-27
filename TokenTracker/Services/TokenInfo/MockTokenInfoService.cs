@@ -114,6 +114,11 @@ namespace TokenTracker.Services
             ConnectionStateChanged?.Invoke(this, State);
         }
 
+        public void Configure(IEnumerable<string> tokenIds)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
