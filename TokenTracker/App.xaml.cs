@@ -14,19 +14,15 @@ namespace TokenTracker
             InitializeComponent();
 
             InitApp();
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                InitNavigation();
-            }
         }
 
         private void InitApp()
         {
             _settingsService = ViewModelLocator.Resolve<ISettingsService>();
-            if (!_settingsService.UseMocks)
-            {
-                ViewModelLocator.UpdateDependencies(_settingsService.UseMocks);
-            }
+
+            _settingsService.UseMocks = true;
+
+            ViewModelLocator.UpdateDependencies(_settingsService.UseMocks);
         }
 
         private Task InitNavigation()

@@ -38,16 +38,20 @@ namespace TokenTracker.Models
 
         public object Clone()
         {
-            return new Token
-            {
-                Id = Id,
-                Symbol = Symbol,
-                Name = Name,
-                PriceUSD = PriceUSD,
-                Change24 = Change24,
-            };
+            return new Token(Id, Symbol, Name, PriceUSD, Change24);
         }
 
-        public static Token Dummy = new Token { Id = new Guid().ToString() };
+        public static Token Dummy = new Token(new Guid().ToString());
+
+        public Token(string id) : this(id, null, null, 0, 0) { }
+
+        public Token(string id, string symbol, string name, decimal priceUSD, decimal change24)
+        {
+            Id = id;
+            Symbol = symbol;
+            Name = name;
+            PriceUSD = priceUSD;
+            Change24 = change24;
+        }
     }
 }
