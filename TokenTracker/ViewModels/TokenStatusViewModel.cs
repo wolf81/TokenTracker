@@ -108,8 +108,7 @@ namespace TokenTracker.ViewModels
             // enumerate over a copy, to prevent crashes if the collection would change
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) == null)
             {
-                var dummyTokenIdx = Tokens.IndexOf(Token.Dummy);
-                Tokens.Insert(dummyTokenIdx, token);
+                Tokens.Add(token);
                 DependencyService.Get<IMessageService>().Show($"Add {token.Symbol}", DisplayDuration.Short);
             }
         }
