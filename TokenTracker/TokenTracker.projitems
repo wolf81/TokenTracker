@@ -85,6 +85,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DisplayModeToBooleanConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

@@ -6,12 +6,14 @@
     x:Class="TokenTracker.Views.TokenStatusView"
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
+    xmlns:converters="clr-namespace:TokenTracker.Converters"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     Title="{Binding Title}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.Content>
         <Grid>
             <ScrollView>
+                <StackLayout Orientation="Vertical">
                 <FlexLayout
                     Margin="0,2,0,2"
                     Wrap="Wrap"
@@ -26,11 +28,20 @@
                                 HighlightColor="#9dea3c"
                                 Margin="1"
                                 DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
-                                Command="{Binding TokenActionCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
                                 Token="{Binding .}" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>
+                <controls:TokenGridViewCell
+                    Command="{Binding AddTokenCommand}"
+                    x:Name="addTokenCell"
+                    IsVisible="{Binding DisplayMode, Converter={converters:DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
+                    BackgroundColor="#c5c5c5"
+                    HighlightColor="#9dea3c"
+                    HorizontalOptions="Center"
+                    Margin="0" />                        
+                </StackLayout>
             </ScrollView>
         </Grid>
     </ContentPage.Content>

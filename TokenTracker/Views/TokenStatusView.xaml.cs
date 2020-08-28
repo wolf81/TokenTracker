@@ -45,6 +45,8 @@ namespace TokenTracker.Views
             UpdateModeToggleItem();
             UpdateForCurrentMode();
 
+            addTokenCell.Token = Token.Dummy;
+
             TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
         }
 
@@ -93,13 +95,8 @@ namespace TokenTracker.Views
             {
                 case DisplayMode.Edit:
                     TokenInfoService.StopTokenUpdates();
-                    if (ViewModel.Tokens.Contains(Token.Dummy) == false)
-                    {
-                        ViewModel.Tokens.Add(Token.Dummy);
-                    }
                     break;
                 case DisplayMode.View:
-                    ViewModel.Tokens.Remove(Token.Dummy);
                     TokenInfoService.StartTokenUpdates();
                     break;
             }

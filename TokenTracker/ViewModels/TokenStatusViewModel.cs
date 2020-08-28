@@ -18,7 +18,9 @@ namespace TokenTracker.ViewModels
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
 
-        public ICommand TokenActionCommand => new Command(async (p) => await PerformTokenActionAsync(p));
+        public ICommand RemoveTokenCommand => new Command(async (p) => await RemoveTokenAsync(p));
+
+        public ICommand AddTokenCommand => new Command(async (p) => await AddTokenAsync(p));
 
         private DisplayMode displayMode = DisplayMode.View;
         public DisplayMode DisplayMode {
@@ -59,20 +61,23 @@ namespace TokenTracker.ViewModels
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
-        private async Task PerformTokenActionAsync(object parameter)
+        private async Task AddTokenAsync(object parameter)
+        {
+            if (DisplayMode == DisplayMode.View) { return; }
+
+            if (parameter is Token)
+            {
+                await NavigationService.NavigateToAsync<TokenSearchViewModel>();
+            }
+        }
+
+        private async Task RemoveTokenAsync(object parameter)
         {
             if (DisplayMode == DisplayMode.View) { return; }
 
             if (parameter is Token token)
             {
-                if (token == Token.Dummy)
-                {                    
-                    await NavigationService.NavigateToAsync<TokenSearchViewModel>();
-                }
-                else
-                {
-                    await TokenCache.RemoveTokenAsync(token);
-                }
+                await TokenCache.RemoveTokenAsync(token);
             }
         }
 
