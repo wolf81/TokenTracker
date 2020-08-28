@@ -50,7 +50,8 @@ namespace TokenTracker.Services
 
         public async Task<IEnumerable<Token>> GetTokensAsync()
         {
-            return await database.Table<Token>().ToListAsync();
+            var tokens = await database.Table<Token>().OrderBy((t) => t.Rank).ToListAsync();
+            return tokens;
         }
 
         public async Task<Token> GetTokenAsync(string id)
@@ -64,9 +65,9 @@ namespace TokenTracker.Services
 
             var tokens = new List<Token>
             {
-                new Token { Id = "bitcoin", Symbol = "BTC", Change24 = 0, PriceUSD = 0 },
-                new Token { Id = "ethereum", Symbol = "ETH", Change24 = 0, PriceUSD = 0 },
-                new Token { Id = "ripple", Symbol = "XRP", Change24 = 0, PriceUSD = 0 },
+                new Token { Id = "bitcoin", Symbol = "BTC", Change24 = 0, PriceUSD = 0, Rank = 1 },
+                new Token { Id = "ethereum", Symbol = "ETH", Change24 = 0, PriceUSD = 0, Rank = 2 },
+                new Token { Id = "ripple", Symbol = "XRP", Change24 = 0, PriceUSD = 0, Rank = 3 },
             };
             database.InsertAllAsync(tokens).Wait();
         }

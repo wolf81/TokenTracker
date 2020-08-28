@@ -38,6 +38,8 @@ namespace TokenTracker.Views
         {
             base.OnAppearing();
 
+            await ViewModel.RefreshTokensAsync();
+
             await ConfigureTokenInfoServiceAsync();
 
             UpdateModeToggleItem();

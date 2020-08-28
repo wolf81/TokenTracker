@@ -26,6 +26,9 @@ namespace TokenTracker.Models
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        [JsonProperty("rank")]
+        public int Rank { get; set; }
+
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
 
@@ -50,6 +53,6 @@ namespace TokenTracker.Models
             };
         }
 
-        public static Token Dummy = new Token { Id = Guid.NewGuid().ToString() };
+        public static Token Dummy = new Token { Id = Guid.NewGuid().ToString(), Rank = int.MaxValue };
     }
 }

@@ -45,6 +45,12 @@ namespace TokenTracker.ViewModels
             TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
         }
 
+        public async Task RefreshTokensAsync()
+        {
+            var tokens = await TokenCache.GetTokensAsync();
+            Tokens = new ObservableCollection<Token>(tokens);
+        }
+
         #region Private
 
         private async Task GetTokenInfoAsync()
@@ -74,9 +80,11 @@ namespace TokenTracker.ViewModels
         {
             foreach (var kv in tokenPriceInfo)
             {
-                var token = await TokenCache.GetTokenAsync(kv.Key);
-                token.PriceUSD = kv.Value;
-                await TokenCache.UpdateTokenAsync(token);
+                if (await TokenCache.GetTokenAsync(kv.Key) is Token token)
+                {
+                    token.PriceUSD = kv.Value;
+                    await TokenCache.UpdateTokenAsync(token);
+                }
             }
         }
 
