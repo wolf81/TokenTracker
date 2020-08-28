@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -101,5 +102,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\Message\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\TokenCache\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Base\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
   </ItemGroup>
 </Project>

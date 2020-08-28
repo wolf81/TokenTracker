@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,8 +20,9 @@ namespace TokenTracker.ViewModels
 
         public ICommand AddTokenCommand => new Command<Token>(async (t) => await AddTokenAsync(t));
 
-        private List<Token> tokens;
-        public List<Token> Tokens {
+        private ObservableCollection<Token> tokens;
+        public ObservableCollection<Token> Tokens
+        {
             get => tokens;
             set => SetProperty(ref tokens, value);
         }
@@ -30,23 +32,17 @@ namespace TokenTracker.ViewModels
             Title = "Search";
         }
 
-        #region Private
-
-        private async Task SearchTokenAsync(string query)
+        public async Task SearchTokenAsync(string query)
         {
-            if (query.Length > 1)
-            {
-                IsBusy = true;
-                var tokens = await TokenInfoService.GetTokensAsync(query);
-                Tokens = tokens.ToList();
-                IsBusy = false;
-            }
-            else
-            {
-                Tokens.Clear();
-            }
+            IsBusy = true;
+            var tokens = await TokenInfoService.GetTokensAsync(query);
+            Tokens = new ObservableCollection<Token>(tokens.ToList());
+            await Task.Delay(2);
+            IsBusy = false;
         }
 
+        #region Private
+    
         private async Task AddTokenAsync(Token token)
         {
             if (await TokenCache.GetTokenAsync(token.Id) == null)
