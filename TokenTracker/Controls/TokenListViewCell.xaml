@@ -2,9 +2,9 @@
 <ViewCell
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TokenTracker.Controls.TokenViewListCell"
+    x:Class="TokenTracker.Controls.TokenListViewCell"
     xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
-    Tapped="Handle_TokenViewCell_Tapped"
+    Tapped="Handle_TokenListViewCell_Tapped"
     Height="44">
     <ViewCell.View> 
         <Grid Margin="10,0,10,0">

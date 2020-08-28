@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace TokenTracker.Controls
 {
-    public class TokenView : ContentView
+    public class TokenGridViewCell : ContentView
     {
         private readonly TapGestureRecognizer TapRecognizer = new TapGestureRecognizer();
 
@@ -22,7 +22,7 @@ namespace TokenTracker.Controls
             set => SetValue(CommandProperty, value);
         }
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenView), null, BindingMode.OneWay);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenGridViewCell), null, BindingMode.OneWay);
 
         public DisplayMode DisplayMode
         {
@@ -30,7 +30,7 @@ namespace TokenTracker.Controls
             set => SetValue(DisplayModeProperty, value);
         }
 
-        public static readonly BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(DisplayMode), typeof(TokenViewCell), DisplayMode.View, propertyChanged: Handle_PropertyChanged);
+        public static readonly BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(DisplayMode), typeof(TokenGridViewCell), DisplayMode.View, propertyChanged: Handle_PropertyChanged);
 
         public Color HighlightColor
         {
@@ -38,7 +38,7 @@ namespace TokenTracker.Controls
             set => SetValue(HighlightColorProperty, value);
         }
 
-        public static readonly BindableProperty HighlightColorProperty = BindableProperty.Create(nameof(HighlightColor), typeof(Color), typeof(TokenView), Color.Green);
+        public static readonly BindableProperty HighlightColorProperty = BindableProperty.Create(nameof(HighlightColor), typeof(Color), typeof(TokenGridViewCell), Color.Green);
 
         public double FontSize
         {
@@ -46,16 +46,16 @@ namespace TokenTracker.Controls
             set => SetValue(FontSizeProperty, value);
         }
 
-        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TokenView), DefaultFontSize, propertyChanged: Handle_PropertyChanged);
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(TokenGridViewCell), DefaultFontSize, propertyChanged: Handle_PropertyChanged);
 
         public Token Token {
             get => (Token)GetValue(TokenProperty);
             set => SetValue(TokenProperty, value);
         }
 
-        public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenView), null, propertyChanged: Handle_PropertyChanged);
+        public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenGridViewCell), null, propertyChanged: Handle_PropertyChanged);
 
-        public TokenView()
+        public TokenGridViewCell()
         {
             WidthRequest = 120;
             HeightRequest = 60;
@@ -127,7 +127,7 @@ namespace TokenTracker.Controls
 
         private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as TokenView).Update();
+            (bindable as TokenGridViewCell).Update();
         }
 
         private void Update()

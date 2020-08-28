@@ -27,7 +27,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\TokenViewCell.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\TokenListViewCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -62,7 +62,7 @@
       <DependentUpon>CustomNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Token.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenGridViewCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ViewExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenSearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\TokenSearchView.xaml.cs">
@@ -72,8 +72,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml.cs">
       <DependentUpon>TokenListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenViewCell.xaml.cs">
-      <DependentUpon>TokenViewCell.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenListViewCell.xaml.cs">
+      <DependentUpon>TokenListViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\ITokenCache.cs" />

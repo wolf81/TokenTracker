@@ -6,14 +6,14 @@ using Xamarin.Forms.Xaml;
 namespace TokenTracker.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TokenViewCell : ViewCell
+    public partial class TokenListViewCell : ViewCell
     {
         public Token Token {
             get => (Token)GetValue(TokenProperty);
             set => SetValue(TokenProperty, value);
         }
 
-        public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenViewCell), null, propertyChanged: Handle_PropertyChanged);
+        public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenListViewCell), null, propertyChanged: Handle_PropertyChanged);
 
         public ICommand Command
         {
@@ -21,9 +21,9 @@ namespace TokenTracker.Controls
             set => SetValue(CommandProperty, value);
         }
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenViewCell), null, BindingMode.OneWay);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenListViewCell), null, BindingMode.OneWay);
 
-        public TokenViewCell()
+        public TokenListViewCell()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace TokenTracker.Controls
 
         private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as TokenViewCell).Update();
+            (bindable as TokenListViewCell).Update();
         }
 
         private void Update()
@@ -41,7 +41,7 @@ namespace TokenTracker.Controls
             symbolLabel.Text = Token?.Symbol ?? "";
         }
 
-        private void Handle_TokenViewCell_Tapped(object sender, System.EventArgs e)
+        private void Handle_TokenListViewCell_Tapped(object sender, System.EventArgs e)
         {
             checkmarkImage.IsVisible = !checkmarkImage.IsVisible;
 
