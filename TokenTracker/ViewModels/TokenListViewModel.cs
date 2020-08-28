@@ -60,16 +60,15 @@ namespace TokenTracker.ViewModels
         {
             foreach (var kv in tokenPriceInfo)
             {
-                var token = Tokens.FirstOrDefault((t) => t.Id == kv.Key);
-                var tokenIdx = Tokens.IndexOf(token);
-                
-                if (token != null)
+                // create a copy to prevent issue: "Collection was modified; enumeration operation may not execute."
+                var tokens = Tokens.ToList();
+                if (tokens.FirstOrDefault((t) => t.Id == kv.Key) is Token token)
                 {
-                    var newToken = (Token) token.Clone();
-                    newToken.PriceUSD = kv.Value;
+                    token.PriceUSD = kv.Value;
 
+                    var tokenIdx = Tokens.IndexOf(token);
                     Device.BeginInvokeOnMainThread(() => {
-                        Tokens[tokenIdx] = newToken;
+                        Tokens[tokenIdx] = token;
                     });
                 }
             }

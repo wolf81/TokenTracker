@@ -22,7 +22,7 @@ namespace TokenTracker.Services
         #region ITokenInfoService
 
         public void StartTokenUpdates()
-        {
+        {            
             if (State == ConnectionState.Busy || State == ConnectionState.Connected) { return; }
             OnConnectionStateChanged(ConnectionState.Busy);
 
@@ -73,6 +73,16 @@ namespace TokenTracker.Services
 
         public void Configure(IEnumerable<string> tokenIds)
         {
+            if (webSocket != null)
+            {
+                webSocket.Close();
+                webSocket.OnMessage -= Handle_WebSocket_OnMessage;
+                webSocket.OnError -= Handle_WebSocket_OnError;
+                webSocket.OnOpen -= Handle_WebSocket_OnOpen;
+                webSocket.OnClose -= Handle_WebSocket_OnClose;
+                webSocket = null;
+            }
+
             var query = string.Join(',', tokenIds);
             if (query.Length > 0)
             {
