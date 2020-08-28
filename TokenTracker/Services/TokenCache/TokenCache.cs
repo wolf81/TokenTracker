@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SQLite;
 using TokenTracker.Models;
 
-namespace TokenTracker.Services.TokenCache
+namespace TokenTracker.Services
 {
     public class TokenCache : ITokenCache
     {

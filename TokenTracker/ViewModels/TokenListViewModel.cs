@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.Services;
-using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -87,6 +86,7 @@ namespace TokenTracker.ViewModels
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
             {
                 Tokens.Remove(matchedToken);
+                DependencyService.Get<IMessageService>().Show($"Remove {token.Symbol}", DisplayDuration.Short);
             }
         }
 
@@ -97,6 +97,7 @@ namespace TokenTracker.ViewModels
             {
                 var dummyTokenIdx = Tokens.IndexOf(Token.Dummy);
                 Tokens.Insert(dummyTokenIdx, token);
+                DependencyService.Get<IMessageService>().Show($"Add {token.Symbol}", DisplayDuration.Short);
             }
         }
 

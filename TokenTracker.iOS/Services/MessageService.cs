@@ -1,6 +1,5 @@
 ﻿using TokenTracker.Extensions;
 using TokenTracker.Services;
-using TokenTracker.Services.Message;
 using UIKit;
 using Xamarin.Forms;
 

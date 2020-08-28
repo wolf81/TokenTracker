@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.Services;
-using TokenTracker.Services.Message;
-using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -14,13 +11,9 @@ namespace TokenTracker.ViewModels
 {
     public class TokenSearchViewModel : ViewModelBase
     {
-        private readonly List<Token> tokensToAdd = new List<Token> { };
-
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
-
-        private IMessageService MessageService => DependencyService.Get<IMessageService>();
 
         public ICommand SearchTokenCommand => new Command<string>(async (q) => await SearchTokenAsync(q));
 
@@ -41,10 +34,6 @@ namespace TokenTracker.ViewModels
 
         private async Task SearchTokenAsync(string query)
         {
-            await Task.Delay(0);
-
-            Console.WriteLine($"query: {query}");
-
             if (query.Length > 1)
             {
                 IsBusy = true;
@@ -60,16 +49,13 @@ namespace TokenTracker.ViewModels
 
         private async Task AddTokenAsync(Token token)
         {
-            if (tokensToAdd.Contains(token))
+            if (await TokenCache.GetTokenAsync(token.Id) == null)
             {
-                MessageService.Show($"Remove {token.Symbol}", DisplayDuration.Short);
-                await TokenCache.RemoveTokenAsync(token);
+                await TokenCache.AddTokenAsync(token);
             }
             else
             {
-                tokensToAdd.Add(token);
-                MessageService.Show($"Add {token.Symbol}", DisplayDuration.Short);
-                await TokenCache.AddTokenAsync(token);
+                await TokenCache.RemoveTokenAsync(token);
             }
         }
 

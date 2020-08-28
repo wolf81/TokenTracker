@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Reflection;
 using TinyIoC;
 using TokenTracker.Services;
-using TokenTracker.Services.TokenCache;
 using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels.Base

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using TokenTracker.Services;
-using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 

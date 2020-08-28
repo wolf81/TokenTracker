@@ -1,8 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using TokenTracker.Views.Base;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenSearchView : ContentPage
+    public partial class TokenSearchView : ContentPageBase
     {
         public TokenSearchView()
         {

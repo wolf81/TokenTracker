@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace TokenTracker.Views.Base
@@ -8,14 +7,7 @@ namespace TokenTracker.Views.Base
     {
         public ContentPageBase()
         {
-            //On<iOS>().SetUseSafeArea(true);
-
-            Content = new StackLayout
-            {
-                Children = {
-                    new ContentView { },
-                }
-            };
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
     }
 }

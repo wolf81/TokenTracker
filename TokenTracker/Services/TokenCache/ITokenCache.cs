@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TokenTracker.Models;
 
-namespace TokenTracker.Services.TokenCache
+namespace TokenTracker.Services
 {
     public interface ITokenCache
     {

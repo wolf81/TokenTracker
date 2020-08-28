@@ -1,4 +1,4 @@
-﻿namespace TokenTracker.Services.Message
+﻿namespace TokenTracker.Services
 {
     public enum DisplayDuration { Long, Short }
 
