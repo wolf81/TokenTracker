@@ -86,6 +86,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DisplayModeToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

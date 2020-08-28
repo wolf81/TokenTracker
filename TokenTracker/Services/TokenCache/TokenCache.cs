@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using SQLite;
+using TokenTracker.Extensions;
 using TokenTracker.Models;
 
 namespace TokenTracker.Services
@@ -29,6 +30,8 @@ namespace TokenTracker.Services
 
         public async Task AddTokenAsync(Token token)
         {
+            token.PriceUSD = (decimal)NormalizedPrice((double)token.PriceUSD, 2);
+
             await database.InsertOrReplaceAsync(token);
 
             OnTokenAdded(token);
@@ -43,9 +46,16 @@ namespace TokenTracker.Services
 
         public async Task UpdateTokenAsync(Token token)
         {
+            var tokenPrice = (await GetTokenAsync(token.Id)).PriceUSD;
+
+            token.PriceUSD = (decimal)NormalizedPrice((double)token.PriceUSD, 2);
+
             await database.UpdateAsync(token);
 
-            OnTokenUpdated(token);
+            if (tokenPrice != token.PriceUSD)
+            {
+                OnTokenUpdated(token);
+            }
         }
 
         public async Task<IEnumerable<Token>> GetTokensAsync()
@@ -73,6 +83,18 @@ namespace TokenTracker.Services
         }
 
         #region Private
+
+        private static double NormalizedPrice(double value, int numSignificantDigits)
+        {
+            if (value >= 1.0)
+            {
+                return Math.Round(value, numSignificantDigits);
+            }
+            else
+            {                
+                return value.RoundToSignificantDigits(numSignificantDigits);                
+            }
+        }
 
         private void OnTokenAdded(Token token)
         {

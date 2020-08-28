@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using TokenTracker.Extensions;
 using TokenTracker.Models;
@@ -139,7 +140,7 @@ namespace TokenTracker.Controls
             {
                 if (token != Token.Dummy)
                 {
-                    priceLabel.Text = string.Format("{0:0.00#####}", token.PriceUSD);
+                    priceLabel.Text = string.Format("{0:0.00#######}", Token.PriceUSD);
                     symbolLabel.Text = token.Symbol;
                     priceLabel.IsVisible = DisplayMode == DisplayMode.View;
                     removeImage.IsVisible = DisplayMode == DisplayMode.Edit;

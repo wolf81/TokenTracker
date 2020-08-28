@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TokenTracker.Models;
+using TokenTracker.Extensions;
 
 namespace TokenTracker.Services
 {
@@ -111,7 +112,7 @@ namespace TokenTracker.Services
         {
             Console.WriteLine($"[WS] message: {e.Data}");
 
-            var tokenPriceInfo = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(e.Data);
+            var tokenPriceInfo = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(e.Data);            
             OnTokensUpdated(tokenPriceInfo);
         }
 
