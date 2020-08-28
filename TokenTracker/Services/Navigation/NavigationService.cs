@@ -25,7 +25,7 @@ namespace TokenTracker.Services
 
         public Task InitializeAsync()
         {
-            return NavigateToAsync<TokenListViewModel>();
+            return NavigateToAsync<TokenStatusViewModel>();
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase

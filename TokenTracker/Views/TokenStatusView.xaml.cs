@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenListView : ContentPageBase
+    public partial class TokenStatusView : ContentPageBase
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
@@ -18,9 +18,9 @@ namespace TokenTracker.Views
 
         private ToolbarItem modeToggleItem = new ToolbarItem { Text = "Edit" };
 
-        private TokenListViewModel ViewModel => BindingContext as TokenListViewModel;
+        private TokenStatusViewModel ViewModel => BindingContext as TokenStatusViewModel;
 
-        public TokenListView()
+        public TokenStatusView()
         {
             InitializeComponent();
         }

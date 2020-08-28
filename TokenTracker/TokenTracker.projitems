@@ -23,7 +23,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_edit_w.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -53,7 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Navigation\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Navigation\NavigationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenStatusViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\ITokenInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\CoinCapTokenInfoService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenInfo\MockTokenInfoService.cs" />
@@ -69,8 +69,8 @@
       <DependentUpon>TokenSearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ImageResourceExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenListView.xaml.cs">
-      <DependentUpon>TokenListView.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml.cs">
+      <DependentUpon>TokenStatusView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenListViewCell.xaml.cs">
       <DependentUpon>TokenListViewCell.xaml</DependentUpon>

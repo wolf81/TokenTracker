@@ -3,7 +3,7 @@
     xmlns:base="clr-namespace:TokenTracker.Views.Base"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TokenTracker.Views.TokenListView"
+    x:Class="TokenTracker.Views.TokenStatusView"
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
@@ -25,8 +25,8 @@
                                 BackgroundColor="#c5c5c5"
                                 HighlightColor="#9dea3c"
                                 Margin="1"
-                                DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenListViewModel}}}"
-                                Command="{Binding TokenActionCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenListViewModel}}}"
+                                DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                Command="{Binding TokenActionCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
                                 Token="{Binding .}" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

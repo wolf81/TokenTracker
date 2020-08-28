@@ -31,7 +31,7 @@ namespace TokenTracker.ViewModels.Base
             _container = new TinyIoCContainer();
 
             // View models - by default, TinyIoC will register concrete classes as multi-instance.
-            _container.Register<TokenListViewModel>();
+            _container.Register<TokenStatusViewModel>();
             _container.Register<TokenSearchViewModel>();
             _container.Register<MasterDetailViewModel>();
 

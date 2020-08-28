@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
 {
-    public class TokenListViewModel : ViewModelBase
+    public class TokenStatusViewModel : ViewModelBase
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
@@ -33,7 +33,7 @@ namespace TokenTracker.ViewModels
             set => SetProperty(ref tokens, value);
         }
 
-        public TokenListViewModel()
+        public TokenStatusViewModel()
         {
             ReloadCommand.Execute(null);
 
