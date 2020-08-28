@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using TokenTracker.Extensions;
 using TokenTracker.Models;
 using Xamarin.Forms;
@@ -14,6 +15,7 @@ namespace TokenTracker.Controls
         private readonly Label priceLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-Regular", FontSize = DefaultFontSize };
         private readonly Label symbolLabel = new Label { HorizontalTextAlignment = TextAlignment.Center, FontFamily = "Inconsolata-SemiBold", FontSize = DefaultFontSize };
         private readonly Image addImage = new Image { Source = ImageSource.FromResource("TokenTracker.Resources.ic_add_b.png"), Aspect = Aspect.AspectFit, HeightRequest = 32, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
+        private readonly Image removeImage = new Image { Source = ImageSource.FromResource("TokenTracker.Resources.ic_remove_b.png"), Aspect = Aspect.AspectFit, HeightRequest = 20, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
 
         public ICommand Command {
             get => (ICommand)GetValue(CommandProperty);
@@ -21,7 +23,15 @@ namespace TokenTracker.Controls
         }
 
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TokenView), null, BindingMode.OneWay);
-        
+
+        public DisplayMode DisplayMode
+        {
+            get => (DisplayMode)GetValue(DisplayModeProperty);
+            set => SetValue(DisplayModeProperty, value);
+        }
+
+        public static readonly BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(DisplayMode), typeof(TokenViewCell), DisplayMode.View, propertyChanged: Handle_PropertyChanged);
+
         public Color HighlightColor
         {
             get => (Color)GetValue(HighlightColorProperty);
@@ -80,6 +90,11 @@ namespace TokenTracker.Controls
             grid.Children.Add(priceLabel);
             Grid.SetRow(priceLabel, 2);
             Grid.SetColumn(priceLabel, 1);
+
+            grid.Children.Add(removeImage);
+            Grid.SetRow(removeImage, 2);
+            Grid.SetColumn(removeImage, 1);
+            removeImage.IsVisible = false;
             
             Content = grid;
 
@@ -102,7 +117,7 @@ namespace TokenTracker.Controls
 
         #region Private
 
-        private void Handle_TapRecognizer_Tapped(object sender, System.EventArgs e)
+        private void Handle_TapRecognizer_Tapped(object sender, EventArgs e)
         {
             if (Command is ICommand command)
             {
@@ -122,12 +137,17 @@ namespace TokenTracker.Controls
 
             if (Token is Token token)
             {
-                priceLabel.Text = string.Format("{0:0.00#####}", token.PriceUSD);
-                symbolLabel.Text = token.Symbol;
-
                 if (token != Token.Dummy)
                 {
-                    ShowHighlightAnimation();
+                    priceLabel.Text = string.Format("{0:0.00#####}", token.PriceUSD);
+                    symbolLabel.Text = token.Symbol;
+                    priceLabel.IsVisible = DisplayMode == DisplayMode.View;
+                    removeImage.IsVisible = DisplayMode == DisplayMode.Edit;
+
+                    if (DisplayMode == DisplayMode.View)
+                    {
+                        ShowHighlightAnimation();
+                    }
                 }
                 else
                 {

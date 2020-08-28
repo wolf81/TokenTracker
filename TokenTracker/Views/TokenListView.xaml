@@ -28,6 +28,7 @@
                                 BackgroundColor="#c5c5c5"
                                 HighlightColor="#9dea3c"
                                 Margin="1"
+                                DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenListViewModel}}}"
                                 Command="{Binding TokenActionCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenListViewModel}}}"
                                 Token="{Binding .}" />
                         </DataTemplate>

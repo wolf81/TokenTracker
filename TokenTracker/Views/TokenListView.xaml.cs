@@ -13,15 +13,13 @@ namespace TokenTracker.Views
 {
     public partial class TokenListView : ContentPageBase
     {
-        private enum ViewMode { Edit, View }
-
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
         private ToolbarItem modeToggleItem = new ToolbarItem { Text = "Edit" };
 
-        private ViewMode Mode { get; set; } = ViewMode.View;
+        private TokenListViewModel ViewModel => BindingContext as TokenListViewModel;
 
         public TokenListView()
         {
@@ -53,7 +51,9 @@ namespace TokenTracker.Views
 
         private void Handle_ModeToggleItem_Clicked(object sender, EventArgs e)
         {
-            Mode = (Mode == ViewMode.Edit) ? ViewMode.View : ViewMode.Edit;
+            ViewModel.DisplayMode = ViewModel.DisplayMode == DisplayMode.Edit
+                ? DisplayMode.View
+                : DisplayMode.Edit;
 
             UpdateModeToggleItem();
             UpdateForCurrentMode();
@@ -72,12 +72,12 @@ namespace TokenTracker.Views
                 modeToggleItem.Clicked -= Handle_ModeToggleItem_Clicked;
             }
 
-            switch (Mode)
+            switch (ViewModel.DisplayMode)
             {
-                case ViewMode.Edit:
+                case DisplayMode.Edit:
                     modeToggleItem = new ToolbarItem { Text = "Done" };
                     break;
-                case ViewMode.View:
+                case DisplayMode.View:
                     modeToggleItem = new ToolbarItem { Text = "Edit" };
                     break;
             }
@@ -88,23 +88,19 @@ namespace TokenTracker.Views
 
         private void UpdateForCurrentMode()
         {
-            if (BindingContext is TokenListViewModel viewModel)
+            switch (ViewModel.DisplayMode)
             {
-                switch (Mode)
-                {
-                    case ViewMode.Edit:
-                        TokenInfoService.StopTokenUpdates();
-                        if (viewModel.Tokens.Contains(Token.Dummy) == false)
-                        {
-                            viewModel.Tokens.Add(Token.Dummy);
-                        }
-                        break;
-                    case ViewMode.View:
-                        viewModel.Tokens.Remove(Token.Dummy);
-
-                        TokenInfoService.StartTokenUpdates();
-                        break;
-                }
+                case DisplayMode.Edit:
+                    TokenInfoService.StopTokenUpdates();
+                    if (ViewModel.Tokens.Contains(Token.Dummy) == false)
+                    {
+                        ViewModel.Tokens.Add(Token.Dummy);
+                    }
+                    break;
+                case DisplayMode.View:
+                    ViewModel.Tokens.Remove(Token.Dummy);
+                    TokenInfoService.StartTokenUpdates();
+                    break;
             }
         }
 
