@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 using TokenTracker.Models;
+using TokenTracker.Services;
+using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,15 +32,24 @@ namespace TokenTracker.Controls
 
         #region Private
 
-        private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static async void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as TokenListViewCell).Update();
+            var isCached = false;
+
+            if (newValue is Token token)
+            {
+                var cache = ViewModelLocator.Resolve<ITokenCache>();
+                isCached = await cache.GetTokenAsync(token.Id) != null;
+            }
+
+            (bindable as TokenListViewCell).Update(isCached: isCached);
         }
 
-        private void Update()
+        private void Update(bool isCached)
         {
             nameLabel.Text = Token?.Name ?? "";
             symbolLabel.Text = Token?.Symbol ?? "";
+            checkmarkImage.IsVisible = isCached;
         }
 
         private void Handle_TokenListViewCell_Tapped(object sender, System.EventArgs e)

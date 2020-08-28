@@ -39,14 +39,14 @@ namespace TokenTracker.Views
             {
                 Interlocked.Exchange(ref throttleCts, new CancellationTokenSource()).Cancel();
                 await Task.Delay(TimeSpan.FromMilliseconds(500), throttleCts.Token)
-                    .ContinueWith(async task => await ViewModel.SearchTokenAsync(query),
+                    .ContinueWith(async (t) => await ViewModel.SearchTokenAsync(query),
                             CancellationToken.None,
                             TaskContinuationOptions.OnlyOnRanToCompletion,
                             TaskScheduler.FromCurrentSynchronizationContext());
             }
             catch
             {
-                //Ignore any Threading errors
+                // Ignore any Threading errors
             }
         }
 
