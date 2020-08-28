@@ -33,6 +33,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_add_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_checkmark_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_menu_open_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_menu_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MasterDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -71,6 +77,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\ITokenCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\TokenCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailView.xaml.cs">
+      <DependentUpon>MasterDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -87,5 +98,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Message\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\TokenCache\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Base\" />
   </ItemGroup>
 </Project>

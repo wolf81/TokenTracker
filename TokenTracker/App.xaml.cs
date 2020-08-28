@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TokenTracker.Services;
+using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -7,7 +8,8 @@ namespace TokenTracker
 {
     public partial class App : Application
     {
-        ISettingsService _settingsService;
+        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
+        private ITokenCache TokenCache  => ViewModelLocator.Resolve<ITokenCache>();
 
         public App()
         {
@@ -18,11 +20,13 @@ namespace TokenTracker
 
         private void InitApp()
         {
-            _settingsService = ViewModelLocator.Resolve<ISettingsService>();
+            if (SettingsService.IsFirstRun == true)
+            {
+                TokenCache.Configure();
+                SettingsService.IsFirstRun = false;
+            }
 
-            _settingsService.UseMocks = false;
-
-            ViewModelLocator.UpdateDependencies(_settingsService.UseMocks);
+            ViewModelLocator.UpdateDependencies(useMockServices: SettingsService.UseMocks);
         }
 
         private Task InitNavigation()

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MasterDetailPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Views.MasterDetailView"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
+    xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+    NavigationPage.HasNavigationBar="False">
+    <MasterDetailPage.Master>        
+        <ContentPage BackgroundColor="Pink" Title="Menu" IconImageSource="{local:ImageResource TokenTracker.Resources.ic_menu_w.png}" />
+    </MasterDetailPage.Master>
+</MasterDetailPage>

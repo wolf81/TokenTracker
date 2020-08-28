@@ -35,6 +35,9 @@ namespace TokenTracker.ViewModels
             Title = "Token Tracker";
 
             TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
+            TokenCache.TokenAdded += Handle_TokenCache_TokenAdded;
+            TokenCache.TokenRemoved += Handle_TokenCache_TokenRemoved;
+            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
         }
 
         #region Private
@@ -50,27 +53,48 @@ namespace TokenTracker.ViewModels
             if (parameter is Token token)
             {
                 if (token == Token.Dummy)
-                {
+                {                    
                     await NavigationService.NavigateToAsync<TokenSearchViewModel>();
                 }
             }
         }
 
-        private void Handle_TokenInfoService_TokensUpdated(object sender, Dictionary<string, decimal> tokenPriceInfo)
+        private async void Handle_TokenInfoService_TokensUpdated(object sender, Dictionary<string, decimal> tokenPriceInfo)
         {
             foreach (var kv in tokenPriceInfo)
             {
-                // create a copy to prevent issue: "Collection was modified; enumeration operation may not execute."
-                var tokens = Tokens.ToList();
-                if (tokens.FirstOrDefault((t) => t.Id == kv.Key) is Token token)
-                {
-                    token.PriceUSD = kv.Value;
+                var token = await TokenCache.GetTokenAsync(kv.Key);
+                token.PriceUSD = kv.Value;
+                await TokenCache.UpdateTokenAsync(token);
+            }
+        }
 
-                    var tokenIdx = Tokens.IndexOf(token);
-                    Device.BeginInvokeOnMainThread(() => {
-                        Tokens[tokenIdx] = token;
-                    });
-                }
+        private void Handle_TokenCache_TokenRemoved(object sender, Token token)
+        {
+            // enumerate over a copy, to prevent crashes if the collection would change
+            if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
+            {
+                Tokens.Remove(matchedToken);
+            }
+        }
+
+        private void Handle_TokenCache_TokenAdded(object sender, Token token)
+        {
+            // enumerate over a copy, to prevent crashes if the collection would change
+            if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) == null)
+            {
+                var dummyTokenIdx = Tokens.IndexOf(Token.Dummy);
+                Tokens.Insert(dummyTokenIdx, token);
+            }
+        }
+
+        private void Handle_TokenCache_TokenUpdated(object sender, Token token)
+        {
+            // enumerate over a copy, to prevent crashes if the collection would change
+            if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
+            {
+                var tokenIdx = Tokens.IndexOf(matchedToken);
+                Device.BeginInvokeOnMainThread(() => Tokens[tokenIdx] = token);
             }
         }
 

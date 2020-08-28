@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.Services.TokenCache;
 using TokenTracker.ViewModels;
 using TokenTracker.ViewModels.Base;
+using TokenTracker.Views.Base;
 using Xamarin.Forms;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenListView : ContentPage
+    public partial class TokenListView : ContentPageBase
     {
         private enum ViewMode { Edit, View }
 
@@ -19,8 +22,6 @@ namespace TokenTracker.Views
         private ToolbarItem modeToggleItem = new ToolbarItem { Text = "Edit" };
 
         private ViewMode Mode { get; set; } = ViewMode.View;
-
-        private bool isConfigured = false;
 
         public TokenListView()
         {
@@ -36,9 +37,11 @@ namespace TokenTracker.Views
             TokenInfoService.ConnectionStateChanged -= Handle_TokenInfoService_ConnectionStateChanged;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            await ConfigureTokenInfoServiceAsync();
 
             UpdateModeToggleItem();
             UpdateForCurrentMode();
@@ -46,7 +49,9 @@ namespace TokenTracker.Views
             TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
         }
 
-        private void Handle_ModeToggleItem_Clicked(object sender, System.EventArgs e)
+        #region Private
+
+        private void Handle_ModeToggleItem_Clicked(object sender, EventArgs e)
         {
             Mode = (Mode == ViewMode.Edit) ? ViewMode.View : ViewMode.Edit;
 
@@ -81,7 +86,7 @@ namespace TokenTracker.Views
             modeToggleItem.Clicked += Handle_ModeToggleItem_Clicked;
         }
 
-        private async void UpdateForCurrentMode()
+        private void UpdateForCurrentMode()
         {
             if (BindingContext is TokenListViewModel viewModel)
             {
@@ -97,17 +102,19 @@ namespace TokenTracker.Views
                     case ViewMode.View:
                         viewModel.Tokens.Remove(Token.Dummy);
 
-                        if (isConfigured == false)
-                        {
-                            var tokens = await TokenCache.GetTokensAsync();
-                            var tokenIds = tokens.Select((t) => t.Id);
-                            TokenInfoService.Configure(tokenIds);
-                        }
-
                         TokenInfoService.StartTokenUpdates();
                         break;
                 }
             }
         }
+
+        private async Task ConfigureTokenInfoServiceAsync()
+        {
+            var tokens = await TokenCache.GetTokensAsync();
+            var tokenIds = tokens.Select((t) => t.Id);
+            TokenInfoService.Configure(tokenIds);
+        }
+
+        #endregion
     }
 }

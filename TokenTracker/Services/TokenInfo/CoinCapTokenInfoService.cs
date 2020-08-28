@@ -73,6 +73,8 @@ namespace TokenTracker.Services
 
         public void Configure(IEnumerable<string> tokenIds)
         {
+            // TODO: Throw exception if token ids length is 0?
+
             if (webSocket != null)
             {
                 webSocket.Close();

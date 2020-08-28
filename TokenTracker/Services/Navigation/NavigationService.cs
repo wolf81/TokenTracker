@@ -12,21 +12,15 @@ namespace TokenTracker.Services
 {
     public class NavigationService : INavigationService
     {
-        private readonly ISettingsService _settingsService;
-
         public ViewModelBase PreviousPageViewModel
         {
             get
             {
-                var mainPage = Application.Current.MainPage as CustomNavigationView;
+                var masterPage = Application.Current.MainPage as MasterDetailView;
+                var mainPage = masterPage.Detail;
                 var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
                 return viewModel as ViewModelBase;
             }
-        }
-
-        public NavigationService(ISettingsService settingsService)
-        {
-            _settingsService = settingsService;
         }
 
         public Task InitializeAsync()
@@ -59,9 +53,8 @@ namespace TokenTracker.Services
 
         public Task RemoveBackStackAsync()
         {
-            var mainPage = Application.Current.MainPage as CustomNavigationView;
-
-            if (mainPage != null)
+            var masterPage = Application.Current.MainPage as MasterDetailView;
+            if (masterPage.Detail is CustomNavigationView mainPage)
             {
                 for (int i = 0; i < mainPage.Navigation.NavigationStack.Count - 1; i++)
                 {
@@ -75,15 +68,22 @@ namespace TokenTracker.Services
 
         private async Task InternalNavigateToAsync(Type viewModelType, Dictionary<string, object> parameter)
         {
-            Page page = CreatePage(viewModelType, parameter);
+            var page = CreatePage(viewModelType);
 
-            if (Application.Current.MainPage is CustomNavigationView navigationPage)
+            if (Application.Current.MainPage == null)
+            {
+                var mainPage = CreatePage(typeof(MasterDetailViewModel)) as MasterDetailPage;
+                Application.Current.MainPage = mainPage;
+            }
+
+            var masterPage = Application.Current.MainPage as MasterDetailView;
+            if (masterPage.Detail is CustomNavigationView navigationPage)
             {
                 await navigationPage.PushAsync(page);
             }
             else
             {
-                Application.Current.MainPage = new CustomNavigationView(page);
+                masterPage.Detail = new CustomNavigationView(page);
             }
 
             await (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
@@ -98,7 +98,7 @@ namespace TokenTracker.Services
             return viewType;
         }
 
-        private Page CreatePage(Type viewModelType, object parameter)
+        private Page CreatePage(Type viewModelType)
         {
             Type pageType = GetPageTypeForViewModel(viewModelType);
             if (pageType == null)
@@ -106,7 +106,16 @@ namespace TokenTracker.Services
                 throw new Exception($"Cannot locate page type for {viewModelType}");
             }
 
-            Page page = Activator.CreateInstance(pageType) as Page;
+            Page page = null;
+            try
+            {
+                page = Activator.CreateInstance(pageType) as Page;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
             return page;
         }
     }

@@ -36,7 +36,7 @@ namespace TokenTracker.Models
         public decimal PriceUSD { get; set; }
 
         [JsonProperty("changePercent24Hr", NullValueHandling = NullValueHandling.Ignore)]
-        public decimal Change24 { get; set; } = decimal.MaxValue;
+        public decimal Change24 { get; set; } = 0;
 
         public object Clone()
         {
