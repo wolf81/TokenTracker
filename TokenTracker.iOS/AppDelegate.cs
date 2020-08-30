@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Google.MobileAds;
 using UIKit;
 
 namespace TokenTracker.iOS
@@ -24,6 +25,9 @@ namespace TokenTracker.iOS
         {
             Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+
+            MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new string[] { "3578f19d33ebf61c1a0b269b054560e1" };
+            MobileAds.SharedInstance.Start((status) => { Console.WriteLine($"status: {status}"); });
 
             return base.FinishedLaunching(app, options);
         }

@@ -12,7 +12,7 @@ namespace TokenTracker.Renderers
 {
     public class AdViewRenderer : ViewRenderer<AdView, BannerView>
     {
-        private readonly string bannerId = "ca-app-pub-9770292984772276/8518544922";
+        private readonly string bannerId = "ca-app-pub-3940256099942544/2934735716"; // "ca-app-pub-9770292984772276/8518544922";
 
         private BannerView adView;
 
@@ -28,12 +28,12 @@ namespace TokenTracker.Renderers
             {
                 AdUnitID = bannerId,
                 RootViewController = GetVisibleViewController()
-            };
+            };            
 
             // Wire AdReceived event to know when the Ad is ready to be displayed
             adView.AdReceived += (object sender, EventArgs e) =>
             {
-                //ad has come in
+                //ad has come in                
             };
 
             adView.LoadRequest(GetRequest());

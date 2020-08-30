@@ -41,6 +41,7 @@
                     HighlightColor="#9dea3c"
                     HorizontalOptions="Center"
                     Margin="0" />                        
+                    <controls:AdView HeightRequest="50" BackgroundColor="Pink" />
                 </StackLayout>
             </ScrollView>
         </Grid>

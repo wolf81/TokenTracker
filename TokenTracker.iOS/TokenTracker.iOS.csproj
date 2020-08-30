@@ -50,7 +50,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -72,6 +72,7 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Extensions\UIViewExtension.cs" />
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
+    <Compile Include="Renderers\AdViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -138,20 +139,26 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Microcharts.Forms">
-      <Version>0.9.5.7</Version>
-    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Google.iOS.MobileAds">
-      <Version>7.19.0</Version>
+    <PackageReference Include="Xamarin.Firebase.iOS.AdMob">
+      <Version>7.57.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microcharts.Forms">
+      <Version>0.9.5.7</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>1.68.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Extensions\" />
     <Folder Include="Renderers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\TokenTracker\TokenTracker.projitems" Label="Shared" />
