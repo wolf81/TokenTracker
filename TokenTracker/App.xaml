@@ -4,8 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:TokenTracker.Controls;assembly=TokenTracker"
     mc:Ignorable="d"
     x:Class="TokenTracker.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="controls:TokenGridViewCell">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HighlightColor" Value="{StaticResource SecondaryColor}" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -30,7 +30,6 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <controls:TokenGridViewCell
-                                BackgroundColor="#c5c5c5"
                                 HighlightColor="#9dea3c"
                                 Margin="1"
                                 DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"

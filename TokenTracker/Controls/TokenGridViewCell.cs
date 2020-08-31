@@ -56,6 +56,13 @@ namespace TokenTracker.Controls
 
         public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(TokenGridViewCell), null, propertyChanged: Handle_PropertyChanged);
 
+        public Color TextColor {
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TokenGridViewCell), Color.Black);
+
         public TokenGridViewCell()
         {
             WidthRequest = 120;
@@ -134,7 +141,9 @@ namespace TokenTracker.Controls
         private void Update()
         {
             symbolLabel.FontSize = FontSize;
+            symbolLabel.TextColor = TextColor;
             priceLabel.FontSize = FontSize;
+            priceLabel.TextColor = TextColor;
 
             if (Token is Token token)
             {
