@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using Foundation;
 using Google.MobileAds;
 using UIKit;
@@ -28,6 +25,8 @@ namespace TokenTracker.iOS
 
             MobileAds.SharedInstance.RequestConfiguration.TestDeviceIdentifiers = new string[] { "3578f19d33ebf61c1a0b269b054560e1" };
             MobileAds.SharedInstance.Start((status) => { Console.WriteLine($"status: {status}"); });
+
+            Firebase.Core.App.Configure();
 
             return base.FinishedLaunching(app, options);
         }

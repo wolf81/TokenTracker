@@ -14,6 +14,7 @@
         <Grid>
             <ScrollView>
                 <StackLayout Orientation="Vertical">
+                <controls:AdView HeightRequest="50" BackgroundColor="Transparent" />
                 <FlexLayout
                     Margin="0,2,0,2"
                     Wrap="Wrap"
@@ -41,7 +42,6 @@
                     HighlightColor="#9dea3c"
                     HorizontalOptions="Center"
                     Margin="0" />                        
-                    <controls:AdView HeightRequest="50" BackgroundColor="Pink" />
                 </StackLayout>
             </ScrollView>
         </Grid>

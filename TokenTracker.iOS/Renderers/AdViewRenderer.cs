@@ -12,7 +12,7 @@ namespace TokenTracker.Renderers
 {
     public class AdViewRenderer : ViewRenderer<AdView, BannerView>
     {
-        private readonly string bannerId = "ca-app-pub-3940256099942544/2934735716"; // "ca-app-pub-9770292984772276/8518544922";
+        private const string BANNER_ID = "ca-app-pub-3940256099942544/2934735716"; // "ca-app-pub-9770292984772276/8518544922";
 
         private BannerView adView;
 
@@ -26,9 +26,9 @@ namespace TokenTracker.Renderers
             // Setup your BannerView, review AdSizeCons class for more Ad sizes. 
             adView = new BannerView(size: AdSizeCons.SmartBannerPortrait, origin: new CGPoint(0, UIScreen.MainScreen.Bounds.Size.Height - AdSizeCons.Banner.Size.Height))
             {
-                AdUnitID = bannerId,
                 RootViewController = GetVisibleViewController()
-            };            
+            };
+            adView.AdUnitId = BANNER_ID;
 
             // Wire AdReceived event to know when the Ad is ready to be displayed
             adView.AdReceived += (object sender, EventArgs e) =>
@@ -82,6 +82,8 @@ namespace TokenTracker.Renderers
 
             if (Control == null)
             {
+                BannerView.Appearance.BackgroundColor = UIColor.Clear;
+
                 CreateNativeAdControl();
                 SetNativeControl(adView);
             }
