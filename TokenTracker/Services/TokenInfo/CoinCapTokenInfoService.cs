@@ -27,7 +27,7 @@ namespace TokenTracker.Services
             if (State == ConnectionState.Busy || State == ConnectionState.Connected) { return; }
             OnConnectionStateChanged(ConnectionState.Busy);
 
-            webSocket.ConnectAsync();
+            webSocket?.ConnectAsync();
         }
 
         public void StopTokenUpdates()
@@ -35,7 +35,7 @@ namespace TokenTracker.Services
             if (State == ConnectionState.Busy || State == ConnectionState.Disconnected) { return; }
             OnConnectionStateChanged(ConnectionState.Busy);
 
-            webSocket.CloseAsync();
+            webSocket?.CloseAsync();
         }
 
         public async Task<IEnumerable<Token>> GetTokensAsync()

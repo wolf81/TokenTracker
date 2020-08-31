@@ -2,6 +2,10 @@
 <ResourceDictionary
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Color x:Key="PrimaryColor">#81919c</Color> 
-    <Color x:Key="SecondaryColor">#9aeaa0</Color> 
+    <Color x:Key="PageBackgroundColor">#ECECEC</Color>
+    <Color x:Key="PrimaryColorLight">#5FBFF9</Color> 
+    <Color x:Key="PrimaryColorDark">#5863F8</Color> 
+    <Color x:Key="SecondaryColor">#16BAC5</Color>
+    <Color x:Key="DarkTextColor">#171D1C</Color>
+    <Color x:Key="LightTextColor">#EFE9F4</Color>
 </ResourceDictionary>

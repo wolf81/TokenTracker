@@ -10,6 +10,6 @@
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     NavigationPage.HasNavigationBar="False">
     <MasterDetailPage.Master>        
-        <ContentPage BackgroundColor="#81919c" Title="Menu" IconImageSource="{local:ImageResource TokenTracker.Resources.ic_menu_w.png}" />
+        <ContentPage Title="Menu" IconImageSource="{local:ImageResource TokenTracker.Resources.ic_menu_w.png}" />
     </MasterDetailPage.Master>
 </MasterDetailPage>

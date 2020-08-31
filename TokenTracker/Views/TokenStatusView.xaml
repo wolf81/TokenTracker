@@ -30,7 +30,6 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <controls:TokenGridViewCell
-                                HighlightColor="#9dea3c"
                                 Margin="1"
                                 DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
                                 Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
@@ -42,8 +41,6 @@
                     Command="{Binding AddTokenCommand}"
                     x:Name="addTokenCell"
                     IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
-                    BackgroundColor="#c5c5c5"
-                    HighlightColor="#9dea3c"
                     HorizontalOptions="Center"
                     Margin="0" />                        
                 </StackLayout>

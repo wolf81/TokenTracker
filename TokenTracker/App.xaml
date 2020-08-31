@@ -5,6 +5,8 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:TokenTracker.Controls;assembly=TokenTracker"
+    xmlns:views="clr-namespace:TokenTracker.Views;assembly=TokenTracker"
+    xmlns:viewBase="clr-namespace:TokenTracker.Views.Base;assembly=TokenTracker"
     mc:Ignorable="d"
     x:Class="TokenTracker.App">
     <Application.Resources>
@@ -13,9 +15,19 @@
                 <ResourceDictionary Source="Theme.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="controls:TokenGridViewCell">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColorLight}" />
+                <Setter Property="TextColor" Value="{StaticResource DarkTextColor}" />
                 <Setter Property="HighlightColor" Value="{StaticResource SecondaryColor}" />
+            </Style>
+            <Style TargetType="views:CustomNavigationView">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColorDark}" />
+                <Setter Property="BarTextColor" Value="{StaticResource LightTextColor}" />
+            </Style>
+            <Style TargetType="viewBase:ContentPageBase" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}" />
+            </Style>
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColorDark}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
