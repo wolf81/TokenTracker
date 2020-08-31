@@ -7,9 +7,9 @@
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:converters="clr-namespace:TokenTracker.Converters"
-    xmlns:controls="clr-namespace:TokenTracker.Controls"
-    Title="{Binding Title}"
-    viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+    xmlns:controls="clr-namespace:TokenTracker.Controls"    
+    viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+    Title="{Binding Title}">
     <base:ContentPageBase.Resources>
         <ResourceDictionary>
             <converters:DisplayModeToBooleanConverter x:Key="DisplayModeToBooleanConverter" />

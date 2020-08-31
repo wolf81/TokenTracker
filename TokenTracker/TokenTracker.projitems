@@ -40,6 +40,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_remove_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -82,12 +86,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailView.xaml.cs">
       <DependentUpon>MasterDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DisplayModeToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\AdView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.xaml.cs">
+      <DependentUpon>ContentPageBase.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

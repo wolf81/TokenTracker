@@ -82,8 +82,6 @@ namespace TokenTracker.Renderers
 
             if (Control == null)
             {
-                BannerView.Appearance.BackgroundColor = UIColor.Clear;
-
                 CreateNativeAdControl();
                 SetNativeControl(adView);
             }
