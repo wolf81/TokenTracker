@@ -12,9 +12,22 @@ namespace TokenTracker.Renderers
 {
     public class AdViewRenderer : ViewRenderer<AdView, BannerView>
     {
-        private const string BANNER_ID = "ca-app-pub-3940256099942544/2934735716"; // "ca-app-pub-9770292984772276/8518544922";
+        private const string BANNER_ID = AdView.TEST_BANNER_ID; // "ca-app-pub-9770292984772276/8518544922";
 
         private BannerView adView;
+
+        protected override void OnElementChanged(ElementChangedEventArgs<AdView> e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.NewElement != null && Control == null)
+            {
+                CreateNativeAdControl();
+                SetNativeControl(adView);
+            }
+        }
+
+        #region Private
 
         private BannerView CreateNativeAdControl()
         {
@@ -76,15 +89,6 @@ namespace TokenTracker.Renderers
             return rootController.PresentedViewController;
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<AdView> e)
-        {
-            base.OnElementChanged(e);
-
-            if (Control == null)
-            {
-                CreateNativeAdControl();
-                SetNativeControl(adView);
-            }
-        }
+        #endregion
     }
 }
