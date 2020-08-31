@@ -10,13 +10,18 @@
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     Title="{Binding Title}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true">
-    <ContentPage.Content>
+    <base:ContentPageBase.Resources>
+        <ResourceDictionary>
+            <converters:DisplayModeToBooleanConverter x:Key="DisplayModeToBooleanConverter" />
+        </ResourceDictionary>
+    </base:ContentPageBase.Resources>
+    <base:ContentPageBase.Content>
         <Grid>
             <ScrollView>
                 <StackLayout Orientation="Vertical">
-                <controls:AdView HeightRequest="50" BackgroundColor="Transparent" />
+                <controls:AdView HeightRequest="50" Margin="2" BackgroundColor="Transparent" />
                 <FlexLayout
-                    Margin="0,2,0,2"
+                    Margin="0,0,0,2"
                     Wrap="Wrap"
                     JustifyContent="Center"
                     Direction="Row"
@@ -37,7 +42,7 @@
                 <controls:TokenGridViewCell
                     Command="{Binding AddTokenCommand}"
                     x:Name="addTokenCell"
-                    IsVisible="{Binding DisplayMode, Converter={converters:DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
+                    IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
                     BackgroundColor="#c5c5c5"
                     HighlightColor="#9dea3c"
                     HorizontalOptions="Center"
@@ -45,5 +50,5 @@
                 </StackLayout>
             </ScrollView>
         </Grid>
-    </ContentPage.Content>
+    </base:ContentPageBase.Content>
 </base:ContentPageBase>
