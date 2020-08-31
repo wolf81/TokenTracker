@@ -149,7 +149,7 @@ namespace TokenTracker.Controls
             {
                 if (token != Token.Dummy)
                 {
-                    priceLabel.Text = string.Format("{0:0.00#######}", Token.PriceUSD);
+                    priceLabel.Text = string.Format("${0:0.00#######}", Token.PriceUSD);
                     symbolLabel.Text = token.Symbol;
                     priceLabel.IsVisible = DisplayMode == DisplayMode.View;
                     removeImage.IsVisible = DisplayMode == DisplayMode.Edit;

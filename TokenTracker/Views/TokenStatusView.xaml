@@ -18,10 +18,10 @@
     <base:ContentPageBase.Content>
         <Grid>
             <ScrollView>
-                <StackLayout Orientation="Vertical">
-                <controls:AdView HeightRequest="50" Margin="2" BackgroundColor="Transparent" />
+                <StackLayout Orientation="Vertical" Spacing="0">
+                <controls:AdView HeightRequest="50" Margin="4" BackgroundColor="Transparent" />
                 <FlexLayout
-                    Margin="0,0,0,2"
+                    Margin="0,-1,0,2"
                     Wrap="Wrap"
                     JustifyContent="Center"
                     Direction="Row"
