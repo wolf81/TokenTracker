@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+    HorizontalOptions="FillAndExpand"
+    WidthRequest="200"
+    HeightRequest="250"
+    x:Class="TokenTracker.Controls.TokenChartView">
+    <ContentView.Content>
+        <microcharts:ChartView x:Name="chartView" HeightRequest="250" WidthRequest="200" HorizontalOptions="FillAndExpand" BackgroundColor="LightPink" />
+    </ContentView.Content>
+</ContentView>

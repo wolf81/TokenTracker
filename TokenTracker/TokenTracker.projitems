@@ -47,6 +47,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Theme.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_info_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_warning_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\TokenChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -101,6 +105,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\LoadingStateToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Base\EnumToBooleanConverterBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\KeyboardAdjustingGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenChartView.xaml.cs">
+      <DependentUpon>TokenChartView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
