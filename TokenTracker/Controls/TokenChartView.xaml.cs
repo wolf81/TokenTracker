@@ -1,4 +1,5 @@
 ﻿using Microcharts;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace TokenTracker.Controls
@@ -20,16 +21,19 @@ namespace TokenTracker.Controls
                 {
                     Entries = new ChartEntry[]
                     {
-                    new ChartEntry(0.5f) { Label = "1" },
-                    new ChartEntry(0.6f) { Label = "2" },
-                    new ChartEntry(0.4f) { Label = "3" },
-                    new ChartEntry(0.7f) { Label = "4" },
-                    new ChartEntry(0.8f) { Label = "5" },
-                    new ChartEntry(0.7f) { Label = "6" },
-                    new ChartEntry(0.9f) { Label = "7" },
-                    new ChartEntry(1.1f) { Label = "8" },
-                    }
-                };
+                        new ChartEntry(0.5f) { Label = "12:35", ValueLabel = "0.5" },
+                        new ChartEntry(0.6f) { Label = "12:40", ValueLabel = "0.6" },
+                        new ChartEntry(0.4f) { Label = "12:45", ValueLabel = "0.4" },
+                        new ChartEntry(0.7f) { Label = "12:50", ValueLabel = "0.7" },
+                        new ChartEntry(0.8f) { Label = "12:55", ValueLabel = "0.8" },
+                        new ChartEntry(0.7f) { Label = "13:00", ValueLabel = "0.7" },
+                        new ChartEntry(0.9f) { Label = "13:05", ValueLabel = "0.9" },
+                        new ChartEntry(1.1f) { Label = "13:10", ValueLabel = "1.1" },
+                    },
+                    LineMode = LineMode.Straight,
+                    LabelOrientation = Orientation.Horizontal,
+                    BackgroundColor = SKColor.Empty,                    
+                };               
             }
         }
     }

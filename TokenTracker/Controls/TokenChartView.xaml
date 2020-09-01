@@ -5,9 +5,69 @@
     xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     HorizontalOptions="FillAndExpand"
     WidthRequest="200"
-    HeightRequest="250"
+    Margin="2,0,2,0"
     x:Class="TokenTracker.Controls.TokenChartView">
     <ContentView.Content>
-        <microcharts:ChartView x:Name="chartView" HeightRequest="250" WidthRequest="200" HorizontalOptions="FillAndExpand" BackgroundColor="LightPink" />
+        <StackLayout
+            Margin="2"
+            Spacing="2"
+            VerticalOptions="FillAndExpand"
+            Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="40" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*"></ColumnDefinition>
+                    <ColumnDefinition
+                        Width="50"></ColumnDefinition>
+                    <ColumnDefinition
+                        Width="50"></ColumnDefinition>
+                    <ColumnDefinition
+                        Width="50"></ColumnDefinition>
+                    <ColumnDefinition
+                        Width="50"></ColumnDefinition>
+                    <ColumnDefinition
+                        Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="1"
+                    CornerRadius="0"
+                    BackgroundColor="LightBlue"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Text="1m" />
+                <Button
+                    Grid.Column="2"
+                    CornerRadius="0"
+                    BackgroundColor="LightBlue"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Text="5m" />
+                <Button
+                    Grid.Column="3"
+                    CornerRadius="0"
+                    BackgroundColor="LightBlue"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Text="1h" />
+                <Button
+                    Grid.Column="4"
+                    CornerRadius="0"
+                    BackgroundColor="LightBlue"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center"
+                    Text="1d" />
+            </Grid>
+            <microcharts:ChartView
+                Margin="0,3,0,0"
+                x:Name="chartView"
+                HeightRequest="250"
+                WidthRequest="200"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Transparent" />
+        </StackLayout>
     </ContentView.Content>
 </ContentView>
