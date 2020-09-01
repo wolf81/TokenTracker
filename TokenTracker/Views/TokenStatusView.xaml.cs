@@ -23,6 +23,8 @@ namespace TokenTracker.Views
         public TokenStatusView()
         {
             InitializeComponent();
+
+            addTokenCell.Token = Token.Dummy;
         }
 
         protected override void OnDisappearing()
@@ -44,8 +46,6 @@ namespace TokenTracker.Views
 
             UpdateModeToggleItem();
             UpdateForCurrentMode();
-
-            addTokenCell.Token = Token.Dummy;
 
             TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
         }

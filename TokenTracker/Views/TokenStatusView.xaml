@@ -25,7 +25,7 @@
                     <controls:AdView
                         HeightRequest="50"
                         Margin="4"
-                        BackgroundColor="Transparent" />
+                        BackgroundColor="Black" />
                     <FlexLayout
                         Margin="0,-1,0,2"
                         Wrap="Wrap"
