@@ -98,6 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\LoadingState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\LoadingStateToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Base\EnumToBooleanConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\KeyboardAdjustingGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

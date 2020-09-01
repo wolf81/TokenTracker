@@ -7,44 +7,50 @@
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:converters="clr-namespace:TokenTracker.Converters"
-    xmlns:controls="clr-namespace:TokenTracker.Controls"    
+    xmlns:controls="clr-namespace:TokenTracker.Controls"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     Title="{Binding Title}">
     <base:ContentPageBase.Resources>
         <ResourceDictionary>
-            <converters:DisplayModeToBooleanConverter x:Key="DisplayModeToBooleanConverter" />
+            <converters:DisplayModeToBooleanConverter
+                x:Key="DisplayModeToBooleanConverter" />
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
-        <Grid>
+        <controls:KeyboardAdjustingGrid>
             <ScrollView>
-                <StackLayout Orientation="Vertical" Spacing="0">
-                <controls:AdView HeightRequest="50" Margin="4" BackgroundColor="Transparent" />
-                <FlexLayout
-                    Margin="0,-1,0,2"
-                    Wrap="Wrap"
-                    JustifyContent="Center"
-                    Direction="Row"
-                    AlignContent="Start"
-                    BindableLayout.ItemsSource="{Binding Tokens}">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <controls:TokenGridViewCell
-                                Margin="1"
-                                DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
-                                Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
-                                Token="{Binding .}" />
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </FlexLayout>
-                <controls:TokenGridViewCell
-                    Command="{Binding AddTokenCommand}"
-                    x:Name="addTokenCell"
-                    IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
-                    HorizontalOptions="Center"
-                    Margin="0" />                        
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="0">
+                    <controls:AdView
+                        HeightRequest="50"
+                        Margin="4"
+                        BackgroundColor="Transparent" />
+                    <FlexLayout
+                        Margin="0,-1,0,2"
+                        Wrap="Wrap"
+                        JustifyContent="Center"
+                        Direction="Row"
+                        AlignContent="Start"
+                        BindableLayout.ItemsSource="{Binding Tokens}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <controls:TokenGridViewCell
+                                    Margin="1"
+                                    DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                    Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                    Token="{Binding .}" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <controls:TokenGridViewCell
+                        Command="{Binding AddTokenCommand}"
+                        x:Name="addTokenCell"
+                        IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
+                        HorizontalOptions="Center"
+                        Margin="0" />
                 </StackLayout>
             </ScrollView>
-        </Grid>
+        </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

@@ -13,8 +13,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="32" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" x:Name="nameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
-            <Label Grid.Column="1" x:Name="symbolLabel" HorizontalOptions="End" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" FontFamily="Nunito-Regular" FontSize="Medium" TextColor="Black" />
+            <Label Grid.Column="0" x:Name="nameLabel" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" />
+            <Label Grid.Column="1" x:Name="symbolLabel" HorizontalOptions="End" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" />
             <Image Grid.Column="2" x:Name="checkmarkImage" Source="{local:ImageResource TokenTracker.Resources.ic_checkmark_b.png}" Aspect="AspectFit" IsVisible="False" />
         </Grid>
     </ViewCell.View>

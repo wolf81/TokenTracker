@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenSearchView"
-    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
+    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     xmlns:converters="clr-namespace:TokenTracker.Converters"
@@ -17,59 +17,61 @@
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
-        <StackLayout>
-            <SearchBar
-                x:Name="searchBar"
-                Placeholder="Enter name or symbol"
-                IsSpellCheckEnabled="False"
-                TextChanged="Handle_SearchBar_TextChanged"
-                SearchCommand="{Binding SearchTokenCommand}"
-                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
-            <ListView
-                BackgroundColor="Transparent"
-                SelectionMode="None"
-                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Done}"
-                ItemsSource="{Binding Tokens}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <controls:TokenListViewCell
-                            Token="{Binding .}"
-                            Command="{Binding AddTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenSearchViewModel}}}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <ContentView />
-                </ListView.Footer>
-            </ListView>
-            <Grid
-                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Loading}"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <ActivityIndicator
+        <controls:KeyboardAdjustingGrid>
+            <StackLayout>
+                <SearchBar
+                    x:Name="searchBar"
+                    Placeholder="Enter name or symbol"
+                    IsSpellCheckEnabled="False"
+                    TextChanged="Handle_SearchBar_TextChanged"
+                    SearchCommand="{Binding SearchTokenCommand}"
+                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+                <ListView
                     BackgroundColor="Transparent"
-                    IsVisible="{Binding IsBusy}"
-                    IsRunning="{Binding IsBusy}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-            </Grid>
-            <Grid
-                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Empty}"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <Label
-                    Text="Start typing to begin search ..."
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-            </Grid>
-            <Grid
-                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Error}"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <Label
-                    Text="Loading failed"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-            </Grid>
-        </StackLayout>
+                    SelectionMode="None"
+                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Done}"
+                    ItemsSource="{Binding Tokens}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:TokenListViewCell
+                                Token="{Binding .}"
+                                Command="{Binding AddTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenSearchViewModel}}}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <ContentView />
+                    </ListView.Footer>
+                </ListView>
+                <Grid
+                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Loading}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <ActivityIndicator
+                        BackgroundColor="Transparent"
+                        IsVisible="{Binding IsBusy}"
+                        IsRunning="{Binding IsBusy}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Empty}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <Label
+                        Text="Start typing to begin search ..."
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Grid>
+                <Grid
+                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Error}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <Label
+                        Text="Loading failed"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Grid>
+            </StackLayout>
+        </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>
