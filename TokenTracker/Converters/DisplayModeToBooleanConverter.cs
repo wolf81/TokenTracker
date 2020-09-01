@@ -1,30 +1,10 @@
-﻿using System;
-using System.Globalization;
-using TokenTracker.Models;
-using Xamarin.Forms;
+﻿using TokenTracker.Models;
 
 namespace TokenTracker.Converters
 {
-    public class DisplayModeToBooleanConverter : IValueConverter
+    public class DisplayModeToBooleanConverter : Base.EnumToBooleanConverterBase<DisplayMode>
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is DisplayMode displayMode)
-            {
-                return displayMode == GetParameter(parameter);
-            }
-
-            return false;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #region Private
-
-        private DisplayMode GetParameter(object parameter)
+        public override DisplayMode GetParameter(object parameter)
         {
             if (parameter is string)
             {
@@ -37,7 +17,5 @@ namespace TokenTracker.Converters
 
             return DisplayMode.View;
         }
-
-        #endregion
     }
 }

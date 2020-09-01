@@ -1,8 +1,8 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace TokenTracker.Droid
 {
@@ -22,6 +22,9 @@ namespace TokenTracker.Droid
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, "ca-app-pub-9770292984772276~3613756502");
 
             LoadApplication(new App());
+
+            // Adjust view size when software keyboard is shown or hidden
+            _ = Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

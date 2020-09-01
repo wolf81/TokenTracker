@@ -96,6 +96,8 @@
       <DependentUpon>ContentPageBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\LoadingState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\LoadingStateToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\Base\EnumToBooleanConverterBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -114,5 +116,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\TokenCache\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\Base\" />
   </ItemGroup>
 </Project>

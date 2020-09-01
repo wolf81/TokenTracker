@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:TokenTracker.Controls;assembly=TokenTracker"
     xmlns:views="clr-namespace:TokenTracker.Views;assembly=TokenTracker"
     xmlns:viewBase="clr-namespace:TokenTracker.Views.Base;assembly=TokenTracker"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     mc:Ignorable="d"
     x:Class="TokenTracker.App">
     <Application.Resources>

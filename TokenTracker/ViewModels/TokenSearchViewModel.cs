@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +20,12 @@ namespace TokenTracker.ViewModels
 
         public ICommand AddTokenCommand => new Command<Token>(async (t) => await AddTokenAsync(t));
 
+        private LoadingState loadingState;
+        public LoadingState LoadingState {
+            get => loadingState;
+            set => SetProperty(ref loadingState, value);
+        }
+
         private ObservableCollection<Token> tokens;
         public ObservableCollection<Token> Tokens
         {
@@ -34,12 +40,30 @@ namespace TokenTracker.ViewModels
 
         public async Task SearchTokenAsync(string query)
         {
-            if (query.Length == 0) { Tokens = new ObservableCollection<Token> { }; return; }
+            if (query.Length == 0)
+            {
+                Tokens = new ObservableCollection<Token> { };
+                LoadingState = LoadingState.Empty;
+                return;
+            }
 
             IsBusy = true;
-            var tokens = await TokenInfoService.GetTokensAsync(query);
-            Tokens = new ObservableCollection<Token>(tokens.ToList());
-            await Task.Delay(2);
+
+            LoadingState = LoadingState.Loading;
+
+            try
+            {
+                var tokens = await TokenInfoService.GetTokensAsync(query);
+                Tokens = new ObservableCollection<Token>(tokens.ToList());
+
+                LoadingState = (Tokens.Count == 0) ? LoadingState.Empty : LoadingState.Done;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                LoadingState = LoadingState.Error;
+            }
+
             IsBusy = false;
         }
 
