@@ -10,7 +10,12 @@
     xmlns:converters="clr-namespace:TokenTracker.Converters"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     Title="{Binding Title}">
-    <ContentPage.Content>
+    <base:ContentPageBase.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </base:ContentPageBase.Resources>
+    <base:ContentPageBase.Content>
         <StackLayout>
             <SearchBar
                 x:Name="searchBar"
@@ -23,7 +28,7 @@
                 <ListView
                     BackgroundColor="Transparent"
                     SelectionMode="None"
-                    IsVisible="{Binding IsBusy, Converter={converters:InverseBooleanConverter}}"
+                    IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"
                     ItemsSource="{Binding Tokens}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -44,5 +49,5 @@
                     VerticalOptions="Center" />
             </Grid>
         </StackLayout>
-    </ContentPage.Content>
+    </base:ContentPageBase.Content>
 </base:ContentPageBase>

@@ -15,6 +15,7 @@ namespace TokenTracker.Renderers
             {
                 Control.AutocorrectionType = UIKit.UITextAutocorrectionType.No;
                 Control.AutocapitalizationType = UIKit.UITextAutocapitalizationType.None;
+                Control.ReturnKeyType = UIKit.UIReturnKeyType.Done;                
             }
         }
     }

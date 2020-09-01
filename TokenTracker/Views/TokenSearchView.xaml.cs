@@ -24,7 +24,6 @@ namespace TokenTracker.Views
 
             switch (textLength)
             {
-                case 0: ViewModel.Tokens.Clear(); break;
                 case 1: break;
                 default: await DelayedQueryForKeyboardTypingSearches(e.NewTextValue); break;
             }
@@ -38,7 +37,8 @@ namespace TokenTracker.Views
             try
             {
                 Interlocked.Exchange(ref throttleCts, new CancellationTokenSource()).Cancel();
-                await Task.Delay(TimeSpan.FromMilliseconds(500), throttleCts.Token)
+                await Task
+                    .Delay(TimeSpan.FromMilliseconds(500), throttleCts.Token)
                     .ContinueWith(async (t) => await ViewModel.SearchTokenAsync(query),
                             CancellationToken.None,
                             TaskContinuationOptions.OnlyOnRanToCompletion,

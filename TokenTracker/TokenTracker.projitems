@@ -95,6 +95,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.xaml.cs">
       <DependentUpon>ContentPageBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LoadingState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

@@ -34,6 +34,8 @@ namespace TokenTracker.ViewModels
 
         public async Task SearchTokenAsync(string query)
         {
+            if (query.Length == 0) { Tokens = new ObservableCollection<Token> { }; return; }
+
             IsBusy = true;
             var tokens = await TokenInfoService.GetTokensAsync(query);
             Tokens = new ObservableCollection<Token>(tokens.ToList());

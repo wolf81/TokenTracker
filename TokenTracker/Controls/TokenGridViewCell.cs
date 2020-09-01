@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Input;
 using TokenTracker.Extensions;
 using TokenTracker.Models;
