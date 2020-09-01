@@ -10,14 +10,14 @@ namespace TokenTracker.Converters
             {
                 switch (parameter)
                 {
-                    case "LoadingState.Done": return LoadingState.Done;
-                    case "LoadingState.Empty": return LoadingState.Empty;
-                    case "LoadingState.Error": return LoadingState.Error;
+                    case "LoadingState.None": return LoadingState.None;
                     case "LoadingState.Loading": return LoadingState.Loading;
+                    case "LoadingState.Finished": return LoadingState.Finished;
+                    case "LoadingState.Failed": return LoadingState.Failed;
                 }
             }
 
-            return LoadingState.Empty;
+            return LoadingState.None;
         }
     }
 }

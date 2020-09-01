@@ -20,8 +20,23 @@ namespace TokenTracker.ViewModels
 
         public ICommand AddTokenCommand => new Command<Token>(async (t) => await AddTokenAsync(t));
 
+        private bool hasResults;
+        public bool HasResults
+        {
+            get => hasResults;
+            set => SetProperty(ref hasResults, value);
+        }
+
+        private string errorMessage;
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set => SetProperty(ref errorMessage, value);
+        }
+
         private LoadingState loadingState;
-        public LoadingState LoadingState {
+        public LoadingState LoadingState
+        {
             get => loadingState;
             set => SetProperty(ref loadingState, value);
         }
@@ -40,13 +55,13 @@ namespace TokenTracker.ViewModels
 
         public async Task SearchTokenAsync(string query)
         {
-            if (query.Length == 0)
+            if (query.Length < 2)
             {
                 Tokens = new ObservableCollection<Token> { };
-                LoadingState = LoadingState.Empty;
+                LoadingState = LoadingState.None;
                 return;
             }
-
+            
             IsBusy = true;
 
             LoadingState = LoadingState.Loading;
@@ -55,13 +70,16 @@ namespace TokenTracker.ViewModels
             {
                 var tokens = await TokenInfoService.GetTokensAsync(query);
                 Tokens = new ObservableCollection<Token>(tokens.ToList());
+                HasResults = Tokens.Count > 0;
+                LoadingState = LoadingState.Finished;
 
-                LoadingState = (Tokens.Count == 0) ? LoadingState.Empty : LoadingState.Done;
+                // TODO: show different views for 0 or 1+ results
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                LoadingState = LoadingState.Error;
+                ErrorMessage = ex.Message;
+                LoadingState = LoadingState.Failed;
             }
 
             IsBusy = false;

@@ -2,9 +2,9 @@
 {
     public enum LoadingState
     {
-        Empty,
-        Loading,
-        Error,
-        Done,
+        None, 
+        Loading, 
+        Failed, 
+        Finished,
     }
 }

@@ -45,6 +45,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Theme.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_info_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_warning_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
