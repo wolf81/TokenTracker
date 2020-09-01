@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microcharts;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels;
@@ -48,6 +49,20 @@ namespace TokenTracker.Views
             UpdateForCurrentMode();
 
             TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
+
+            chartView.Chart = new LineChart {
+                Entries = new ChartEntry[]
+                {
+                    new ChartEntry(0.5f) { Label = "1" },
+                    new ChartEntry(0.6f) { Label = "2" },
+                    new ChartEntry(0.4f) { Label = "3" },
+                    new ChartEntry(0.7f) { Label = "4" },
+                    new ChartEntry(0.8f) { Label = "5" },
+                    new ChartEntry(0.7f) { Label = "6" },
+                    new ChartEntry(0.9f) { Label = "7" },
+                    new ChartEntry(1.1f) { Label = "8" },
+                }
+            };
         }
 
         #region Private

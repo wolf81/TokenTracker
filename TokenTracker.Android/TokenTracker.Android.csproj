@@ -64,14 +64,14 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Microcharts.Forms">
-      <Version>0.9.5.7</Version>
-    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Ads">
       <Version>71.1601.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microcharts.Forms">
+      <Version>0.9.5.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

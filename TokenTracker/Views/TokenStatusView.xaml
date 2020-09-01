@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenStatusView"
+    xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:converters="clr-namespace:TokenTracker.Converters"
@@ -49,6 +50,7 @@
                         IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
                         HorizontalOptions="Center"
                         Margin="0" />
+                    <microcharts:ChartView x:Name="chartView" WidthRequest="200" HeightRequest="250"  HorizontalOptions="FillAndExpand" BackgroundColor="LightPink" />
                 </StackLayout>
             </ScrollView>
         </controls:KeyboardAdjustingGrid>
