@@ -89,8 +89,8 @@ namespace TokenTracker.Controls
                 switch (interval)
                 {
                     case Interval.Day:
-                        label = i % 2 == 0 ? time.ToString("HH:mm") : null;
-                        if (i % 2 != 0) { valueLabel = null; }
+                        label = i % 4 == 0 ? time.ToString("HH:mm") : null;
+                        if (i % 4 != 0) { valueLabel = null; }
                         break;
                     case Interval.Week:
                         label = time.ToString("ddd");
