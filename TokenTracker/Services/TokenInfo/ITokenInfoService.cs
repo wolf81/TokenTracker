@@ -7,6 +7,8 @@ namespace TokenTracker.Services
 {
     public enum ConnectionState { Busy, Connected, Disconnected }
 
+    public enum Interval { Minute30, Hour1, Hour24, Day30 }
+
     public interface ITokenInfoService
     {
         event EventHandler<Dictionary<string, decimal>> TokensUpdated;
@@ -22,5 +24,7 @@ namespace TokenTracker.Services
         Task<IEnumerable<Token>> GetTokensAsync();
 
         Task<IEnumerable<Token>> GetTokensAsync(string query);
+
+        Task<IEnumerable<PricePoint>> GetTokenHistoryAsync(string tokenId, Interval interval);
     }
 }

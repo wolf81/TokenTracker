@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TokenTracker.Models;
-using TokenTracker.Extensions;
 
 namespace TokenTracker.Services
 {
@@ -65,6 +64,37 @@ namespace TokenTracker.Services
                 var serialized = await response.Content.ReadAsStringAsync();
                 var wrappedResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapResponse<IEnumerable<Token>>>(serialized));
                 result = wrappedResult.Data;                
+
+                Console.WriteLine($"{response.StatusCode} {result}");
+            }
+
+            return result;
+        }
+
+        public async Task<IEnumerable<PricePoint>> GetTokenHistoryAsync(string tokenId, Interval interval)
+        {
+            IEnumerable<PricePoint> result = null;
+
+            string intervalParam = null;
+            var startTime = DateTime.Now;
+            var endTime = DateTime.Now;
+            switch (interval)
+            {
+                case Interval.Day30: intervalParam = "d1"; endTime = endTime.AddDays(-30); break;
+                case Interval.Hour1: intervalParam = "m5"; endTime = endTime.AddHours(-1); break;
+                case Interval.Hour24: intervalParam = "h1"; endTime = endTime.AddHours(-24); break;
+                case Interval.Minute30: intervalParam = "m1"; endTime = endTime.AddMinutes(-30); break;
+            }
+
+            long start = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
+            long end = new DateTimeOffset(endTime).ToUnixTimeSeconds();
+
+            using (var httpClient = CreateHttpClient())
+            using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))
+            {
+                var serialized = await response.Content.ReadAsStringAsync();
+                var wrappedResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapResponse<IEnumerable<PricePoint>>>(serialized));
+                result = wrappedResult.Data;
 
                 Console.WriteLine($"{response.StatusCode} {result}");
             }

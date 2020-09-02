@@ -119,6 +119,16 @@ namespace TokenTracker.Services
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Token>> GetTokensAsync(string query, Interval interval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<PricePoint>> GetTokenHistoryAsync(string tokenId, Interval interval)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

@@ -108,6 +108,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenChartView.xaml.cs">
       <DependentUpon>TokenChartView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PricePoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
