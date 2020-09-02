@@ -69,19 +69,19 @@ namespace TokenTracker.Services
         {
             IEnumerable<PricePoint> result = null;
 
-            string intervalParam = null;
             var startTime = DateTime.Now;
 
             switch (interval)
             {
-                case Interval.Day30: intervalParam = "d1"; startTime = DateTime.Now.AddDays(-31); break; // subtract 31 days to get 30 results
-                case Interval.Hour1: intervalParam = "m5"; startTime= DateTime.Now.AddHours(-1); break;
-                case Interval.Hour24: intervalParam = "h1"; startTime = DateTime.Now.AddHours(-24); break;
-                case Interval.Minute30: intervalParam = "m1"; startTime = DateTime.Now.AddMinutes(-30); break;
+                case Interval.Day1: startTime = DateTime.Now.AddDays(-1); break; 
+                case Interval.Week1: startTime= DateTime.Now.AddDays(-8); break; // add 1 extra day to retrieve 7 days
+                case Interval.Month1: startTime = DateTime.Now.AddMonths(-1); break;
+                case Interval.Year1: startTime = DateTime.Now.AddDays(-360); break;
             }
 
             var start = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
             var end = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds();
+            var intervalParam = interval == Interval.Day1 ? "h1" : "d1";
 
             using (var httpClient = CreateHttpClient())
             using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))

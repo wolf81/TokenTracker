@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microcharts;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels;

@@ -38,32 +38,32 @@
                     BackgroundColor="LightBlue"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
-                    Clicked="Minute1_Button_Clicked"
-                    Text="1m" />
+                    Clicked="Day1_Button_Clicked"
+                    Text="1d" />
                 <Button
                     Grid.Column="2"
                     CornerRadius="0"
                     BackgroundColor="LightBlue"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
-                    Clicked="Minute5_Button_Clicked"
-                    Text="5m" />
+                    Clicked="Week1_Button_Clicked"
+                    Text="1w" />
                 <Button
                     Grid.Column="3"
                     CornerRadius="0"
                     BackgroundColor="LightBlue"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
-                    Clicked="Hour1_Button_Clicked"
-                    Text="1h" />
+                    Clicked="Month1_Button_Clicked"
+                    Text="1m" />
                 <Button
                     Grid.Column="4"
                     CornerRadius="0"
                     BackgroundColor="LightBlue"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
-                    Clicked="Day1_Button_Clicked"
-                    Text="1d" />
+                    Clicked="Year1_Button_Clicked"
+                    Text="1y" />
             </Grid>
             <microcharts:ChartView
                 Margin="0,3,0,0"

@@ -7,7 +7,7 @@ namespace TokenTracker.Services
 {
     public enum ConnectionState { Busy, Connected, Disconnected }
 
-    public enum Interval { Minute30, Hour1, Hour24, Day30 }
+    public enum Interval { Day1, Week1, Month1, Year1 }
 
     public interface ITokenInfoService
     {

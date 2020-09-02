@@ -25,10 +25,18 @@ namespace TokenTracker.ViewModels
 
         public ICommand AddTokenCommand => new Command(async (p) => await AddTokenAsync(p));
 
-        public ICommand ChangeIntervalCommand => new Command<Interval>(async (i) => await ChangeTokenAsync(i));
+        public ICommand ChangeIntervalCommand => new Command<Interval>(async (i) => await ChangeTokenIntervalAsync(i));
+
+        private IEnumerable<PricePoint> tokenPriceHistory;
+        public IEnumerable<PricePoint> TokenPriceHistory
+        {
+            get => tokenPriceHistory;
+            set => SetProperty(ref tokenPriceHistory, value);
+        }
 
         private DisplayMode displayMode = DisplayMode.View;
-        public DisplayMode DisplayMode {
+        public DisplayMode DisplayMode
+        {
             get => displayMode;
             set => SetProperty(ref displayMode, value);
         }
@@ -76,12 +84,12 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private async Task ChangeTokenAsync(Interval interval)
+        private async Task ChangeTokenIntervalAsync(Interval interval)
         {
             try
             {
-                var priceHistory = await TokenInfoService.GetTokenHistoryAsync("bitcoin", interval);
-                Console.WriteLine(priceHistory);
+                TokenPriceHistory = await TokenInfoService.GetTokenHistoryAsync("bitcoin", interval);
+                Console.WriteLine(TokenPriceHistory);
             }
             catch (Exception ex)
             {
