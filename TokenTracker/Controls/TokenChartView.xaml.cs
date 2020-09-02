@@ -13,6 +13,8 @@ namespace TokenTracker.Controls
 {
     public partial class TokenChartView : ContentView
     {
+        private Interval interval = Interval.Day1;
+
         public IEnumerable<PricePoint> PricePoints
         {
             get => (IEnumerable<PricePoint>)GetValue(PricePointsProperty);
@@ -68,18 +70,19 @@ namespace TokenTracker.Controls
         private void Update()
         {
             var entries = new List<ChartEntry> { };
+            int steps = 0;
 
-            var steps = Math.Min(PricePoints.Count(), 30);
+            switch (interval)
+            {
+                case Interval.Day1: steps = 1; break;
+                case Interval.Month1: steps = 1; break;
+                case Interval.Week1: steps = 1; break;
+                case Interval.Year1: steps = 30; break;
+            }
+
             PricePoint[] pricePoints;
 
-            if (PricePoints.Count() > 10)
-            {
-                pricePoints = PricePoints.Where((v, idx) => idx / steps == 0).ToArray();
-            }
-            else
-            {
-                pricePoints = PricePoints.ToArray();
-            }
+            pricePoints = PricePoints.Where((v, idx) => idx % steps == 0).ToArray();
 
             var firstPrice = pricePoints.First();
             var minValue = (double)(firstPrice?.PriceUSD ?? 0) * 0.95;
@@ -91,7 +94,31 @@ namespace TokenTracker.Controls
                 if (price < minValue) { minValue = price; }
                 if (price > maxValue) { maxValue = price; }
 
-                var entry = new ChartEntry((float)price) { Label = $"{i}", ValueLabel = $"{price}" };
+                string label = null;                
+                var time = DateTimeOffset.FromUnixTimeMilliseconds(pricePoints[i].Time).DateTime;
+
+                switch (interval)
+                {
+                    case Interval.Day1:
+                        label = time.ToString("HH:mm");
+                        break;
+                    case Interval.Week1:
+                        label = time.ToString("ddd");
+                        break;
+                    case Interval.Month1:
+                        label = $"{time.Day}";
+                        break;
+                    case Interval.Year1:                        
+                        label = time.ToString("MMM");
+                        break;
+                }
+
+                if (label != null)
+                {
+                    Console.WriteLine($"[!] {i} {time} {label} {price}");
+                }
+
+                var entry = new ChartEntry((float)price) { Label = label, ValueLabel = $"{price}" };
                 entries.Add(entry);
             }
 
@@ -101,7 +128,7 @@ namespace TokenTracker.Controls
                 MinValue = (float)minValue,
                 MaxValue = (float)maxValue,
                 LineMode = LineMode.Straight,
-                LabelOrientation = Orientation.Horizontal,
+                LabelOrientation = Orientation.Default,
                 BackgroundColor = SKColor.Empty,
             };
         }
@@ -125,22 +152,31 @@ namespace TokenTracker.Controls
 
         private void Day1_Button_Clicked(object sender, EventArgs e)
         {
-            ChangeIntervalCommand?.Execute(Interval.Day1);
+            interval = Interval.Day1;
+            OnIntervalChanged();
         }
 
         private void Week1_Button_Clicked(object sender, EventArgs e)
         {
-            ChangeIntervalCommand?.Execute(Interval.Week1);
+            interval = Interval.Week1;
+            OnIntervalChanged();
         }
 
         private void Month1_Button_Clicked(object sender, EventArgs e)
         {
-            ChangeIntervalCommand?.Execute(Interval.Month1);
+            interval = Interval.Month1;
+            OnIntervalChanged();
         }
 
         private void Year1_Button_Clicked(object sender, EventArgs e)
         {
-            ChangeIntervalCommand?.Execute(Interval.Year1);
+            interval = Interval.Year1;
+            OnIntervalChanged();
+        }
+
+        private void OnIntervalChanged()
+        {
+            ChangeIntervalCommand?.Execute(interval);
         }
 
         #endregion

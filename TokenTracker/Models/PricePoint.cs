@@ -8,6 +8,6 @@ namespace TokenTracker.Models
         public decimal PriceUSD { get; set; }
 
         [JsonProperty("time")]
-        public double Time { get; set; }
+        public long Time { get; set; }
     }
 }
