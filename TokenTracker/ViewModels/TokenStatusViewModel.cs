@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace TokenTracker.ViewModels
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private IMessageService MessageService => DependencyService.Get<IMessageService>();
+
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
@@ -21,6 +24,8 @@ namespace TokenTracker.ViewModels
         public ICommand RemoveTokenCommand => new Command(async (p) => await RemoveTokenAsync(p));
 
         public ICommand AddTokenCommand => new Command(async (p) => await AddTokenAsync(p));
+
+        public ICommand ChangeIntervalCommand => new Command<Interval>(async (i) => await ChangeTokenAsync(i));
 
         private DisplayMode displayMode = DisplayMode.View;
         public DisplayMode DisplayMode {
@@ -68,6 +73,19 @@ namespace TokenTracker.ViewModels
             if (parameter is Token)
             {
                 await NavigationService.NavigateToAsync<TokenSearchViewModel>();
+            }
+        }
+
+        private async Task ChangeTokenAsync(Interval interval)
+        {
+            try
+            {
+                var priceHistory = await TokenInfoService.GetTokenHistoryAsync("bitcoin", interval);
+                Console.WriteLine(priceHistory);
+            }
+            catch (Exception ex)
+            {
+                MessageService.Show(ex.Message, DisplayDuration.Long);
             }
         }
 

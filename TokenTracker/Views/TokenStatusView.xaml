@@ -49,7 +49,7 @@
                         IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
                         HorizontalOptions="Center"
                         Margin="0" />
-                    <controls:TokenChartView  />
+                    <controls:TokenChartView ChangeIntervalCommand="{Binding ChangeIntervalCommand}" />
                 </StackLayout>
             </ScrollView>
         </controls:KeyboardAdjustingGrid>

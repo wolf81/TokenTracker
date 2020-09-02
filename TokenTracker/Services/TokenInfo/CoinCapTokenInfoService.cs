@@ -44,10 +44,7 @@ namespace TokenTracker.Services
             using (var httpClient = CreateHttpClient())
             using (var response = await httpClient.GetAsync("https://api.coincap.io/v2/assets"))
             {
-                var serialized = await response.Content.ReadAsStringAsync();
-                var wrappedResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapResponse<IEnumerable<Token>>>(serialized));
-                result = wrappedResult.Data;
-
+                result = await HandleResponseAsync<IEnumerable<Token>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
             }
 
@@ -61,10 +58,7 @@ namespace TokenTracker.Services
             using (var httpClient = CreateHttpClient())
             using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets?search={tokenIdOrSymbol}"))
             {
-                var serialized = await response.Content.ReadAsStringAsync();
-                var wrappedResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapResponse<IEnumerable<Token>>>(serialized));
-                result = wrappedResult.Data;                
-
+                result = await HandleResponseAsync<IEnumerable<Token>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
             }
 
@@ -77,25 +71,22 @@ namespace TokenTracker.Services
 
             string intervalParam = null;
             var startTime = DateTime.Now;
-            var endTime = DateTime.Now;
+
             switch (interval)
             {
-                case Interval.Day30: intervalParam = "d1"; endTime = endTime.AddDays(-30); break;
-                case Interval.Hour1: intervalParam = "m5"; endTime = endTime.AddHours(-1); break;
-                case Interval.Hour24: intervalParam = "h1"; endTime = endTime.AddHours(-24); break;
-                case Interval.Minute30: intervalParam = "m1"; endTime = endTime.AddMinutes(-30); break;
+                case Interval.Day30: intervalParam = "d1"; startTime = DateTime.Now.AddDays(-31); break; // subtract 31 days to get 30 results
+                case Interval.Hour1: intervalParam = "m5"; startTime= DateTime.Now.AddHours(-1); break;
+                case Interval.Hour24: intervalParam = "h1"; startTime = DateTime.Now.AddHours(-24); break;
+                case Interval.Minute30: intervalParam = "m1"; startTime = DateTime.Now.AddMinutes(-30); break;
             }
 
-            long start = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
-            long end = new DateTimeOffset(endTime).ToUnixTimeSeconds();
+            var start = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
+            var end = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds();
 
             using (var httpClient = CreateHttpClient())
             using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))
             {
-                var serialized = await response.Content.ReadAsStringAsync();
-                var wrappedResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapResponse<IEnumerable<PricePoint>>>(serialized));
-                result = wrappedResult.Data;
-
+                result = await HandleResponseAsync<IEnumerable<PricePoint>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
             }
 
@@ -130,6 +121,25 @@ namespace TokenTracker.Services
         #endregion
 
         #region Private
+
+        private async Task<T> HandleResponseAsync<T>(HttpResponseMessage response) 
+        {
+            var result = default(T);
+            var serialized = await response.Content.ReadAsStringAsync();
+
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    var dataResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapDataResponse<T>>(serialized));
+                    result = dataResult.Data;
+                    break;
+                default:
+                    var errorResult = await Task.Run(() => JsonConvert.DeserializeObject<CoinCapErrorResponse>(serialized));
+                    throw new CoinCapServiceException(errorResult.Error, response.StatusCode);
+            }
+
+            return result;
+        }
 
         private HttpClient CreateHttpClient()
         {
@@ -181,7 +191,26 @@ namespace TokenTracker.Services
 
         #region CoinCapResponse
 
-        private class CoinCapResponse<T>
+        public class CoinCapServiceException : Exception
+        {
+            public System.Net.HttpStatusCode HttpStatusCode { get; private set; }
+
+            public CoinCapServiceException(string message, System.Net.HttpStatusCode httpStatusCode) : base(message)
+            {
+                HttpStatusCode = httpStatusCode;
+            }
+        }
+
+        private class CoinCapErrorResponse
+        {
+            [JsonProperty("error")]
+            public string Error { get; set; }
+
+            [JsonProperty("timestamp")]
+            public long Timestamp { get; set; }
+        }
+
+        private class CoinCapDataResponse<T>
         {
             [JsonProperty("data")]
             public T Data { get; set; }

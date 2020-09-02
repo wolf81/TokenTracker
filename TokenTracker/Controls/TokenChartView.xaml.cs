@@ -1,11 +1,28 @@
-﻿using Microcharts;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
+using Microcharts;
 using SkiaSharp;
+using TokenTracker.Models;
+using TokenTracker.Services;
 using Xamarin.Forms;
 
 namespace TokenTracker.Controls
 {
     public partial class TokenChartView : ContentView
     {
+        //public IEnumerable<PricePoint> PriceHistory { get; set; }
+
+        //public static readonly BindableProperty PriceHistoryProperty = BindableProperty.Create(nameo)
+
+        // 1m 5m 1h 1d
+        public ICommand ChangeIntervalCommand
+        {
+            get => (ICommand)GetValue(ChangeIntervalCommandProperty);
+            set => SetValue(ChangeIntervalCommandProperty, value);
+        }
+
+        public static readonly BindableProperty ChangeIntervalCommandProperty = BindableProperty.Create(nameof(ChangeIntervalCommand), typeof(ICommand), typeof(TokenChartView), null, BindingMode.OneWay);
+
         public TokenChartView()
         {
             InitializeComponent();
@@ -39,5 +56,29 @@ namespace TokenTracker.Controls
                 };               
             }
         }
+
+        #region Private
+
+        private void Minute1_Button_Clicked(object sender, System.EventArgs e)
+        {
+            ChangeIntervalCommand?.Execute(Interval.Minute30);
+        }
+
+        private void Minute5_Button_Clicked(object sender, System.EventArgs e)
+        {
+            ChangeIntervalCommand?.Execute(Interval.Hour1);
+        }
+
+        private void Hour1_Button_Clicked(object sender, System.EventArgs e)
+        {
+            ChangeIntervalCommand?.Execute(Interval.Hour24);
+        }
+
+        private void Day1_Button_Clicked(object sender, System.EventArgs e)
+        {
+            ChangeIntervalCommand?.Execute(Interval.Day30);
+        }
+
+        #endregion
     }
 }
