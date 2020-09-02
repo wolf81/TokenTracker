@@ -109,6 +109,7 @@
       <DependentUpon>TokenChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\PricePoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Rate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

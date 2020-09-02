@@ -129,6 +129,11 @@ namespace TokenTracker.Services
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<Rate>> GetRatesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

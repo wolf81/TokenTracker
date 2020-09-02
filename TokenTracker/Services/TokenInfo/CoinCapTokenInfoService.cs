@@ -118,6 +118,20 @@ namespace TokenTracker.Services
             }
         }
 
+        public async Task<IEnumerable<Rate>> GetRatesAsync()
+        {
+            IEnumerable<Rate> result = null;
+
+            using (var httpClient = CreateHttpClient())
+            using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/rates"))
+            {
+                result = await HandleResponseAsync<IEnumerable<Rate>>(response);
+                Console.WriteLine($"{response.StatusCode} {result}");
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Private

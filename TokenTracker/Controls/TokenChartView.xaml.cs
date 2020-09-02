@@ -114,6 +114,8 @@ namespace TokenTracker.Controls
                 MinValue = (float)(minValue * 0.95),
                 MaxValue = (float)(maxValue * 1.05),
                 LineMode = LineMode.Spline,
+                EnableYFadeOutGradient = true,
+                PointMode = PointMode.Circle,
                 LabelOrientation = Orientation.Default,
                 BackgroundColor = SKColor.Empty,
             };

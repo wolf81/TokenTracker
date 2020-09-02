@@ -26,5 +26,7 @@ namespace TokenTracker.Services
         Task<IEnumerable<Token>> GetTokensAsync(string query);
 
         Task<IEnumerable<PricePoint>> GetTokenHistoryAsync(string tokenId, Interval interval);
+
+        Task<IEnumerable<Rate>> GetRatesAsync();
     }
 }
