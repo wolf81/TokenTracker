@@ -74,8 +74,8 @@ namespace TokenTracker.Services
             switch (interval)
             {
                 case Interval.Day1: startTime = DateTime.Now.AddHours(-24); break; 
-                case Interval.Week1: startTime= DateTime.Now.AddDays(-8); break; // add 1 extra day to retrieve 7 days
-                case Interval.Month1: startTime = DateTime.Now.AddMonths(-1); break;
+                case Interval.Week1: startTime= DateTime.Now.AddDays(-8); break; // retrieve 7 days
+                case Interval.Month1: startTime = DateTime.Now.AddDays(-32); break; // retrieve 31 days
                 case Interval.Year1: startTime = DateTime.Now.AddDays(-360); break;
             }
 

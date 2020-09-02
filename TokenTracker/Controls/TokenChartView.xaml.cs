@@ -74,19 +74,14 @@ namespace TokenTracker.Controls
 
             switch (interval)
             {
-                case Interval.Day1: steps = 1; break;
-                case Interval.Month1: steps = 1; break;
-                case Interval.Week1: steps = 1; break;
                 case Interval.Year1: steps = 30; break;
+                default: steps = 1; break;
             }
 
-            PricePoint[] pricePoints;
-
-            pricePoints = PricePoints.Where((v, idx) => idx % steps == 0).ToArray();
-
+            var pricePoints = PricePoints.Where((v, idx) => idx % steps == 0).ToArray();
             var firstPrice = pricePoints.First();
-            var minValue = (double)(firstPrice?.PriceUSD ?? 0) * 0.95;
-            var maxValue = (double)(firstPrice?.PriceUSD ?? 0) * 1.05;
+            var minValue = (double)firstPrice?.PriceUSD;
+            var maxValue = (double)firstPrice?.PriceUSD;
 
             for (var i = 0; i < pricePoints.Length; i++)
             {
@@ -94,40 +89,39 @@ namespace TokenTracker.Controls
                 if (price < minValue) { minValue = price; }
                 if (price > maxValue) { maxValue = price; }
 
-                string label = null;                
+                string label = null;
+                var valueLabel = $"{price}";    
                 var time = DateTimeOffset.FromUnixTimeMilliseconds(pricePoints[i].Time).DateTime;
 
                 switch (interval)
                 {
                     case Interval.Day1:
-                        label = time.ToString("HH:mm");
+                        label = i % 2 == 0 ? time.ToString("HH:mm") : null;
+                        if (i % 2 != 0) { valueLabel = null; }
                         break;
                     case Interval.Week1:
                         label = time.ToString("ddd");
                         break;
                     case Interval.Month1:
-                        label = $"{time.Day}";
+                        //var labelIndexes = new List<int> { 1, 6, 11, 16, 21, 26, 31 };
+                        label = i % 5 == 0 ? $"{time.Day}" : null;
+                        if (i % 5 != 0) { valueLabel = null; }
                         break;
                     case Interval.Year1:                        
                         label = time.ToString("MMM");
                         break;
                 }
 
-                if (label != null)
-                {
-                    Console.WriteLine($"[!] {i} {time} {label} {price}");
-                }
-
-                var entry = new ChartEntry((float)price) { Label = label, ValueLabel = $"{price}" };
+                var entry = new ChartEntry((float)price) { Label = label, ValueLabel = valueLabel };
                 entries.Add(entry);
             }
 
             chartView.Chart = new LineChart
             {
                 Entries = entries,
-                MinValue = (float)minValue,
-                MaxValue = (float)maxValue,
-                LineMode = LineMode.Straight,
+                MinValue = (float)(minValue * 0.95),
+                MaxValue = (float)(maxValue * 1.05),
+                LineMode = LineMode.Spline,
                 LabelOrientation = Orientation.Default,
                 BackgroundColor = SKColor.Empty,
             };
