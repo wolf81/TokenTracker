@@ -73,15 +73,15 @@ namespace TokenTracker.Services
 
             switch (interval)
             {
-                case Interval.Day1: startTime = DateTime.Now.AddHours(-24); break; 
-                case Interval.Week1: startTime= DateTime.Now.AddDays(-8); break; // retrieve 7 days
-                case Interval.Month1: startTime = DateTime.Now.AddDays(-32); break; // retrieve 31 days
-                case Interval.Year1: startTime = DateTime.Now.AddDays(-360); break;
+                case Interval.Day: startTime = DateTime.Now.AddHours(-25); break; 
+                case Interval.Week: startTime= DateTime.Now.AddDays(-8); break; // retrieve 7 days
+                case Interval.Month: startTime = DateTime.Now.AddDays(-32); break; // retrieve 31 days
+                case Interval.Year: startTime = DateTime.Now.AddDays(-361); break; // retrieve 360 days
             }
 
             var start = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
             var end = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds();
-            var intervalParam = interval == Interval.Day1 ? "h1" : "d1";
+            var intervalParam = interval == Interval.Day ? "h1" : "d1";
 
             using (var httpClient = CreateHttpClient())
             using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))

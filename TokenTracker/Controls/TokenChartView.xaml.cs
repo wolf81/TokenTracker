@@ -13,7 +13,7 @@ namespace TokenTracker.Controls
 {
     public partial class TokenChartView : ContentView
     {
-        private Interval interval = Interval.Day1;
+        private Interval interval = Interval.Day;
 
         public IEnumerable<PricePoint> PricePoints
         {
@@ -70,14 +70,7 @@ namespace TokenTracker.Controls
         private void Update()
         {
             var entries = new List<ChartEntry> { };
-            int steps = 0;
-
-            switch (interval)
-            {
-                case Interval.Year1: steps = 30; break;
-                default: steps = 1; break;
-            }
-
+            var steps = interval == Interval.Year ? 30 : 1;
             var pricePoints = PricePoints.Where((v, idx) => idx % steps == 0).ToArray();
             var firstPrice = pricePoints.First();
             var minValue = (double)firstPrice?.PriceUSD;
@@ -95,19 +88,18 @@ namespace TokenTracker.Controls
 
                 switch (interval)
                 {
-                    case Interval.Day1:
+                    case Interval.Day:
                         label = i % 2 == 0 ? time.ToString("HH:mm") : null;
                         if (i % 2 != 0) { valueLabel = null; }
                         break;
-                    case Interval.Week1:
+                    case Interval.Week:
                         label = time.ToString("ddd");
                         break;
-                    case Interval.Month1:
-                        //var labelIndexes = new List<int> { 1, 6, 11, 16, 21, 26, 31 };
+                    case Interval.Month:
                         label = i % 5 == 0 ? $"{time.Day}" : null;
                         if (i % 5 != 0) { valueLabel = null; }
                         break;
-                    case Interval.Year1:                        
+                    case Interval.Year:                        
                         label = time.ToString("MMM");
                         break;
                 }
@@ -146,25 +138,25 @@ namespace TokenTracker.Controls
 
         private void Day1_Button_Clicked(object sender, EventArgs e)
         {
-            interval = Interval.Day1;
+            interval = Interval.Day;
             OnIntervalChanged();
         }
 
         private void Week1_Button_Clicked(object sender, EventArgs e)
         {
-            interval = Interval.Week1;
+            interval = Interval.Week;
             OnIntervalChanged();
         }
 
         private void Month1_Button_Clicked(object sender, EventArgs e)
         {
-            interval = Interval.Month1;
+            interval = Interval.Month;
             OnIntervalChanged();
         }
 
         private void Year1_Button_Clicked(object sender, EventArgs e)
         {
-            interval = Interval.Year1;
+            interval = Interval.Year;
             OnIntervalChanged();
         }
 
