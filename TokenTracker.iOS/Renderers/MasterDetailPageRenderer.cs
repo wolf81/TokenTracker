@@ -30,7 +30,7 @@ namespace TokenTracker.Renderers
         {
             if (MasterDetailPage.IsPresented)
             {
-                MasterDetailPage.Detail.FadeTo(0.5);
+                MasterDetailPage.Detail.FadeTo(0.4);
             }
             else
             {

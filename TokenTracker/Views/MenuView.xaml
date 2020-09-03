@@ -10,29 +10,94 @@
     ios:Page.UseSafeArea="true"
     Title="Menu">
     <ContentPage.Content>
-        <ScrollView>
+        <Grid
+            BackgroundColor="{StaticResource PrimaryColorDark}">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="100" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="0"
+                Text="{Binding Title}"
+                FontAttributes="Bold"
+                FontSize="Title"
+                TextColor="White"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center" />
             <Grid
-                Margin="10"
-                BackgroundColor="{StaticResource PrimaryColorDark}">
+                Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition
-                        Height="100" />
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="50" />
+                    <RowDefinition
+                        Height="50" />
                     <RowDefinition
                         Height="*" />
+                    <RowDefinition
+                        Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label
-                    Grid.Row="0"
-                    HeightRequest="100"
-                    Text="{Binding Title}"
-                    FontAttributes="Bold"
-                    FontSize="Title"
-                    TextColor="White"
-                    HorizontalTextAlignment="Center"
-                    VerticalTextAlignment="Center" />
-                <ContentView
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="*" />
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="Auto" />
+                    <ColumnDefinition
+                        Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
                     Grid.Row="1"
-                    BackgroundColor="White" />
+                    Grid.Column="1"
+                    HeightRequest="30"
+                    Source="{local:ImageResource TokenTracker.Resources.ic_currency_w.png}"
+                    Aspect="AspectFit" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Text="This is true 1"
+                    VerticalTextAlignment="Center"
+                    TextColor="White" />
+                <Image
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HeightRequest="30"
+                    Source="{local:ImageResource TokenTracker.Resources.ic_theme_w.png}"
+                    Aspect="AspectFit" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="This is true 2"
+                    VerticalTextAlignment="Center"
+                    TextColor="White" />
+                <Image
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    HeightRequest="30"
+                    Source="{local:ImageResource TokenTracker.Resources.ic_theme_w.png}"
+                    Aspect="AspectFit" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Text="This is true 3"
+                    VerticalTextAlignment="Center"
+                    TextColor="White" />
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Text="(c) Wolftrail"
+                    HorizontalTextAlignment="Center"
+                    TextColor="White" />
             </Grid>
-        </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </base:ContentPageBase>

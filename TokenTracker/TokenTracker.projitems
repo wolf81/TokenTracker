@@ -56,6 +56,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_w.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
