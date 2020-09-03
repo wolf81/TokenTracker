@@ -31,6 +31,14 @@ namespace TokenTracker.Controls
 
         public static readonly BindableProperty ChangeIntervalCommandProperty = BindableProperty.Create(nameof(ChangeIntervalCommand), typeof(ICommand), typeof(TokenChartView), null, BindingMode.OneWay);
 
+        public ICommand DismissCommand
+        {
+            get => (ICommand)GetValue(DismissCommandProperty);
+            set => SetValue(DismissCommandProperty, value);
+        }
+
+        public static readonly BindableProperty DismissCommandProperty = BindableProperty.Create(nameof(DismissCommand), typeof(ICommand), typeof(TokenChartView), null, BindingMode.OneWay);
+
         public TokenChartView()
         {
             InitializeComponent();
@@ -160,6 +168,16 @@ namespace TokenTracker.Controls
         {
             interval = Interval.Year;
             OnIntervalChanged();
+        }
+
+        private void Dismiss_Button_Clicked(object sender, EventArgs e)
+        {
+            OnDismiss();
+        }
+
+        private void OnDismiss()
+        {
+            DismissCommand?.Execute(null);
         }
 
         private void OnIntervalChanged()

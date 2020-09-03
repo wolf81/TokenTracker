@@ -14,6 +14,8 @@
         <ResourceDictionary>
             <converters:DisplayModeToBooleanConverter
                 x:Key="DisplayModeToBooleanConverter" />
+            <converters:InverseBooleanConverter
+                x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
@@ -26,12 +28,18 @@
                         HeightRequest="50"
                         Margin="4"
                         BackgroundColor="Black" />
+                    <controls:TokenChartView
+                        IsVisible="{Binding ShowChart}"
+                        ChangeIntervalCommand="{Binding ChangeIntervalCommand}"
+                        DismissCommand="{Binding HideChartCommand}"
+                        PricePoints="{Binding TokenPriceHistory}" />
                     <FlexLayout
                         Margin="0,-1,0,2"
                         Wrap="Wrap"
                         JustifyContent="Center"
                         Direction="Row"
                         AlignContent="Start"
+                        IsVisible="{Binding ShowChart, Converter={StaticResource InverseBooleanConverter}}"
                         BindableLayout.ItemsSource="{Binding Tokens}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -49,7 +57,6 @@
                         IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
                         HorizontalOptions="Center"
                         Margin="0" />
-                    <controls:TokenChartView ChangeIntervalCommand="{Binding ChangeIntervalCommand}" PricePoints="{Binding TokenPriceHistory}" />
                 </StackLayout>
             </ScrollView>
         </controls:KeyboardAdjustingGrid>

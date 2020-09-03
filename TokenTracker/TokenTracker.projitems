@@ -23,10 +23,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_edit_w.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\TokenListViewCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -58,6 +54,12 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_w.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -87,9 +89,6 @@
       <DependentUpon>TokenSearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ImageResourceExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml.cs">
-      <DependentUpon>TokenStatusView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TokenListViewCell.xaml.cs">
       <DependentUpon>TokenListViewCell.xaml</DependentUpon>
     </Compile>
@@ -121,6 +120,9 @@
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml.cs">
+      <DependentUpon>TokenStatusView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

@@ -21,17 +21,33 @@ namespace TokenTracker.ViewModels
 
         public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
 
-        public ICommand RemoveTokenCommand => new Command(async (p) => await RemoveTokenAsync(p));
+        public ICommand RemoveTokenCommand => new Command<Token>(async (t) => await RemoveTokenAsync(t));
 
-        public ICommand AddTokenCommand => new Command(async (p) => await AddTokenAsync(p));
+        public ICommand AddTokenCommand => new Command(async (t) => await AddTokenAsync());
 
         public ICommand ChangeIntervalCommand => new Command<Interval>(async (i) => await ChangeTokenIntervalAsync(i));
+
+        public ICommand HideChartCommand => new Command(HideChart);
+
+        private Token selectedToken;
+        public Token SelectedToken
+        {
+            get => selectedToken;
+            set => SetProperty(ref selectedToken, value);
+        }
 
         private IEnumerable<PricePoint> tokenPriceHistory;
         public IEnumerable<PricePoint> TokenPriceHistory
         {
             get => tokenPriceHistory;
             set => SetProperty(ref tokenPriceHistory, value);
+        }
+
+        private bool showChart = false;
+        public bool ShowChart
+        {
+            get => showChart;
+            set => SetProperty(ref showChart, value);
         }
 
         private DisplayMode displayMode = DisplayMode.View;
@@ -68,20 +84,23 @@ namespace TokenTracker.ViewModels
 
         #region Private
 
+        private void HideChart()
+        {
+            SelectedToken = null;
+            ShowChart = false;
+        }
+
         private async Task GetTokenInfoAsync()
         {            
             var tokens = await TokenCache.GetTokensAsync();
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
-        private async Task AddTokenAsync(object parameter)
+        private async Task AddTokenAsync()
         {
             if (DisplayMode == DisplayMode.View) { return; }
 
-            if (parameter is Token)
-            {
-                await NavigationService.NavigateToAsync<TokenSearchViewModel>();
-            }
+            await NavigationService.NavigateToAsync<TokenSearchViewModel>();
         }
 
         private async Task ChangeTokenIntervalAsync(Interval interval)
@@ -97,18 +116,24 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private async Task RemoveTokenAsync(object parameter)
+        private async Task RemoveTokenAsync(Token token)
         {
-            if (DisplayMode == DisplayMode.View) { return; }
-
-            if (parameter is Token token)
+            switch (DisplayMode)
             {
-                await TokenCache.RemoveTokenAsync(token);
+                case DisplayMode.View:
+                    SelectedToken = token;
+                    ShowChart = !ShowChart;
+                    break;
+                case DisplayMode.Edit:
+                    await TokenCache.RemoveTokenAsync(token);
+                    break;
             }
         }
 
         private async void Handle_TokenInfoService_TokensUpdated(object sender, Dictionary<string, decimal> tokenPriceInfo)
         {
+            if (ShowChart == true) { return; }
+
             foreach (var kv in tokenPriceInfo)
             {
                 if (await TokenCache.GetTokenAsync(kv.Key) is Token token)
@@ -125,7 +150,7 @@ namespace TokenTracker.ViewModels
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
             {
                 Tokens.Remove(matchedToken);
-                DependencyService.Get<IMessageService>().Show($"Remove {token.Symbol}", DisplayDuration.Short);
+                MessageService.Show($"Remove {token.Symbol}", DisplayDuration.Short);
             }
         }
 
@@ -135,7 +160,7 @@ namespace TokenTracker.ViewModels
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) == null)
             {
                 Tokens.Add(token);
-                DependencyService.Get<IMessageService>().Show($"Add {token.Symbol}", DisplayDuration.Short);
+                MessageService.Show($"Add {token.Symbol}", DisplayDuration.Short);
             }
         }
 

@@ -12,30 +12,105 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Theme.xaml" />
+                <ResourceDictionary
+                    Source="Theme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="controls:TokenGridViewCell">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColorLight}" />
-                <Setter Property="TextColor" Value="{StaticResource DarkTextColor}" />
-                <Setter Property="HighlightColor" Value="{StaticResource SecondaryColor}" />
+            <Style
+                TargetType="controls:TokenGridViewCell">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PrimaryColorLight}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource DarkTextColor}" />
+                <Setter
+                    Property="HighlightColor"
+                    Value="{StaticResource SecondaryColor}" />
             </Style>
-            <Style TargetType="views:CustomNavigationView">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColorDark}" />
-                <Setter Property="BarTextColor" Value="{StaticResource LightTextColor}" />
+            <Style
+                TargetType="views:CustomNavigationView">
+                <Setter
+                    Property="BarBackgroundColor"
+                    Value="{StaticResource PrimaryColorDark}" />
+                <Setter
+                    Property="BarTextColor"
+                    Value="{StaticResource LightTextColor}" />
             </Style>
-            <Style TargetType="viewBase:ContentPageBase" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}" />
+            <Style
+                TargetType="viewBase:ContentPageBase"
+                ApplyToDerivedTypes="True">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PageBackgroundColor}" />
             </Style>
-            <Style TargetType="ContentPage">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColorDark}" />
+            <Style
+                TargetType="ContentPage">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PrimaryColorDark}" />
             </Style>
-            <Style TargetType="views:MenuView">
-                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColorDark}" />
+            <Style
+                TargetType="views:MenuView">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PrimaryColorDark}" />
             </Style>
-            <Style TargetType="Label">
-                <Setter Property="FontFamily" Value="Nunito-Regular" />
-                <Setter Property="FontSize" Value="Medium" />
-                <Setter Property="TextColor" Value="Black" />
+            <Style
+                TargetType="Label">
+                <Setter
+                    Property="FontFamily"
+                    Value="Nunito-Regular" />
+                <Setter
+                    Property="FontSize"
+                    Value="Medium" />
+                <Setter
+                    Property="TextColor"
+                    Value="Black" />
+            </Style>
+            <Style
+                TargetType="Button">
+                <!--<Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PrimaryColorLight}" />-->
+                <Setter
+                    Property="FontFamily"
+                    Value="Nunito-Regular" />
+                <!--<Setter
+                    Property="TextColor"
+                    Value="{StaticResource DarkTextColor}" />-->
+                <Setter
+                    Property="FontSize"
+                    Value="Medium" />
+                <Setter
+                    Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup
+                            x:Name="CommonStates">
+                            <VisualState
+                                x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="{StaticResource PrimaryColorLight}" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource DarkTextColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState
+                                x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="{StaticResource SecondaryColor}" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource DarkTextColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
