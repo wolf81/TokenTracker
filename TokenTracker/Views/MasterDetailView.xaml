@@ -5,11 +5,11 @@
     x:Class="TokenTracker.Views.MasterDetailView"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
-    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base;assembly=TokenTracker"
-    xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base"
+    xmlns:views="clr-namespace:TokenTracker.Views"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     NavigationPage.HasNavigationBar="False">
-    <MasterDetailPage.Master>        
-        <ContentPage Title="Menu" IconImageSource="{local:ImageResource TokenTracker.Resources.ic_menu_w.png}" />
+    <MasterDetailPage.Master>
+        <views:MenuView />
     </MasterDetailPage.Master>
 </MasterDetailPage>

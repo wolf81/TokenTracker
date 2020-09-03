@@ -11,6 +11,9 @@ namespace TokenTracker.Services
 {
     public class CoinCapTokenInfoService : ITokenInfoService
     {
+        private const string API_ENDPOINT = "https://api.coincap.io/v2";
+        private const string WS_ENDPOINT = "wss://ws.coincap.io";
+
         private WebSocket webSocket;
 
         public event EventHandler<Dictionary<string, decimal>> TokensUpdated;
@@ -42,7 +45,7 @@ namespace TokenTracker.Services
             IEnumerable<Token> result = null;
 
             using (var httpClient = CreateHttpClient())
-            using (var response = await httpClient.GetAsync("https://api.coincap.io/v2/assets"))
+            using (var response = await httpClient.GetAsync($"{API_ENDPOINT}/assets"))
             {
                 result = await HandleResponseAsync<IEnumerable<Token>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
@@ -56,7 +59,7 @@ namespace TokenTracker.Services
             IEnumerable<Token> result = null;
 
             using (var httpClient = CreateHttpClient())
-            using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets?search={tokenIdOrSymbol}"))
+            using (var response = await httpClient.GetAsync($"{API_ENDPOINT}/assets?search={tokenIdOrSymbol}"))
             {
                 result = await HandleResponseAsync<IEnumerable<Token>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
@@ -84,7 +87,7 @@ namespace TokenTracker.Services
             var intervalParam = interval == Interval.Day ? "h1" : "d1";
 
             using (var httpClient = CreateHttpClient())
-            using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))
+            using (var response = await httpClient.GetAsync($"{API_ENDPOINT}/assets/{tokenId}/history?interval={intervalParam}&start={start}&end={end}"))
             {
                 result = await HandleResponseAsync<IEnumerable<PricePoint>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");
@@ -110,7 +113,7 @@ namespace TokenTracker.Services
             var query = string.Join(',', tokenIds);
             if (query.Length > 0)
             {
-                webSocket = new WebSocket($"wss://ws.coincap.io/prices?assets={query}");
+                webSocket = new WebSocket($"{WS_ENDPOINT}/prices?assets={query}");
                 webSocket.OnMessage += Handle_WebSocket_OnMessage;
                 webSocket.OnOpen += Handle_WebSocket_OnOpen;
                 webSocket.OnClose += Handle_WebSocket_OnClose;
@@ -123,7 +126,7 @@ namespace TokenTracker.Services
             IEnumerable<Rate> result = null;
 
             using (var httpClient = CreateHttpClient())
-            using (var response = await httpClient.GetAsync($"https://api.coincap.io/v2/rates"))
+            using (var response = await httpClient.GetAsync($"{API_ENDPOINT}/rates"))
             {
                 result = await HandleResponseAsync<IEnumerable<Rate>>(response);
                 Console.WriteLine($"{response.StatusCode} {result}");

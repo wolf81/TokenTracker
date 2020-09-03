@@ -23,6 +23,10 @@ namespace TokenTracker.Services
 
         Task<Token> GetTokenAsync(string id);
 
+        Task AddRatesAsync(IEnumerable<Rate> tates);
+
+        Task<Rate> GetRateAsync(string id);
+
         void Configure();
     }
 }

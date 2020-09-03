@@ -66,6 +66,8 @@ namespace TokenTracker.Services
             return Task.FromResult(true);
         }
 
+        #region Private
+
         private async Task InternalNavigateToAsync(Type viewModelType, Dictionary<string, object> parameter)
         {
             var page = CreatePage(viewModelType);
@@ -118,5 +120,7 @@ namespace TokenTracker.Services
 
             return page;
         }
+
+        #endregion
     }
 }

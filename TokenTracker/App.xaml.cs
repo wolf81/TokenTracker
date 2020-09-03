@@ -38,7 +38,7 @@ namespace TokenTracker
         {
             base.OnStart();
 
-            await InitNavigation();
+            await InitNavigation();            
 
             base.OnResume();
         }

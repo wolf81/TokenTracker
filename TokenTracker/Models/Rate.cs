@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using SQLite;
 
 namespace TokenTracker.Models
-{
+{    
     /*
     {
       "id": "barbadian-dollar",
@@ -28,5 +28,8 @@ namespace TokenTracker.Models
 
         [JsonProperty("rateUsd")]
         public decimal RateUSD { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
     }
 }

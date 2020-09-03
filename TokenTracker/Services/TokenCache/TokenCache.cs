@@ -25,7 +25,7 @@ namespace TokenTracker.Services
             Console.WriteLine($"Cache path: {filepath}");
 
             database = new SQLiteAsyncConnection(filepath);
-            database.CreateTableAsync<Token>().Wait();
+            database.CreateTablesAsync<Token, Rate>().Wait();
         }
 
         public async Task AddTokenAsync(Token token)
@@ -69,10 +69,21 @@ namespace TokenTracker.Services
             return await database.Table<Token>().Where((t) => t.Id == id).FirstOrDefaultAsync();            
         }
 
+        public async Task AddRatesAsync(IEnumerable<Rate> rates)
+        {
+            await database.DeleteAllAsync<Rate>();
+            await database.InsertAllAsync(rates);
+        }
+
+        public async Task<Rate> GetRateAsync(string id)
+        {
+            var rate = await database.GetAsync<Rate>(id);
+            return rate;
+        }
+
         public void Configure()
         {
             database.DeleteAllAsync<Token>().Wait();
-
             var tokens = new List<Token>
             {
                 new Token { Id = "bitcoin", Symbol = "BTC", Change24 = 0, PriceUSD = 0, Rank = 1 },
