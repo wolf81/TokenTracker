@@ -13,7 +13,8 @@
     <base:ContentPageBase.ToolbarItems>
         <ToolbarItem
             Text="Add"
-            IconImageSource="{local:ImageResource TokenTracker.Resources.ic_add_w.png}" />
+            IconImageSource="{local:ImageResource TokenTracker.Resources.ic_add_w.png}"
+            Command="{Binding AddSymbolCommand}" />
     </base:ContentPageBase.ToolbarItems>
     <ContentPage.Content>
         <ListView

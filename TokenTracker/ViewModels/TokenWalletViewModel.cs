@@ -1,11 +1,16 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.ViewModels.Base;
+using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
 {
     public class TokenWalletViewModel : ViewModelBase
     {
+        public ICommand AddSymbolCommand => new Command(async () => await AddSymbolAsync());
+        
         private ObservableCollection<WalletItem> items = new ObservableCollection<WalletItem> {
             new WalletItem { Title = "BTC", Amount = new decimal(4.556) },
             new WalletItem { Title = "ETH", Amount = new decimal(1334.555535) },
@@ -21,5 +26,14 @@ namespace TokenTracker.ViewModels
         {
             Title = "Wallet";
         }
+
+        #region Private
+
+        private async Task AddSymbolAsync()
+        {
+            await NavigationService.NavigateToAsync<TokenSearchViewModel>();
+        }
+
+        #endregion
     }
 }
