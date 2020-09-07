@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
+<base:ContentPageBase
+    xmlns:base="clr-namespace:TokenTracker.Views.Base"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.TokenWalletView"
@@ -9,6 +10,12 @@
     IconImageSource="{local:ImageResource TokenTracker.Resources.ic_wallet_b.png}"
     Title="{Binding Title}">
     <ContentPage.Content>
-        <ContentView BackgroundColor="AliceBlue" />
+        <ListView ItemsSource="{Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding .}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
-</ContentPage>
+</base:ContentPageBase>

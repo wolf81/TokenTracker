@@ -56,7 +56,7 @@
                     Value="Transparent" />
                 <Setter
                     Property="TextColor"
-                    Value="{StaticResource DarkTextColor}" />                
+                    Value="{StaticResource DarkTextColor}" />
             </Style>
             <Style
                 TargetType="SearchBar">
@@ -78,6 +78,15 @@
                 <Setter
                     Property="TextColor"
                     Value="Black" />
+            </Style>
+            <Style
+                TargetType="ListView">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="Transparent" />
+                <Setter Property="Footer">
+                    <ContentView />
+                </Setter>
             </Style>
             <Style
                 TargetType="Button">

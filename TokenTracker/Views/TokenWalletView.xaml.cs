@@ -1,8 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using TokenTracker.Views.Base;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenWalletView : ContentPage
+    public partial class TokenWalletView : ContentPageBase
     {
         public TokenWalletView()
         {
