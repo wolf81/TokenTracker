@@ -50,6 +50,12 @@
                     Value="{StaticResource PrimaryColorDark}" />
             </Style>
             <Style
+                TargetType="Switch">
+                <Setter
+                    Property="OnColor"
+                    Value="{StaticResource SecondaryColor}" />
+            </Style>
+            <Style
                 TargetType="Entry">
                 <Setter
                     Property="BackgroundColor"

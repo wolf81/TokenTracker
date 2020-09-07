@@ -170,6 +170,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ChooserCell.xaml.cs">
       <DependentUpon>ChooserCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SortOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

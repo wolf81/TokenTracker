@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TokenTracker.Models;
 using Xamarin.Forms;
 
 namespace TokenTracker.Services
@@ -10,6 +11,7 @@ namespace TokenTracker.Services
         {
             public const string UseMocks = "use_mocks";
             public const string IsFirstRun = "is_first_run";
+            public const string SortOrder = "sort_order";
         }
 
         public bool UseMocks
@@ -24,8 +26,16 @@ namespace TokenTracker.Services
             set => AddOrUpdateValue(Keys.IsFirstRun, value);
         }
 
+        public SortOrder SortOrder
+        {
+            get => GetValueOrDefault(Keys.SortOrder, SortOrder.Rank);
+            set => AddOrUpdateValue(Keys.SortOrder, value);
+        }
+
         private Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
+        private Task AddOrUpdateValue(string key, SortOrder value) => AddOrUpdateValueInternal(key, value);
         private bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
+        private SortOrder GetValueOrDefault(string key, SortOrder defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
 
         #region Internal Implementation
 

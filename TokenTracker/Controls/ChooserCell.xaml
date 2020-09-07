@@ -17,11 +17,13 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand" />
             <Picker
+                x:Name="picker"
                 WidthRequest="120"
-                ItemsSource="{Binding Choices}"
+                ItemsSource="{Binding Items}"
                 VerticalOptions="Center"
                 HorizontalOptions="End"
-                SelectedIndex="{Binding SelectedChoiceIndex}" />
+                SelectedIndexChanged="Picker_SelectedIndexChanged"
+                SelectedIndex="{Binding SelectedItemIndex}" />
         </StackLayout>
     </ViewCell.View>
 </ViewCell>

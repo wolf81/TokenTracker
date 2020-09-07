@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TokenTracker.Views.Base;
+﻿using TokenTracker.Views.Base;
 
 namespace TokenTracker.Views
 {

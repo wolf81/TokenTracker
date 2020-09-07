@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace TokenTracker
@@ -9,19 +10,23 @@ namespace TokenTracker
 
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; }        
     }
 
     public class ChooserSettingItem : SettingItemBase
     {
-        public int SelectedChoiceIndex { get; set; } = 0;
+        public int SelectedItemIndex { get; set; } = 0;
 
-        public List<string> Choices { get; set; } = new List<string> { };
+        public List<string> Items { get; set; } = new List<string> { };
+
+        public Action<int> SelectedItemChanged;
     }
 
     public class SwitchSettingItem : SettingItemBase
     {
         public bool IsSelected { get; set; } = false;
+
+        public Action<bool> SelectionChanged;
     }
 
     public class LabelSettingItem: SettingItemBase { }
@@ -49,7 +54,7 @@ namespace TokenTracker
                 return LabelTemplate;
             }
 
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
