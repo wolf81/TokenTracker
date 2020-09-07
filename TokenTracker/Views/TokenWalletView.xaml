@@ -7,13 +7,20 @@
     xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    xmlns:controls="clr-namespace:TokenTracker.Controls"
     IconImageSource="{local:ImageResource TokenTracker.Resources.ic_wallet_b.png}"
     Title="{Binding Title}">
+    <base:ContentPageBase.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="{local:ImageResource TokenTracker.Resources.ic_add_w.png}" />
+    </base:ContentPageBase.ToolbarItems>
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Items}">
+        <ListView
+            RowHeight="50"
+            ItemsSource="{Binding Items}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding .}" />
+                    <controls:WalletViewCell />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

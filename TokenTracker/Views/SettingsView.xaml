@@ -67,7 +67,7 @@
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand" />
                         <Picker
-                            WidthRequest="100"
+                            WidthRequest="120"
                             ItemsSource="{Binding Choices}"
                             VerticalOptions="Center"
                             HorizontalOptions="End"

@@ -73,6 +73,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_block_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_power_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_history_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -140,6 +144,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenWalletViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SettingTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WalletViewCell.xaml.cs">
+      <DependentUpon>WalletViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\WalletItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
