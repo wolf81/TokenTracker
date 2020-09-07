@@ -45,15 +45,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_w.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TabbedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -66,12 +63,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_wallet_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_graph_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_sort_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_block_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_power_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_history_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletViewCell.xaml">
       <SubType>Designer</SubType>
@@ -92,6 +88,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_close_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_standby_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
