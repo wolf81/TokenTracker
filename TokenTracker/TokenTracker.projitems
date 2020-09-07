@@ -69,6 +69,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_wallet_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_graph_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_sort_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_block_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_power_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_history_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -135,6 +139,7 @@
       <DependentUpon>TokenWalletView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenWalletViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\SettingTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
@@ -154,5 +159,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\Base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\Base\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Utilities\" />
   </ItemGroup>
 </Project>
