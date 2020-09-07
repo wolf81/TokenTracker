@@ -8,13 +8,15 @@ namespace TokenTracker
         public ImageSource IconImageSource { get; set; }
 
         public string Title { get; set; }
+
+        public string Description { get; set; }
     }
 
     public class ChooserSettingItem : SettingItemBase
     {
         public int SelectedChoiceIndex { get; set; } = 0;
 
-        public List<string> Choices { get; set; } = new List<string> { "Choice 1" };
+        public List<string> Choices { get; set; } = new List<string> { };
     }
 
     public class SwitchSettingItem : SettingItemBase

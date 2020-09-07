@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Controls.ChooserCell">
+    <ViewCell.View>
+        <StackLayout
+            Margin="20,8,20,8"
+            Orientation="Horizontal"
+            HorizontalOptions="FillAndExpand">
+            <Image
+                Source="{Binding IconImageSource}"
+                WidthRequest="30" />
+            <Label
+                Text="{Binding Title}"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+            <Picker
+                WidthRequest="120"
+                ItemsSource="{Binding Choices}"
+                VerticalOptions="Center"
+                HorizontalOptions="End"
+                SelectedIndex="{Binding SelectedChoiceIndex}" />
+        </StackLayout>
+    </ViewCell.View>
+</ViewCell>

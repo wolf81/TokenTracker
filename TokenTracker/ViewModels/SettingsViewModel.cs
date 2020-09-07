@@ -25,7 +25,7 @@ namespace TokenTracker.ViewModels
 
         public SettingsViewModel()
         {
-            Title = "Settings";
+            Title = "Settings";            
         }
     }
 }
