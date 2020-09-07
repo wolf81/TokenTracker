@@ -10,12 +10,6 @@
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     IconImageSource="{local:ImageResource TokenTracker.Resources.ic_currency_b.png}"
     Title="{Binding Title}">
-    <base:ContentPageBase.ToolbarItems>
-        <ToolbarItem
-            Text="Add"
-            IconImageSource="{local:ImageResource TokenTracker.Resources.ic_add_w.png}"
-            Command="{Binding AddSymbolCommand}" />
-    </base:ContentPageBase.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Spacing="0">
             <controls:AdView />
