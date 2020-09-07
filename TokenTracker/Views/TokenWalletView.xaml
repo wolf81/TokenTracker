@@ -12,6 +12,7 @@
     Title="{Binding Title}">
     <base:ContentPageBase.ToolbarItems>
         <ToolbarItem
+            Text="Add"
             IconImageSource="{local:ImageResource TokenTracker.Resources.ic_add_w.png}" />
     </base:ContentPageBase.ToolbarItems>
     <ContentPage.Content>

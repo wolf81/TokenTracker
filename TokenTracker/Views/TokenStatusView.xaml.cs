@@ -16,7 +16,7 @@ namespace TokenTracker.Views
 
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
-        private ToolbarItem modeToggleItem = new ToolbarItem { Text = "Edit" };
+        private ToolbarItem modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
 
         private TokenStatusViewModel ViewModel => BindingContext as TokenStatusViewModel;
 
@@ -78,10 +78,10 @@ namespace TokenTracker.Views
             switch (ViewModel.DisplayMode)
             {
                 case DisplayMode.Edit:
-                    modeToggleItem = new ToolbarItem { Text = "Done" };
+                    modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_checkmark_w.png") };
                     break;
                 case DisplayMode.View:
-                    modeToggleItem = new ToolbarItem { Text = "Edit" };
+                    modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
                     break;
             }
 
