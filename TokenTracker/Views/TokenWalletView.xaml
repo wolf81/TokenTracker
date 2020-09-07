@@ -17,14 +17,16 @@
             Command="{Binding AddSymbolCommand}" />
     </base:ContentPageBase.ToolbarItems>
     <ContentPage.Content>
-        <ListView
-            RowHeight="50"
-            ItemsSource="{Binding Items}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <controls:WalletViewCell />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <controls:AdView />
+            <ListView
+                ItemsSource="{Binding Items}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:WalletViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </base:ContentPageBase>

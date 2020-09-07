@@ -84,9 +84,25 @@
                 <Setter
                     Property="BackgroundColor"
                     Value="Transparent" />
-                <Setter Property="Footer">
+                <Setter
+                    Property="RowHeight"
+                    Value="50" />
+                <Setter
+                    Property="Footer">
                     <ContentView />
                 </Setter>
+            </Style>
+            <Style
+                TargetType="controls:AdView">
+                <Setter
+                    Property="Margin"
+                    Value="4" />
+                <Setter
+                    Property="HeightRequest"
+                    Value="50" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="Black" />
             </Style>
             <Style
                 TargetType="Button">

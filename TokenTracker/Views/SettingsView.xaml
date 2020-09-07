@@ -35,8 +35,7 @@
         <ListView
             ItemsSource="{Binding Items}"
             ItemTemplate="{StaticResource SettingTemplateSelector}"
-            SelectionMode="None"
-            RowHeight="50">
+            SelectionMode="None">
         </ListView>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

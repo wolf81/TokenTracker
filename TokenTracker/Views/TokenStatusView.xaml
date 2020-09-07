@@ -26,10 +26,7 @@
                 <StackLayout
                     Orientation="Vertical"
                     Spacing="0">
-                    <controls:AdView
-                        HeightRequest="50"
-                        Margin="4"
-                        BackgroundColor="Black" />
+                    <controls:AdView />
                     <controls:TokenChartView
                         IsVisible="{Binding ShowChart}"
                         ChangeIntervalCommand="{Binding ChangeIntervalCommand}"

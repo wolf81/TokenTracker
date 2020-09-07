@@ -68,7 +68,7 @@
                     CornerRadius="0"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center"
-                    ImageSource="{local:ImageResource TokenTracker.Resources.ic_grid_b.png}"
+                    ImageSource="{local:ImageResource TokenTracker.Resources.ic_close_b.png}"
                     Clicked="Dismiss_Button_Clicked" />
             </Grid>
             <microcharts:ChartView
