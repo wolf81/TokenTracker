@@ -16,8 +16,8 @@ namespace TokenTracker.Services
         {
             get
             {
-                var masterPage = Application.Current.MainPage as MasterDetailView;
-                var mainPage = masterPage.Detail;
+                var masterPage = Application.Current.MainPage as TabbedView;                
+                var mainPage = masterPage.CurrentPage;
                 var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
                 return viewModel as ViewModelBase;
             }
@@ -53,8 +53,8 @@ namespace TokenTracker.Services
 
         public Task RemoveBackStackAsync()
         {
-            var masterPage = Application.Current.MainPage as MasterDetailView;
-            if (masterPage.Detail is CustomNavigationView mainPage)
+            var masterPage = Application.Current.MainPage as TabbedView;
+            if (masterPage.CurrentPage is CustomNavigationView mainPage)
             {
                 for (int i = 0; i < mainPage.Navigation.NavigationStack.Count - 1; i++)
                 {
@@ -68,26 +68,44 @@ namespace TokenTracker.Services
 
         #region Private
 
-        private async Task InternalNavigateToAsync(Type viewModelType, Dictionary<string, object> parameter)
+        private TabbedView GetTabbedView()
         {
-            var page = CreatePage(viewModelType);
-
             if (Application.Current.MainPage == null)
             {
-                var mainPage = CreatePage(typeof(MasterDetailViewModel)) as MasterDetailPage;
-                Application.Current.MainPage = mainPage;
+                var tabbedView = new TabbedView();
+                Application.Current.MainPage = tabbedView;
+
+                var statusView = CreatePage(typeof(TokenStatusView));
+                tabbedView.Children.Add(new CustomNavigationView(statusView));
+
+                var walletView = CreatePage(typeof(TokenWalletView));
+                tabbedView.Children.Add(new CustomNavigationView(walletView));
+
+                var settingsView = CreatePage(typeof(SettingsView));
+                tabbedView.Children.Add(new CustomNavigationView(settingsView));
             }
 
-            var masterPage = Application.Current.MainPage as MasterDetailView;
-            if (masterPage.Detail is CustomNavigationView navigationPage)
+            return Application.Current.MainPage as TabbedView;
+        }
+
+        private async Task InternalNavigateToAsync(Type viewModelType, Dictionary<string, object> parameter)
+        {
+            var masterPage = GetTabbedView();
+
+            foreach (var childPage in masterPage.Children)
             {
-                await navigationPage.PushAsync(page);
-            }
-            else
-            {
-                masterPage.Detail = new CustomNavigationView(page);
+                if (childPage is NavigationPage navPage)
+                {
+                    if (navPage.RootPage.BindingContext.GetType() == viewModelType) {
+                        masterPage.SelectedItem = navPage;
+                        await (navPage.RootPage.BindingContext as ViewModelBase).InitializeAsync(parameter);
+                        return;
+                    }
+                }
             }
 
+            var page = CreatePage(viewModelType);
+            await (masterPage.CurrentPage as CustomNavigationView).PushAsync(page);
             await (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
         }
 

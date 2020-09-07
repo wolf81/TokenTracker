@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Views.TokenWalletView"
+    xmlns:viewModelBase="clr-namespace:TokenTracker.ViewModels.Base"
+    viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+    xmlns:local="clr-namespace:TokenTracker;assembly=TokenTracker"
+    IconImageSource="{local:ImageResource TokenTracker.Resources.ic_wallet_b.png}"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <ContentView BackgroundColor="AliceBlue" />
+    </ContentPage.Content>
+</ContentPage>

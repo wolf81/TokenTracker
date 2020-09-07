@@ -50,10 +50,22 @@
                     Value="{StaticResource PrimaryColorDark}" />
             </Style>
             <Style
-                TargetType="views:MenuView">
+                TargetType="Entry">
                 <Setter
                     Property="BackgroundColor"
-                    Value="{StaticResource PrimaryColorDark}" />
+                    Value="Transparent" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource DarkTextColor}" />                
+            </Style>
+            <Style
+                TargetType="SearchBar">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource PageBackgroundColor}" />
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource DarkTextColor}" />
             </Style>
             <Style
                 TargetType="Label">
@@ -69,15 +81,9 @@
             </Style>
             <Style
                 TargetType="Button">
-                <!--<Setter
-                    Property="BackgroundColor"
-                    Value="{StaticResource PrimaryColorLight}" />-->
                 <Setter
                     Property="FontFamily"
                     Value="Nunito-Regular" />
-                <!--<Setter
-                    Property="TextColor"
-                    Value="{StaticResource DarkTextColor}" />-->
                 <Setter
                     Property="FontSize"
                     Value="Medium" />

@@ -8,6 +8,8 @@
     xmlns:viewModels="clr-namespace:TokenTracker.ViewModels"
     xmlns:converters="clr-namespace:TokenTracker.Converters"
     xmlns:controls="clr-namespace:TokenTracker.Controls"
+    xmlns:local="clr-namespace:TokenTracker"
+    IconImageSource="{local:ImageResource TokenTracker.Resources.ic_graph_b.png}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     Title="{Binding Title}">
     <base:ContentPageBase.Resources>

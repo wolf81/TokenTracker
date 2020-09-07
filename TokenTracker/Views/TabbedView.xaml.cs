@@ -4,13 +4,11 @@ using Xamarin.Forms.Xaml;
 namespace TokenTracker.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterDetailView : MasterDetailPage
+    public partial class TabbedView : TabbedPage
     {
-        public MasterDetailView()
+        public TabbedView()
         {
             InitializeComponent();
-
-            Detail = new ContentPage();
         }
     }
 }

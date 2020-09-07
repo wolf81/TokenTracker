@@ -12,6 +12,9 @@ namespace TokenTracker.Views
         public CustomNavigationView(Page root) : base(root)
         {
             InitializeComponent();
+
+            Title = root.Title;
+            IconImageSource = root.IconImageSource;
         }
     }
 }

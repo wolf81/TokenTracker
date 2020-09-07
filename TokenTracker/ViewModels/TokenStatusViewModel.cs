@@ -68,7 +68,7 @@ namespace TokenTracker.ViewModels
         {
             ReloadCommand.Execute(null);
 
-            Title = "Token Tracker";
+            Title = "Live";
 
             TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
             TokenCache.TokenAdded += Handle_TokenCache_TokenAdded;

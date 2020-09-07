@@ -31,10 +31,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_checkmark_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_menu_open_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_menu_w.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MasterDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_remove_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Base\ContentPageBase.xaml">
       <SubType>Designer</SubType>
@@ -47,10 +43,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MenuView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_w.png" />
@@ -60,6 +52,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_grid_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_currency_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TabbedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\TokenWalletView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_wallet_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_settings_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_graph_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -95,10 +104,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\ITokenCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\TokenCache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MasterDetailViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MasterDetailView.xaml.cs">
-      <DependentUpon>MasterDetailView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DisplayModeToBooleanConverter.cs" />
@@ -116,13 +121,20 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\PricePoint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Rate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MenuView.xaml.cs">
-      <DependentUpon>MenuView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\TokenStatusView.xaml.cs">
       <DependentUpon>TokenStatusView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TabbedView.xaml.cs">
+      <DependentUpon>TabbedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TokenWalletView.xaml.cs">
+      <DependentUpon>TokenWalletView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenWalletViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
