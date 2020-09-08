@@ -31,7 +31,8 @@ namespace TokenTracker.Services
         public SortOrder SortOrder
         {
             get => (SortOrder)GetValueOrDefault(Keys.SortOrder, (int)SortOrder.Rank);
-            set {
+            set
+            {
                 AddOrUpdateValue(Keys.SortOrder, (int)value);
                 OnSortOrderChanged(value);
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
@@ -33,10 +34,9 @@ namespace TokenTracker.ViewModels
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_sort_b.png"),
         };
 
-        private readonly SwitchSettingItem disableStandbyItem = new SwitchSettingItem
+        private readonly SwitchSettingItem suspendSleepItem = new SwitchSettingItem
         {
-            Title = "Disable Standby",
-            IsSelected = false,
+            Title = "Suspend Sleep",
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_standby_b.png")
         };
 
@@ -63,17 +63,19 @@ namespace TokenTracker.ViewModels
         {
             Title = "Settings";
 
-            Items = new List<SettingItemBase> { currencyItem, themeItem, sortByItem, disableStandbyItem, removeAdsItem, clearCacheItem };
+            Items = new List<SettingItemBase> { currencyItem, themeItem, sortByItem, suspendSleepItem, removeAdsItem, clearCacheItem };
 
             currencyItem.SelectedItemChanged = OnCurrencyChanged;
             sortByItem.SelectedItemChanged = OnSortByChanged;
             themeItem.SelectedItemChanged = OnThemeChanged;
+            suspendSleepItem.SelectionChanged = OnSuspendSleepChanged;
         }
 
         public void Update()
         {
             var sortItemName = Settings.SortOrder.ToString("g");
             sortByItem.SelectedItemIndex = sortByItem.Items.IndexOf(sortItemName);
+            suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;            
         }
 
         #region Private
@@ -91,6 +93,11 @@ namespace TokenTracker.ViewModels
         private void OnThemeChanged(int selectedIndex)
         {
             
+        }
+
+        private void OnSuspendSleepChanged(bool isSuspendSleepEnabled)
+        {
+            DeviceDisplay.KeepScreenOn = isSuspendSleepEnabled;            
         }
 
         #endregion
