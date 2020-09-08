@@ -75,7 +75,6 @@
     <Compile Include="Renderers\CustomSearchBarRenderer.cs" />
     <Compile Include="Renderers\AdViewRenderer.cs" />
     <Compile Include="Renderers\KeyboardAdjustingGridRenderer.cs" />
-    <Compile Include="Renderers\MasterDetailPageRenderer.cs" />
     <Compile Include="Renderers\EntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
