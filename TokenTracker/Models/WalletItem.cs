@@ -15,9 +15,11 @@ namespace TokenTracker.Models
         public decimal Price { get; set; }
     }
 
-    public class WalletAddItem : WalletItemBase { }
+    public class WalletAddTokenItem : WalletItemBase { }
 
-    public class WalletViewItem : WalletItemBase
+    public class WalletViewTotalItem : WalletItemBase { }
+
+    public class WalletViewTokenItem : WalletItemBase
     {
         public decimal TotalPrice => Amount * Price;
 

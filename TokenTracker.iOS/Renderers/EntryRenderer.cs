@@ -5,7 +5,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(Entry), typeof(TokenTracker.Renderers.EntryRenderer))]
 namespace TokenTracker.Renderers
 {
-    public class EntryRenderer :  Xamarin.Forms.Platform.iOS.EntryRenderer
+    public class EntryRenderer : Xamarin.Forms.Platform.iOS.EntryRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {

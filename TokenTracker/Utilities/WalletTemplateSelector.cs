@@ -6,19 +6,25 @@ namespace TokenTracker
 {
     public class WalletTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate AddItemTemplate { get; set; }
+        public DataTemplate AddTokenItemTemplate { get; set; }
 
-        public DataTemplate ViewItemTemplate { get; set; }
+        public DataTemplate ViewTokenItemTemplate { get; set; }
+
+        public DataTemplate ViewTotalItemTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is WalletAddItem)
+            if (item is WalletAddTokenItem)
             {
-                return AddItemTemplate;
+                return AddTokenItemTemplate;
             }
-            else if (item is WalletViewItem)
+            else if (item is WalletViewTokenItem)
             {
-                return ViewItemTemplate;
+                return ViewTokenItemTemplate;
+            }
+            else if (item is WalletViewTotalItem)
+            {
+                return ViewTotalItemTemplate;
             }
 
             throw new NotImplementedException();

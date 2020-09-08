@@ -13,17 +13,22 @@
     <base:ContentPageBase.Resources>
         <ResourceDictionary>
             <DataTemplate
-                x:Key="AddItemTemplate">
+                x:Key="AddTokenItemTemplate">
                 <controls:AddTokenWalletViewCell Height="142" />
             </DataTemplate>
             <DataTemplate
-                x:Key="ViewItemTemplate">
-                <controls:WalletViewCell Height="50" />
+                x:Key="ViewTokenItemTemplate">
+                <controls:WalletViewCell />
+            </DataTemplate>
+            <DataTemplate
+                x:Key="ViewTotalItemTemplate">
+                <controls:WalletViewCell  />
             </DataTemplate>
             <local:WalletTemplateSelector
                 x:Key="WalletTemplateSelector"
-                AddItemTemplate="{StaticResource AddItemTemplate}"
-                ViewItemTemplate="{StaticResource ViewItemTemplate}" />
+                AddTokenItemTemplate="{StaticResource AddTokenItemTemplate}"
+                ViewTokenItemTemplate="{StaticResource ViewTokenItemTemplate}"
+                ViewTotalItemTemplate="{StaticResource ViewTotalItemTemplate}" />
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>

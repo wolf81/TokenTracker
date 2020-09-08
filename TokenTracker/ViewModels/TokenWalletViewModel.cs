@@ -6,13 +6,15 @@ namespace TokenTracker.ViewModels
 {
     public class TokenWalletViewModel : ViewModelBase
     {
-        private WalletAddItem addItem = new WalletAddItem { };
+        private readonly WalletAddTokenItem addItem = new WalletAddTokenItem { };
+
+        private readonly WalletViewTotalItem totalItem = new WalletViewTotalItem { };
 
         private ObservableCollection<WalletItemBase> items = new ObservableCollection<WalletItemBase> {
-            new WalletViewItem { Symbol = "BTC", Amount = 1, Price = new decimal(4556.45) },
-            new WalletViewItem { Symbol = "ETH", Amount = 3, Price = new decimal(1334.555535) },
-            new WalletViewItem { Symbol = "VET", Amount = 15, Price = new decimal(0.4234) },
-            new WalletViewItem { Symbol = "OMG", Amount = 300, Price = new decimal(6.56) },
+            new WalletViewTokenItem { Symbol = "BTC", Amount = 1, Price = new decimal(4556.45) },
+            new WalletViewTokenItem { Symbol = "ETH", Amount = 3, Price = new decimal(1334.555535) },
+            new WalletViewTokenItem { Symbol = "VET", Amount = 15, Price = new decimal(0.4234) },
+            new WalletViewTokenItem { Symbol = "OMG", Amount = 300, Price = new decimal(6.56) },
         };
         public ObservableCollection<WalletItemBase> Items {
             get => items;
@@ -41,11 +43,13 @@ namespace TokenTracker.ViewModels
         {
             if (DisplayMode == DisplayMode.Edit)
             {
+                items.Remove(totalItem);
                 items.Add(addItem);
             }
             else
             {
                 items.Remove(addItem);
+                items.Add(totalItem);
             }
         }
 
