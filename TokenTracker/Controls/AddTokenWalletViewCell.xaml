@@ -50,7 +50,7 @@
                 <Entry
                     Text="{Binding Symbol}"
                     Placeholder="BTC"
-                    Keyboard="Text"
+                    Keyboard="Text"                    
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center" />
                 <Button
