@@ -21,6 +21,6 @@ namespace TokenTracker.Models
     {
         public decimal TotalPrice => Amount * Price;
 
-        public string Description => $"{Amount} x {Price:0.00}";
+        public string Description => $"{Amount} × {Price:0.00}";
     }
 }
