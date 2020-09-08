@@ -58,9 +58,20 @@ namespace TokenTracker.Services
             }
         }
 
-        public async Task<IEnumerable<Token>> GetTokensAsync()
+        public async Task<IEnumerable<Token>> GetTokensAsync(SortOrder sortOrder)
         {
-            var tokens = await database.Table<Token>().OrderBy((t) => t.Rank).ToListAsync();
+            var tokens = new List<Token> { };
+
+            switch (sortOrder)
+            {
+                case SortOrder.Alphabet:
+                    tokens = await database.Table<Token>().OrderBy((t) => t.Symbol).ToListAsync();
+                    break;
+                case SortOrder.Rank:
+                    tokens = await database.Table<Token>().OrderBy((t) => t.Rank).ToListAsync();
+                    break;
+            }
+
             return tokens;
         }
 

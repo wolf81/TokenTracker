@@ -19,7 +19,7 @@ namespace TokenTracker.Services
 
         Task UpdateTokenAsync(Token token);
 
-        Task<IEnumerable<Token>> GetTokensAsync();
+        Task<IEnumerable<Token>> GetTokensAsync(SortOrder sortOrder);
 
         Task<Token> GetTokenAsync(string id);
 

@@ -7,6 +7,8 @@ namespace TokenTracker.Services
 {
     public class SettingsService : ISettingsService
     {
+        public event EventHandler<SortOrder> SortOrderChanged;
+
         private struct Keys
         {
             public const string UseMocks = "use_mocks";
@@ -28,18 +30,21 @@ namespace TokenTracker.Services
 
         public SortOrder SortOrder
         {
-            get => GetValueOrDefault(Keys.SortOrder, SortOrder.Rank);
-            set => AddOrUpdateValue(Keys.SortOrder, value);
+            get => (SortOrder)GetValueOrDefault(Keys.SortOrder, (int)SortOrder.Rank);
+            set {
+                AddOrUpdateValue(Keys.SortOrder, (int)value);
+                OnSortOrderChanged(value);
+            }
         }
 
+        #region Private
+
         private Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
-        private Task AddOrUpdateValue(string key, SortOrder value) => AddOrUpdateValueInternal(key, value);
+        private Task AddOrUpdateValue(string key, int value) => AddOrUpdateValueInternal(key, value);
         private bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
-        private SortOrder GetValueOrDefault(string key, SortOrder defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
+        private int GetValueOrDefault(string key, int defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
 
-        #region Internal Implementation
-
-        async Task AddOrUpdateValueInternal<T>(string key, T value)
+        private async Task AddOrUpdateValueInternal<T>(string key, T value)
         {
             if (value == null)
             {
@@ -57,7 +62,7 @@ namespace TokenTracker.Services
             }
         }
 
-        T GetValueOrDefaultInternal<T>(string key, T defaultValue = default)
+        private T GetValueOrDefaultInternal<T>(string key, T defaultValue = default)
         {
             object value = null;
             if (Application.Current.Properties.ContainsKey(key))
@@ -67,7 +72,7 @@ namespace TokenTracker.Services
             return null != value ? (T)value : defaultValue;
         }
 
-        async Task Remove(string key)
+        private async Task Remove(string key)
         {
             try
             {
@@ -81,6 +86,11 @@ namespace TokenTracker.Services
             {
                 Console.WriteLine("Unable to remove: " + key, " Message: " + ex.Message);
             }
+        }
+
+        private void OnSortOrderChanged(SortOrder sortOrder)
+        {
+            SortOrderChanged?.Invoke(this, sortOrder);
         }
 
         #endregion

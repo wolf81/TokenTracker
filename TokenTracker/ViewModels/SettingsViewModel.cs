@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
@@ -14,7 +16,6 @@ namespace TokenTracker.ViewModels
         {
             Title = "Currency",
             Items = new List<string> { "USD", "EUR", "BTC" },
-            SelectedItemIndex = 0,
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_currency_b.png"),
         };
 
@@ -22,32 +23,30 @@ namespace TokenTracker.ViewModels
         {
             Title = "Theme",
             Items = new List<string> { "Light", "Dark", "Novel" },
-            SelectedItemIndex = 0,
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_theme_b.png"),
         };
 
         private readonly ChooserSettingItem sortByItem = new ChooserSettingItem
         {
             Title = "Sort By",
-            Items = new List<string> { "Alphabet", "Rank" },
-            SelectedItemIndex = 0,
+            Items = Enum.GetNames(typeof(SortOrder)).ToList(),
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_sort_b.png"),
         };
 
-        private SwitchSettingItem disableStandbyItem = new SwitchSettingItem
+        private readonly SwitchSettingItem disableStandbyItem = new SwitchSettingItem
         {
             Title = "Disable Standby",
             IsSelected = false,
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_standby_b.png")
         };
 
-        private LabelSettingItem removeAdsItem = new LabelSettingItem
+        private readonly LabelSettingItem removeAdsItem = new LabelSettingItem
         {
             Title = "Remove Ads",
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_block_b.png")
         };
 
-        private LabelSettingItem clearCacheItem = new LabelSettingItem
+        private readonly LabelSettingItem clearCacheItem = new LabelSettingItem
         {
             Title = "Clear Cache",
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_history_b.png")
@@ -69,6 +68,12 @@ namespace TokenTracker.ViewModels
             currencyItem.SelectedItemChanged = OnCurrencyChanged;
             sortByItem.SelectedItemChanged = OnSortByChanged;
             themeItem.SelectedItemChanged = OnThemeChanged;
+        }
+
+        public void Update()
+        {
+            var sortItemName = Settings.SortOrder.ToString("g");
+            sortByItem.SelectedItemIndex = sortByItem.Items.IndexOf(sortItemName);
         }
 
         #region Private

@@ -15,11 +15,13 @@ namespace TokenTracker.ViewModels
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
+
         private IMessageService MessageService => DependencyService.Get<IMessageService>();
 
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
-        public ICommand ReloadCommand => new Command(async () => await GetTokenInfoAsync());
+        public ICommand ReloadCommand => new Command(async () => await RefreshTokensAsync());
 
         public ICommand RemoveTokenCommand => new Command<Token>(async (t) => await RemoveTokenAsync(t));
 
@@ -70,6 +72,7 @@ namespace TokenTracker.ViewModels
 
             Title = "Live";
 
+            SettingsService.SortOrderChanged += Handle_SettingsService_SortOrderChanged;
             TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
             TokenCache.TokenAdded += Handle_TokenCache_TokenAdded;
             TokenCache.TokenRemoved += Handle_TokenCache_TokenRemoved;
@@ -78,7 +81,7 @@ namespace TokenTracker.ViewModels
 
         public async Task RefreshTokensAsync()
         {
-            var tokens = await TokenCache.GetTokensAsync();
+            var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
@@ -88,12 +91,6 @@ namespace TokenTracker.ViewModels
         {
             SelectedToken = null;
             ShowChart = false;
-        }
-
-        private async Task GetTokenInfoAsync()
-        {            
-            var tokens = await TokenCache.GetTokensAsync();
-            Tokens = new ObservableCollection<Token>(tokens);
         }
 
         private async Task AddTokenAsync()
@@ -128,6 +125,11 @@ namespace TokenTracker.ViewModels
                     await TokenCache.RemoveTokenAsync(token);
                     break;
             }
+        }
+
+        private async void Handle_SettingsService_SortOrderChanged(object sender, SortOrder e)
+        {
+            await RefreshTokensAsync();
         }
 
         private async void Handle_TokenInfoService_TokensUpdated(object sender, Dictionary<string, decimal> tokenPriceInfo)

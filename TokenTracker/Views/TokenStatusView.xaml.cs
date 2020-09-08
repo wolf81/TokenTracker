@@ -14,6 +14,8 @@ namespace TokenTracker.Views
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
+
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
         private ToolbarItem modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
@@ -104,7 +106,7 @@ namespace TokenTracker.Views
 
         private async Task ConfigureTokenInfoServiceAsync()
         {
-            var tokens = await TokenCache.GetTokensAsync();
+            var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
             var tokenIds = tokens.Select((t) => t.Id);
             TokenInfoService.Configure(tokenIds);
         }
