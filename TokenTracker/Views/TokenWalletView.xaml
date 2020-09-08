@@ -10,17 +10,34 @@
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     IconImageSource="{local:ImageResource TokenTracker.Resources.ic_currency_b.png}"
     Title="{Binding Title}">
-    <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Spacing="0">
+    <base:ContentPageBase.Resources>
+        <ResourceDictionary>
+            <DataTemplate
+                x:Key="AddItemTemplate">
+                <controls:AddTokenWalletViewCell Height="142" />
+            </DataTemplate>
+            <DataTemplate
+                x:Key="ViewItemTemplate">
+                <controls:WalletViewCell Height="50" />
+            </DataTemplate>
+            <local:WalletTemplateSelector
+                x:Key="WalletTemplateSelector"
+                AddItemTemplate="{StaticResource AddItemTemplate}"
+                ViewItemTemplate="{StaticResource ViewItemTemplate}" />
+        </ResourceDictionary>
+    </base:ContentPageBase.Resources>
+    <base:ContentPageBase.Content>
+        <StackLayout
+            Orientation="Vertical"
+            Spacing="0">
             <controls:AdView />
             <ListView
-                ItemsSource="{Binding Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <controls:WalletViewCell />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                HasUnevenRows="True"
+                RowHeight="-1"
+                SelectionMode="None"
+                ItemsSource="{Binding Items}"
+                ItemTemplate="{StaticResource WalletTemplateSelector}">
             </ListView>
         </StackLayout>
-    </ContentPage.Content>
+    </base:ContentPageBase.Content>
 </base:ContentPageBase>

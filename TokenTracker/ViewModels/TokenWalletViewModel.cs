@@ -1,21 +1,20 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using TokenTracker.Models;
 using TokenTracker.ViewModels.Base;
-using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
 {
     public class TokenWalletViewModel : ViewModelBase
-    {        
-        private ObservableCollection<WalletItem> items = new ObservableCollection<WalletItem> {
-            new WalletItem { Title = "BTC", Amount = 1, Price = new decimal(4556.45), Total = new decimal(4556.45) },
-            new WalletItem { Title = "ETH", Amount = 3, Price = new decimal(1334.555535), Total = new decimal(4003.67) },
-            new WalletItem { Title = "VET", Amount = 15, Price = new decimal(0.4234), Total = new decimal(6.351) },
-            new WalletItem { Title = "OMG", Amount = 300, Price = new decimal(6.56), Total = new decimal(1968) },
+    {
+        private WalletAddItem addItem = new WalletAddItem { };
+
+        private ObservableCollection<WalletItemBase> items = new ObservableCollection<WalletItemBase> {
+            new WalletViewItem { Symbol = "BTC", Amount = 1, Price = new decimal(4556.45) },
+            new WalletViewItem { Symbol = "ETH", Amount = 3, Price = new decimal(1334.555535) },
+            new WalletViewItem { Symbol = "VET", Amount = 15, Price = new decimal(0.4234) },
+            new WalletViewItem { Symbol = "OMG", Amount = 300, Price = new decimal(6.56) },
         };
-        public ObservableCollection<WalletItem> Items {
+        public ObservableCollection<WalletItemBase> Items {
             get => items;
             set => SetProperty(ref items, value);
         }
@@ -24,7 +23,11 @@ namespace TokenTracker.ViewModels
         public DisplayMode DisplayMode
         {
             get => displayMode;
-            set => SetProperty(ref displayMode, value);
+            set
+            {
+                SetProperty(ref displayMode, value);
+                Update();
+            }
         }
 
         public TokenWalletViewModel()
@@ -33,6 +36,18 @@ namespace TokenTracker.ViewModels
         }
 
         #region Private
+
+        private void Update()
+        {
+            if (DisplayMode == DisplayMode.Edit)
+            {
+                items.Add(addItem);
+            }
+            else
+            {
+                items.Remove(addItem);
+            }
+        }
 
         #endregion
     }

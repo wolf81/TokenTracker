@@ -90,6 +90,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_close_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_standby_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\AddTokenWalletViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_search_b.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -171,6 +176,10 @@
       <DependentUpon>ChooserCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\SortOrder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\AddTokenWalletViewCell.xaml.cs">
+      <DependentUpon>AddTokenWalletViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\WalletTemplateSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

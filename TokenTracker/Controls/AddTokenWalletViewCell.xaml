@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Controls.AddTokenWalletViewCell"    
+    xmlns:local="clr-namespace:TokenTracker">
+    <ViewCell.View>
+        <Grid
+            Margin="20,0,20,0"
+            RowSpacing="4"
+            ColumnSpacing="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="80" />
+                <ColumnDefinition
+                    Width="160" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="30" />
+                <RowDefinition
+                    Height="30" />
+                <RowDefinition
+                    Height="30" />
+                <RowDefinition
+                    Height="30" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="Token"
+                FontSize="Small"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Row="1"
+                Grid.Column="2"
+                Orientation="Horizontal"
+                Margin="0"
+                Padding="0"
+                Spacing="5">
+                <Entry
+                    Text="{Binding Symbol}"
+                    Placeholder="BTC"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center" />
+                <Button
+                    ImageSource="{local:ImageResource TokenTracker.Resources.ic_search_b.png}"
+                    WidthRequest="30"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="Price"
+                FontSize="Small"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Entry
+                Grid.Row="2"
+                Grid.Column="2"
+                Text="{Binding Price}"
+                Placeholder="10435.56"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Text="Amount"
+                FontSize="Small"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Entry
+                Grid.Row="3"
+                Grid.Column="2"
+                Text="{Binding Amount}"
+                Placeholder="53"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center" />
+            <Button
+                Grid.Row="4"
+                Grid.Column="2"
+                WidthRequest="80"
+                Text="Add"
+                FontSize="Small"
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
+        </Grid>
+    </ViewCell.View>
+</ViewCell>
