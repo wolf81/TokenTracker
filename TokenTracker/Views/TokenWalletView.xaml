@@ -14,7 +14,7 @@
         <ResourceDictionary>
             <DataTemplate
                 x:Key="AddTokenItemTemplate">
-                <controls:AddTokenWalletViewCell Height="142" />
+                <controls:AddTokenWalletViewCell />
             </DataTemplate>
             <DataTemplate
                 x:Key="ViewTokenItemTemplate">
