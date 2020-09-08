@@ -69,7 +69,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_sort_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_block_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_history_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletViewCell.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ViewTokenWalletViewCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -95,6 +95,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_search_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ViewTotalWalletViewCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -162,8 +166,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenWalletViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SettingTemplateSelector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\WalletViewCell.xaml.cs">
-      <DependentUpon>WalletViewCell.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewTokenWalletViewCell.xaml.cs">
+      <DependentUpon>ViewTokenWalletViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\WalletItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\LabelCell.xaml.cs">
@@ -180,6 +184,9 @@
       <DependentUpon>AddTokenWalletViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\WalletTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewTotalWalletViewCell.xaml.cs">
+      <DependentUpon>ViewTotalWalletViewCell.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

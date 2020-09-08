@@ -18,11 +18,11 @@
             </DataTemplate>
             <DataTemplate
                 x:Key="ViewTokenItemTemplate">
-                <controls:WalletViewCell />
+                <controls:ViewTokenWalletViewCell />
             </DataTemplate>
             <DataTemplate
                 x:Key="ViewTotalItemTemplate">
-                <controls:WalletViewCell  />
+                <controls:ViewTotalWalletViewCell />
             </DataTemplate>
             <local:WalletTemplateSelector
                 x:Key="WalletTemplateSelector"

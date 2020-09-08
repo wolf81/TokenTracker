@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace TokenTracker.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WalletViewCell : ViewCell
+    public partial class ViewTotalWalletViewCell : ViewCell
     {
-        public WalletViewCell()
+        public ViewTotalWalletViewCell()
         {
             InitializeComponent();
         }

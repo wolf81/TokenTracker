@@ -2,7 +2,7 @@
 <ViewCell
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TokenTracker.Controls.WalletViewCell">
+    x:Class="TokenTracker.Controls.ViewTokenWalletViewCell">
     <ViewCell.View>
         <Grid
             Margin="20,0,20,0"
