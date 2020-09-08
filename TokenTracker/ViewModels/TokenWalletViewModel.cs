@@ -2,12 +2,16 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using TokenTracker.Models;
+using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
+using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
 {
     public class TokenWalletViewModel : ViewModelBase
     {
+        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+
         private readonly WalletAddTokenItem addItem = new WalletAddTokenItem { };
 
         private WalletViewTotalItem totalItem = new WalletViewTotalItem { };
@@ -40,10 +44,23 @@ namespace TokenTracker.ViewModels
                 new WalletViewTokenItem { Symbol = "OMG", Amount = 300, Price = new decimal(6.56) },
             });
 
+            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
+
             Update();
         }
 
         #region Private
+
+        private void Handle_TokenCache_TokenUpdated(object sender, Token token)
+        {
+            // enumerate over a copy, to prevent crashes if the collection would change
+            if (Items.ToList().FirstOrDefault((t) => t.Symbol == token.Symbol) is WalletItemBase walletItem)
+            {
+                var tokenIdx = Items.IndexOf(walletItem);
+                walletItem.Price = token.PriceUSD;
+                Device.BeginInvokeOnMainThread(() => Items[tokenIdx] = walletItem);
+            }
+        }
 
         private void Update()
         {

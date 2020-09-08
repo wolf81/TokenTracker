@@ -25,7 +25,7 @@ namespace TokenTracker.Services
 
         Task AddRatesAsync(IEnumerable<Rate> tates);
 
-        Task<Rate> GetRateAsync(string id);
+        Task<Rate> GetRateAsync(string id);        
 
         void Configure();
     }
