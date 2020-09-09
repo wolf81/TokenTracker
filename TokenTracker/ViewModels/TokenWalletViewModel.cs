@@ -60,24 +60,56 @@ namespace TokenTracker.ViewModels
                 walletItem.Price = token.PriceUSD;
                 Device.BeginInvokeOnMainThread(() => Items[tokenIdx] = walletItem);
             }
+
+            if (DisplayMode == DisplayMode.Edit) { return; }
+
+            decimal totalPrice = 0;
+            foreach (var item in Items)
+            {
+                if (item is WalletViewTokenItem tokenItem)
+                {
+                    totalPrice += tokenItem.TotalPrice;
+                }
+            }
+
+            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice };
+            Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }
 
         private void Update()
         {
             if (DisplayMode == DisplayMode.Edit)
             {
-                items.Remove(totalItem);
-                items.Add(addItem);
+                var lastIdx = Items.Count - 1;
+                if (Items[lastIdx] is WalletViewTotalItem)
+                {
+                    Items.RemoveAt(lastIdx);
+                }
 
-                totalItem = null;
+                if (items.Contains(addItem) == false)
+                {
+                    items.Add(addItem);
+                }
             }
             else
             {
+                if (items.Contains(addItem))
+                {
+                    items.Remove(addItem);
+                }
+
                 var totalPrice = Items.Sum((t) => t.Amount * t.Price);
                 totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice };
 
-                items.Remove(addItem);
-                items.Add(totalItem);
+                var lastIdx = Items.Count - 1;
+                if (Items[lastIdx] is WalletViewTotalItem)
+                {
+                    Items[lastIdx] = totalItem;
+                }
+                else
+                {
+                    Items.Add(totalItem);
+                }
             }
         }
 
