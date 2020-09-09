@@ -29,13 +29,9 @@ namespace TokenTracker.Views
             TokenInfoService.ConnectionStateChanged -= Handle_TokenInfoService_ConnectionStateChanged;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            //await ViewModel.RefreshTokensAsync();
-            await Task.Delay(0);
-            //await ConfigureTokenInfoServiceAsync();
 
             UpdateModeToggleItem();
 
