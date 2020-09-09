@@ -69,10 +69,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_sort_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_block_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_history_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ViewTokenWalletViewCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_add_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_checkmark_w.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\LabelCell.xaml">
@@ -90,12 +86,16 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_close_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_theme_b.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_standby_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\AddTokenWalletViewCell.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_search_b.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletItemLineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\ic_search_b.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ViewTotalWalletViewCell.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletItemEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\WalletItemTotalView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -166,9 +166,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TokenWalletViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\SettingTemplateSelector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewTokenWalletViewCell.xaml.cs">
-      <DependentUpon>ViewTokenWalletViewCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\WalletItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\LabelCell.xaml.cs">
       <DependentUpon>LabelCell.xaml</DependentUpon>
@@ -180,12 +177,15 @@
       <DependentUpon>ChooserCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\SortOrder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\AddTokenWalletViewCell.xaml.cs">
-      <DependentUpon>AddTokenWalletViewCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\WalletTemplateSelector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\ViewTotalWalletViewCell.xaml.cs">
-      <DependentUpon>ViewTotalWalletViewCell.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WalletItemLineView.xaml.cs">
+      <DependentUpon>WalletItemLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WalletItemEditView.xaml.cs">
+      <DependentUpon>WalletItemEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WalletItemTotalView.xaml.cs">
+      <DependentUpon>WalletItemTotalView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Controls.WalletItemTotalView"
+    HeightRequest="50">
+    <ContentView.Content>
+        <Grid
+            Margin="20,0,20,0"
+            ColumnSpacing="10"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="1" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <ContentView
+                Margin="0,0,-20,0"
+                BackgroundColor="DarkGray"
+                VerticalOptions="FillAndExpand"
+                Grid.Row="0"
+                Grid.ColumnSpan="2" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="Total"
+                FontSize="Medium"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Start" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding Price, StringFormat='{0:0.00}'}"
+                FontSize="Medium"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="End" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

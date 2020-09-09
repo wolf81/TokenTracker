@@ -14,15 +14,15 @@
         <ResourceDictionary>
             <DataTemplate
                 x:Key="AddTokenItemTemplate">
-                <controls:AddTokenWalletViewCell />
+                <controls:WalletItemEditView />
             </DataTemplate>
             <DataTemplate
                 x:Key="ViewTokenItemTemplate">
-                <controls:ViewTokenWalletViewCell />
+                <controls:WalletItemLineView />
             </DataTemplate>
             <DataTemplate
                 x:Key="ViewTotalItemTemplate">
-                <controls:ViewTotalWalletViewCell />
+                <controls:WalletItemTotalView />
             </DataTemplate>
             <local:WalletTemplateSelector
                 x:Key="WalletTemplateSelector"
@@ -36,13 +36,11 @@
             Orientation="Vertical"
             Spacing="0">
             <controls:AdView />
-            <ListView
-                HasUnevenRows="True"
-                RowHeight="-1"
-                SelectionMode="None"
+            <CollectionView
+                SelectionMode="None"              
                 ItemsSource="{Binding Items}"
                 ItemTemplate="{StaticResource WalletTemplateSelector}">
-            </ListView>
+            </CollectionView>
         </StackLayout>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

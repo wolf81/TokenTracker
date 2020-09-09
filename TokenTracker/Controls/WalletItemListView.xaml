@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TokenTracker.Controls.WalletItemLineView"
+    HeightRequest="50"
+    Margin="20,0,20,0">
+    <ContentView.Content>
+        <Grid
+            x:Name="grid"
+            ColumnSpacing="10"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="*" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Margin="0,5,0,0"
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="{Binding Symbol}"
+                FontSize="Small"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="End"
+                HorizontalTextAlignment="Start" />
+            <Label
+                Margin="0,0,0,5"
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="{Binding Description}"
+                FontSize="Small"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="Start"
+                HorizontalTextAlignment="Start" />
+            <Label
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Text="{Binding TotalPrice, StringFormat='{0:0.00}'}"
+                HorizontalOptions="End"
+                VerticalOptions="CenterAndExpand"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="End" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>
