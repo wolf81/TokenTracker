@@ -168,6 +168,8 @@ namespace TokenTracker.ViewModels
 
         private void Handle_TokenCache_TokenUpdated(object sender, Token token)
         {
+            if (DisplayMode == DisplayMode.Edit) { return; }
+
             // enumerate over a copy, to prevent crashes if the collection would change
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
             {
