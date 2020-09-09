@@ -7,6 +7,7 @@ namespace TokenTracker
 {
     public partial class App : Application
     {
+        private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
         private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
         private ITokenCache TokenCache  => ViewModelLocator.Resolve<ITokenCache>();
 
@@ -45,7 +46,7 @@ namespace TokenTracker
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            TokenInfoService.StopTokenUpdates();
         }
     }
 }
