@@ -33,8 +33,6 @@ namespace TokenTracker.Views
         {
             base.OnDisappearing();
 
-            TokenInfoService.StopTokenUpdates();
-
             TokenInfoService.ConnectionStateChanged -= Handle_TokenInfoService_ConnectionStateChanged;
         }
 
@@ -47,7 +45,6 @@ namespace TokenTracker.Views
             await ConfigureTokenInfoServiceAsync();
 
             UpdateModeToggleItem();
-            UpdateForCurrentMode();
 
             TokenInfoService.ConnectionStateChanged += Handle_TokenInfoService_ConnectionStateChanged;
         }
@@ -61,7 +58,6 @@ namespace TokenTracker.Views
                 : DisplayMode.Edit;
 
             UpdateModeToggleItem();
-            UpdateForCurrentMode();
         }
 
         private void Handle_TokenInfoService_ConnectionStateChanged(object sender, ConnectionState state)
@@ -91,24 +87,15 @@ namespace TokenTracker.Views
             modeToggleItem.Clicked += Handle_ModeToggleItem_Clicked;
         }
 
-        private void UpdateForCurrentMode()
-        {
-            switch (ViewModel.DisplayMode)
-            {
-                case DisplayMode.Edit:
-                    TokenInfoService.StopTokenUpdates();
-                    break;
-                case DisplayMode.View:
-                    TokenInfoService.StartTokenUpdates();
-                    break;
-            }
-        }
-
         private async Task ConfigureTokenInfoServiceAsync()
         {
+            if (TokenInfoService.IsConfigured) { return; }
+
             var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
             var tokenIds = tokens.Select((t) => t.Id);
             TokenInfoService.Configure(tokenIds);
+
+            TokenInfoService.StartTokenUpdates();
         }
 
         #endregion

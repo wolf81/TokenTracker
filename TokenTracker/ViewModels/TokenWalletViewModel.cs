@@ -53,6 +53,8 @@ namespace TokenTracker.ViewModels
 
         private void Handle_TokenCache_TokenUpdated(object sender, Token token)
         {
+            if (DisplayMode == DisplayMode.Edit) { return; }
+
             // enumerate over a copy, to prevent crashes if the collection would change
             if (Items.ToList().FirstOrDefault((t) => t.Symbol == token.Symbol) is WalletItemBase walletItem)
             {
@@ -60,8 +62,6 @@ namespace TokenTracker.ViewModels
                 walletItem.Price = token.PriceUSD;
                 Device.BeginInvokeOnMainThread(() => Items[tokenIdx] = walletItem);
             }
-
-            if (DisplayMode == DisplayMode.Edit) { return; }
 
             decimal totalPrice = 0;
             foreach (var item in Items)

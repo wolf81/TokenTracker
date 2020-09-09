@@ -10,6 +10,8 @@ namespace TokenTracker.Services
     {
         public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
 
+        public bool IsConfigured => true;
+
         public event EventHandler<Dictionary<string, decimal>> TokensUpdated;
 
         public event EventHandler<ConnectionState> ConnectionStateChanged;

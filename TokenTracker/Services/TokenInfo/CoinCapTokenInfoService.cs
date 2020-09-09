@@ -22,6 +22,8 @@ namespace TokenTracker.Services
 
         public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
 
+        public bool IsConfigured => webSocket != null;
+
         #region ITokenInfoService
 
         public void StartTokenUpdates()

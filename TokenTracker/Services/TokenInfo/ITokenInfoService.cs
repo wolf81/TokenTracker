@@ -11,6 +11,8 @@ namespace TokenTracker.Services
 
     public interface ITokenInfoService
     {
+        bool IsConfigured { get; }
+
         event EventHandler<Dictionary<string, decimal>> TokensUpdated;
 
         event EventHandler<ConnectionState> ConnectionStateChanged;
