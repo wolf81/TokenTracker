@@ -99,6 +99,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ConnectionStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -186,6 +190,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\SettingItemSwitchView.xaml.cs">
       <DependentUpon>SettingItemSwitchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ConnectionStatusView.xaml.cs">
+      <DependentUpon>ConnectionStatusView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

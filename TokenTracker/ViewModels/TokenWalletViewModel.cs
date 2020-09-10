@@ -64,7 +64,7 @@ namespace TokenTracker.ViewModels
             }
 
             decimal totalPrice = 0;
-            foreach (var item in Items)
+            foreach (var item in Items.ToList())
             {
                 if (item is WalletViewTokenItem tokenItem)
                 {

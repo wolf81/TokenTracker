@@ -22,42 +22,54 @@
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
         <controls:KeyboardAdjustingGrid>
-            <ScrollView>
-                <StackLayout
-                    Orientation="Vertical"
-                    Spacing="0">
-                    <controls:AdView />
-                    <controls:TokenChartView
-                        IsVisible="{Binding ShowChart}"
-                        ChangeIntervalCommand="{Binding ChangeIntervalCommand}"
-                        DismissCommand="{Binding HideChartCommand}"
-                        PricePoints="{Binding TokenPriceHistory}" />
-                    <FlexLayout
-                        Margin="0,-1,0,2"
-                        Wrap="Wrap"
-                        JustifyContent="Center"
-                        Direction="Row"
-                        AlignContent="Start"
-                        IsVisible="{Binding ShowChart, Converter={StaticResource InverseBooleanConverter}}"
-                        BindableLayout.ItemsSource="{Binding Tokens}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <controls:TokenGridViewCell
-                                    Margin="1"
-                                    DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
-                                    Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
-                                    Token="{Binding .}" />
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </FlexLayout>
-                    <controls:TokenGridViewCell
-                        Command="{Binding AddTokenCommand}"
-                        x:Name="addTokenCell"
-                        IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
-                        HorizontalOptions="Center"
-                        Margin="0" />
-                </StackLayout>
-            </ScrollView>
+            <RelativeLayout>
+                <ScrollView
+                    RelativeLayout.XConstraint="{ConstraintExpression Property=X, Type=RelativeToParent}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Property=Width, Type=RelativeToParent}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Property=Y, Type=RelativeToParent}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Property=Height, Type=RelativeToParent}">
+                    <StackLayout
+                        Orientation="Vertical"
+                        Spacing="0">
+                        <controls:AdView />
+                        <controls:TokenChartView
+                            IsVisible="{Binding ShowChart}"
+                            ChangeIntervalCommand="{Binding ChangeIntervalCommand}"
+                            DismissCommand="{Binding HideChartCommand}"
+                            PricePoints="{Binding TokenPriceHistory}" />
+                        <FlexLayout
+                            Margin="0,-1,0,2"
+                            Wrap="Wrap"
+                            JustifyContent="Center"
+                            Direction="Row"
+                            AlignContent="Start"
+                            IsVisible="{Binding ShowChart, Converter={StaticResource InverseBooleanConverter}}"
+                            BindableLayout.ItemsSource="{Binding Tokens}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:TokenGridViewCell
+                                        Margin="1"
+                                        DisplayMode="{Binding DisplayMode, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                        Command="{Binding RemoveTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenStatusViewModel}}}"
+                                        Token="{Binding .}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                        <controls:TokenGridViewCell
+                            Command="{Binding AddTokenCommand}"
+                            x:Name="addTokenCell"
+                            IsVisible="{Binding DisplayMode, Converter={StaticResource DisplayModeToBooleanConverter}, ConverterParameter=DisplayMode.Edit}"
+                            HorizontalOptions="Center"
+                            Margin="0" />
+                    </StackLayout>
+                </ScrollView>
+                <controls:ConnectionStatusView
+                    RelativeLayout.XConstraint="{ConstraintExpression Property=X, Type=RelativeToParent}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Property=Height, Type=RelativeToParent, Constant=-40}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Property=Width, Type=RelativeToParent}"
+                    HeightRequest="30"
+                    Margin="15,0,15,0" />
+            </RelativeLayout>
         </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>
