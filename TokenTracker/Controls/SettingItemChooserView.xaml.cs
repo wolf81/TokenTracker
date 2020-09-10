@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Windows.Input;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace TokenTracker.Controls
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChooserCell : ViewCell
+    public partial class SettingItemChooserView : ContentView
     {
         private ChooserSettingItem Item => BindingContext as ChooserSettingItem;
 
-        public ChooserCell()
+        public SettingItemChooserView()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
-
-        #region Private
 
         private void Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -26,7 +21,5 @@ namespace TokenTracker.Controls
         {
             Item?.SelectedItemChanged(selectedIndex);
         }
-
-        #endregion
     }
 }

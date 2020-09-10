@@ -14,15 +14,15 @@
         <ResourceDictionary>
             <DataTemplate
                 x:Key="LabelTemplate">
-                <controls:LabelCell />
+                <controls:SettingItemLabelView />
             </DataTemplate>
             <DataTemplate
                 x:Key="SwitchTemplate">
-                <controls:SwitchCell />
+                <controls:SettingItemSwitchView />
             </DataTemplate>
             <DataTemplate
                 x:Key="ChooserTemplate">
-                <controls:ChooserCell />
+                <controls:SettingItemChooserView />
             </DataTemplate>
             <local:SettingTemplateSelector
                 x:Key="SettingTemplateSelector"
@@ -32,10 +32,10 @@
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>        
-        <ListView
+        <CollectionView
             ItemsSource="{Binding Items}"
             ItemTemplate="{StaticResource SettingTemplateSelector}"
             SelectionMode="None">
-        </ListView>
+        </CollectionView>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>
