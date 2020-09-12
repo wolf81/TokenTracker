@@ -110,7 +110,7 @@
                             Opacity="0.4" />
                         <Label
                             Text="{Binding ErrorMessage}"
-                            Opacity="0.5"
+                            Opacity="0.5"                            
                             HorizontalOptions="Center"
                             VerticalOptions="Center" />
                     </StackLayout>

@@ -35,8 +35,8 @@ namespace TokenTracker.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("priceUsd")]
-        public decimal PriceUSD { get; set; }
+        [JsonProperty("priceUsd", NullValueHandling = NullValueHandling.Ignore)]
+        public decimal PriceUSD { get; set; } = 0;
 
         [JsonProperty("changePercent24Hr", NullValueHandling = NullValueHandling.Ignore)]
         public decimal Change24 { get; set; } = 0;

@@ -32,15 +32,31 @@
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
-        <StackLayout
-            Orientation="Vertical"
-            Spacing="0">
-            <controls:AdView />
-            <CollectionView
-                SelectionMode="None"              
-                ItemsSource="{Binding Items}"
-                ItemTemplate="{StaticResource WalletTemplateSelector}">
-            </CollectionView>
-        </StackLayout>
+        <controls:KeyboardAdjustingGrid>
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="0">
+                <controls:AdView />
+                <CollectionView
+                    SelectionMode="None"
+                    ItemsSource="{Binding Items}"
+                    ItemTemplate="{StaticResource WalletTemplateSelector}">
+                    <CollectionView.Footer>
+                        <StackLayout>
+                            <ContentView
+                                HeightRequest="60"
+                                BackgroundColor="Transparent" />
+                        </StackLayout>
+                    </CollectionView.Footer>
+                </CollectionView>
+            </StackLayout>
+            <controls:ConnectionStatusView
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="End"
+                Margin="15"
+                HeightRequest="30" />
+        </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>
