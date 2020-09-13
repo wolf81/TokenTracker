@@ -55,8 +55,7 @@
             <controls:ConnectionStatusView
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
-                Margin="15"
-                HeightRequest="30" />
+                Margin="15" />
         </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

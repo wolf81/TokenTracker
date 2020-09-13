@@ -6,16 +6,30 @@
     HeightRequest="30"
     BackgroundColor="Transparent">
     <ContentView.Content>
-        <Frame
-            HasShadow="False"
-            CornerRadius="4"
+        <Grid
             HorizontalOptions="Center"
             WidthRequest="320"
+            HeightRequest="30"
             VerticalOptions="FillAndExpand"
-            BorderColor="{StaticResource PrimaryColorDark}"
             BackgroundColor="{StaticResource PrimaryColorLight}"
             Opacity="0.8">
-            <Grid
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Frame
+                x:Name="statusIcon"
+                Grid.Column="0"
+                BackgroundColor="LightGreen"
+                HeightRequest="30"
+                WidthRequest="30"
+                CornerRadius="15"
+                HasShadow="False"
+                BorderColor="Green"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+            <ContentView Grid.Column="1" BackgroundColor="Yellow" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            <!--<Grid
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -24,23 +38,13 @@
                     <ColumnDefinition
                         Width="*" />
                 </Grid.ColumnDefinitions>
-                <!--<Frame
-                    Grid.Column="0"
-                    BackgroundColor="LightGreen"
-                    HeightRequest="10"
-                    WidthRequest="10"
-                    CornerRadius="5"
-                    HasShadow="False"
-                    BorderColor="Green"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
                 <Label
                     Grid.Column="1"
                     Text="Hello"
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Start" />-->
-            </Grid>
-        </Frame>
+                    HorizontalTextAlignment="Start" />
+            </Grid>-->
+        </Grid>
     </ContentView.Content>
 </ContentView>
