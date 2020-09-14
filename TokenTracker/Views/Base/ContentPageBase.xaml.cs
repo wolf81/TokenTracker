@@ -15,10 +15,10 @@ namespace TokenTracker.Views.Base
             set { showConnectionStatusView = value; OnPropertyChanged(nameof(ShowConnectionStatusView)); }
         }
 
-        private Button rightNavigationButton;
-        public Button RightNavigationButton {
-            get => rightNavigationButton;
-            set { rightNavigationButton = value; OnPropertyChanged(nameof(rightNavigationButton)); }
+        private ToolbarItem rightNavigationItem;
+        public ToolbarItem RightNavigationItem {
+            get => rightNavigationItem;
+            set { rightNavigationItem = value; Update(); OnPropertyChanged(nameof(RightNavigationItem)); }
         }
 
         public ContentPageBase()
@@ -50,6 +50,23 @@ namespace TokenTracker.Views.Base
         private void TokenInfoService_ConnectionStateChanged(object sender, ConnectionState connectionState)
         {
             connectionStatusView.ConnectionState = connectionState;
+        }
+
+        private void Update()
+        {
+            rightButtonContainer.Children.Clear();
+
+            if (RightNavigationItem is ToolbarItem item)
+            {
+                var button = new Button { ImageSource = item.IconImageSource, Text = item.Text };
+                button.Clicked += Handle_RightNavigationButton_Clicked;
+                button.Style = (Style)Application.Current.Resources["navigationButtonStyle"];                
+                rightButtonContainer.Children.Add(button);
+            }
+        }
+
+        private void Handle_RightNavigationButton_Clicked(object sender, System.EventArgs e)
+        {
         }
 
         #endregion

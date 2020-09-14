@@ -69,26 +69,23 @@ namespace TokenTracker.Views
 
         private void UpdateModeToggleItem()
         {
-            return;
-
-            if (ToolbarItems.Contains(modeToggleItem))
+            if (RightNavigationItem != null)
             {
-                ToolbarItems.Remove(modeToggleItem);
-                modeToggleItem.Clicked -= Handle_ModeToggleItem_Clicked;
+                RightNavigationItem.Clicked -= Handle_ModeToggleItem_Clicked;
+                RightNavigationItem = null;
             }
 
             switch (ViewModel.DisplayMode)
             {
                 case DisplayMode.Edit:
-                    modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_checkmark_w.png") };
+                    RightNavigationItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_checkmark_w.png") };
                     break;
                 case DisplayMode.View:
-                    modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
+                    RightNavigationItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
                     break;
             }
 
-            ToolbarItems.Add(modeToggleItem);
-            modeToggleItem.Clicked += Handle_ModeToggleItem_Clicked;
+            RightNavigationItem.Clicked += Handle_ModeToggleItem_Clicked;
         }
 
         private async Task ConfigureTokenInfoServiceAsync()
