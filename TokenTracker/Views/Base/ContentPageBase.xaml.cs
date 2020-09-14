@@ -8,6 +8,12 @@ namespace TokenTracker.Views.Base
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
+        private bool showConnectionStatusView = false;
+        public bool ShowConnectionStatusView {
+            get => showConnectionStatusView;
+            set { showConnectionStatusView = value; OnPropertyChanged(nameof(ShowConnectionStatusView)); }
+        }
+
         public ContentPageBase()
         {
             InitializeComponent();
@@ -21,6 +27,24 @@ namespace TokenTracker.Views.Base
             {
                 TokenInfoService.StartTokenUpdates();
             }
+
+            TokenInfoService.ConnectionStateChanged += TokenInfoService_ConnectionStateChanged;
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            TokenInfoService.ConnectionStateChanged -= TokenInfoService_ConnectionStateChanged;
+        }
+
+        #region Private
+
+        private void TokenInfoService_ConnectionStateChanged(object sender, ConnectionState connectionState)
+        {
+            connectionStatusView.ConnectionState = connectionState;
+        }
+
+        #endregion
     }
 }

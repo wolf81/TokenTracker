@@ -4,5 +4,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Views.Base.ContentPageBase"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:controls="clr-namespace:TokenTracker.Controls"
+    x:Name="page"
     ios:Page.UseSafeArea="true">
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="1"
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                <controls:ConnectionStatusView
+                    x:Name="connectionStatusView"
+                    IsVisible="{Binding Source={Reference page}, Path=ShowConnectionStatusView}"
+                    VerticalOptions="Center" />
+                <Label
+                    Text="{Binding Title}"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    TextColor="White" />
+            </StackLayout>
+            <Button BackgroundColor="Transparent" Grid.Column="0" Text="Hi" HorizontalOptions="Start" />
+            <StackLayout Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End">
+                    <Button BackgroundColor="Transparent" Text="Hi Hi"   />
+            <Button BackgroundColor="Transparent" Text="Hi Hi"   />
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
 </ContentPage>

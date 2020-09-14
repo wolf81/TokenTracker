@@ -1,15 +1,29 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TokenTracker.Extensions;
+using TokenTracker.Services;
 using Xamarin.Forms;
 
 namespace TokenTracker.Controls
 {
     public partial class ConnectionStatusView : ContentView
     {
+        private Color fromColor;
+        private Color toColor;
+
+        public ConnectionState ConnectionState
+        {
+            get => (ConnectionState)GetValue(ConnectionStateProperty);
+            set => SetValue(ConnectionStateProperty, value);
+        } 
+
+        public static readonly BindableProperty ConnectionStateProperty = BindableProperty.Create(nameof(ConnectionState), typeof(ConnectionState), typeof(ConnectionStatusView), ConnectionState.Disconnected, propertyChanged: Handle_PropertyChanged);
+
         public ConnectionStatusView()
         {
             InitializeComponent();
+
+            Update();
         }
 
         protected override async void OnParentSet()
@@ -23,21 +37,46 @@ namespace TokenTracker.Controls
             }
             else
             {
-
+                statusIcon.CancelHslColorAnimation();
             }
         }
 
+        #region Private
 
-        async Task AnimationLoop()
+        private async Task AnimationLoop()
         {
             while (true)
             {
-                Action<Color> textCallback = color => statusIcon.BackgroundColor = color;
-                await Task.WhenAll(
-                    statusIcon.HslColorAnimation(Color.LightGreen, Color.Green, textCallback, 1200, Easing.CubicInOut));
-                await Task.WhenAll(
-                    statusIcon.HslColorAnimation(Color.Green, Color.LightGreen, textCallback, 1200, Easing.CubicInOut));
+                Action<Color> updateBackgroundColor = color => statusIcon.BackgroundColor = color;
+                await Task.WhenAll(statusIcon.HslColorAnimation(fromColor, toColor, updateBackgroundColor, 1200, Easing.CubicIn));
+                await Task.WhenAll(statusIcon.HslColorAnimation(toColor, fromColor, updateBackgroundColor, 1200, Easing.CubicOut));
             }
         }
+
+        private static void Handle_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as ConnectionStatusView).Update();
+        }
+
+        private void Update()
+        {
+            switch (ConnectionState)
+            {
+                case ConnectionState.Busy:
+                    fromColor = Color.Yellow;
+                    toColor = Color.Yellow.WithLuminosity(0.6);
+                    break;
+                case ConnectionState.Connected:
+                    fromColor = Color.Green;
+                    toColor = Color.Green.WithLuminosity(0.6);
+                    break;
+                case ConnectionState.Disconnected:
+                    fromColor = Color.Red;
+                    toColor = Color.Red;
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

@@ -3,48 +3,18 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TokenTracker.Controls.ConnectionStatusView"
-    HeightRequest="30"
+    HeightRequest="10"
+    WidthRequest="10"
     BackgroundColor="Transparent">
     <ContentView.Content>
-        <Grid
-            HorizontalOptions="Center"
-            WidthRequest="320"
-            HeightRequest="30"
+        <Frame
+            x:Name="statusIcon"
+            Grid.Column="0"
+            BackgroundColor="LightGreen"
+            HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
-            BackgroundColor="{StaticResource PrimaryColorLight}"
-            Opacity="0.8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Frame
-                x:Name="statusIcon"
-                Grid.Column="0"
-                BackgroundColor="LightGreen"
-                HeightRequest="30"
-                WidthRequest="30"
-                CornerRadius="15"
-                HasShadow="False"
-                BorderColor="Green"
-                HorizontalOptions="Center"
-                VerticalOptions="Center" />
-            <ContentView Grid.Column="1" BackgroundColor="Yellow" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
-            <!--<Grid
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="30" />
-                    <ColumnDefinition
-                        Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label
-                    Grid.Column="1"
-                    Text="Hello"
-                    VerticalOptions="Center"
-                    HorizontalOptions="FillAndExpand"
-                    HorizontalTextAlignment="Start" />
-            </Grid>-->
-        </Grid>
+            CornerRadius="5"
+            HasShadow="False"           
+            BorderColor="{StaticResource LightTextColor}" />
     </ContentView.Content>
 </ContentView>

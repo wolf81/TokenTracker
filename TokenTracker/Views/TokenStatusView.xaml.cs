@@ -21,12 +21,14 @@ namespace TokenTracker.Views
         private ToolbarItem modeToggleItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
 
         private TokenStatusViewModel ViewModel => BindingContext as TokenStatusViewModel;
-
+        
         public TokenStatusView()
         {
             InitializeComponent();
 
             addTokenCell.Token = Token.Dummy;
+
+            ShowConnectionStatusView = true;
         }
 
         protected override void OnDisappearing()
@@ -60,11 +62,15 @@ namespace TokenTracker.Views
 
         private void Handle_TokenInfoService_ConnectionStateChanged(object sender, ConnectionState state)
         {
-            Device.BeginInvokeOnMainThread(() => modeToggleItem.IsEnabled = state != ConnectionState.Busy);
+            Device.BeginInvokeOnMainThread(() => {
+                modeToggleItem.IsEnabled = state != ConnectionState.Busy;
+            });
         }
 
         private void UpdateModeToggleItem()
         {
+            return;
+
             if (ToolbarItems.Contains(modeToggleItem))
             {
                 ToolbarItems.Remove(modeToggleItem);

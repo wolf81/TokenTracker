@@ -52,10 +52,6 @@
                     </CollectionView.Footer>
                 </CollectionView>
             </StackLayout>
-            <controls:ConnectionStatusView
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="End"
-                Margin="15" />
         </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

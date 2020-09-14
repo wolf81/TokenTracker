@@ -59,10 +59,6 @@
                     <ContentView HeightRequest="60" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </ScrollView>
-            <controls:ConnectionStatusView
-                VerticalOptions="End"
-                HorizontalOptions="CenterAndExpand"
-                Margin="15" />
         </controls:KeyboardAdjustingGrid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

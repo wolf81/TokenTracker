@@ -43,12 +43,12 @@ namespace TokenTracker.Extensions
 			return ColorAnimation(view, "HslColorAnimation", transform, callback, length, easing);
 		}
 
-		public static void CancelRgbColorAnimation(VisualElement view)
+		public static void CancelRgbColorAnimation(this VisualElement view)
 		{
 			view.AbortAnimation("RgbColorAnimation");
 		}
 
-		public static void CancelHslColorAnimation(VisualElement view)
+		public static void CancelHslColorAnimation(this VisualElement view)
 		{
 			view.AbortAnimation("HslColorAnimation");
 		}

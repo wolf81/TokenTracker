@@ -20,6 +20,8 @@ namespace TokenTracker.Views
         public TokenWalletView()
         {
             InitializeComponent();
+
+            ShowConnectionStatusView = true;
         }
 
         protected override void OnDisappearing()
@@ -42,7 +44,9 @@ namespace TokenTracker.Views
 
         private void Handle_TokenInfoService_ConnectionStateChanged(object sender, ConnectionState state)
         {
-            Device.BeginInvokeOnMainThread(() => modeToggleItem.IsEnabled = state != ConnectionState.Busy);
+            Device.BeginInvokeOnMainThread(() => {
+                modeToggleItem.IsEnabled = state != ConnectionState.Busy;
+            });
         }
 
         private void Handle_ModeToggleItem_Clicked(object sender, EventArgs e)
@@ -56,6 +60,8 @@ namespace TokenTracker.Views
 
         private void UpdateModeToggleItem()
         {
+            return;
+
             if (ToolbarItems.Contains(modeToggleItem))
             {
                 ToolbarItems.Remove(modeToggleItem);
