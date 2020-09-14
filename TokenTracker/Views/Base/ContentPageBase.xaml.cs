@@ -1,4 +1,5 @@
-﻿using TokenTracker.Services;
+﻿using System.Collections.Generic;
+using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -12,6 +13,12 @@ namespace TokenTracker.Views.Base
         public bool ShowConnectionStatusView {
             get => showConnectionStatusView;
             set { showConnectionStatusView = value; OnPropertyChanged(nameof(ShowConnectionStatusView)); }
+        }
+
+        private Button rightNavigationButton;
+        public Button RightNavigationButton {
+            get => rightNavigationButton;
+            set { rightNavigationButton = value; OnPropertyChanged(nameof(rightNavigationButton)); }
         }
 
         public ContentPageBase()

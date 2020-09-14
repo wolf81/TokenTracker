@@ -7,14 +7,80 @@
     xmlns:controls="clr-namespace:TokenTracker.Controls"
     x:Name="page"
     ios:Page.UseSafeArea="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                TargetType="Button"
+                x:Key="navigationButtonStyle">
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource LightTextColor}" />
+                <Setter
+                    Property="FontFamily"
+                    Value="Nunito" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="Transparent" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup
+                            x:Name="CommonStates">
+                            <VisualState
+                                x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="Transparent" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource LightTextColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState
+                                x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="Transparent" />
+                                    <Setter
+                                        Property="TextColor"
+                                        Value="{StaticResource LightTextColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style
+                TargetType="Label"
+                x:Key="titleLabelStyle">
+                <Setter
+                    Property="TextColor"
+                    Value="{StaticResource LightTextColor}" />
+                <Setter
+                    Property="FontFamily"
+                    Value="Nunito-Bold" />
+                <Setter
+                    Property="FontSize"
+                    Value="Medium" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="*" />
             </Grid.ColumnDefinitions>
-            <StackLayout Grid.Column="1"
+            <StackLayout
+                Grid.Column="1"
                 Orientation="Horizontal"
                 HorizontalOptions="CenterAndExpand">
                 <controls:ConnectionStatusView
@@ -22,16 +88,20 @@
                     IsVisible="{Binding Source={Reference page}, Path=ShowConnectionStatusView}"
                     VerticalOptions="Center" />
                 <Label
-                    Text="{Binding Title}"
-                    FontAttributes="Bold"
-                    VerticalOptions="Center"
-                    TextColor="White" />
+                    Style="{StaticResource titleLabelStyle}"
+                    Text="{Binding Title}" />
             </StackLayout>
-            <Button BackgroundColor="Transparent" Grid.Column="0" Text="Hi" HorizontalOptions="Start" />
-            <StackLayout Orientation="Horizontal" Grid.Column="2" HorizontalOptions="End">
-                    <Button BackgroundColor="Transparent" Text="Hi Hi"   />
-            <Button BackgroundColor="Transparent" Text="Hi Hi"   />
-            </StackLayout>
+            <Button
+                HorizontalOptions="Start"
+                Style="{StaticResource navigationButtonStyle}"
+                Grid.Column="0"
+                IsVisible="False"
+                Text="Button 1" />
+            <Button
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Style="{StaticResource navigationButtonStyle}"
+                Text="Button 2" />
         </Grid>
     </NavigationPage.TitleView>
 </ContentPage>
