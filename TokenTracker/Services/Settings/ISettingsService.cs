@@ -11,6 +11,8 @@ namespace TokenTracker.Services
 
         bool IsFirstRun { get; set; }
 
+        string Currency { get; set; }
+
         SortOrder SortOrder { get; set; }
     }
 }

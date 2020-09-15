@@ -12,11 +12,13 @@ namespace TokenTracker.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
             ViewModel.Update();
+
+            await ViewModel.UpdateRatesAsync();
         }
     }
 }

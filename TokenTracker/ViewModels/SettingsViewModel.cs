@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
@@ -16,7 +17,7 @@ namespace TokenTracker.ViewModels
         private readonly ChooserSettingItem currencyItem = new ChooserSettingItem
         {
             Title = "Currency",
-            Items = new List<string> { "USD", "EUR", "BTC" },
+            Items = new List<string> { },
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_currency_b.png"),
         };
 
@@ -65,6 +66,9 @@ namespace TokenTracker.ViewModels
 
             Items = new List<SettingItemBase> { currencyItem, themeItem, sortByItem, suspendSleepItem, removeAdsItem, clearCacheItem };
 
+            currencyItem.Items = new List<string> { Settings.Currency };
+            currencyItem.SelectedItemIndex = 0;
+
             currencyItem.SelectedItemChanged = OnCurrencyChanged;
             sortByItem.SelectedItemChanged = OnSortByChanged;
             themeItem.SelectedItemChanged = OnThemeChanged;
@@ -76,7 +80,26 @@ namespace TokenTracker.ViewModels
             var sortItemName = Settings.SortOrder.ToString("g");
             sortByItem.SelectedItemIndex = sortByItem.Items.IndexOf(sortItemName);
             suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;
-        }        
+        }
+
+        public async Task UpdateRatesAsync()
+        {
+            var tokenInfoService = ViewModelLocator.Resolve<ITokenInfoService>();
+
+            currencyItem.IsBusy = true;
+
+            var rates = await tokenInfoService.GetRatesAsync();
+            var cache = ViewModelLocator.Resolve<ITokenCache>();
+            await cache.UpdateRatesAsync(rates);
+
+            var symbols = rates.Select(t => t.Symbol).ToList();
+            currencyItem.Items = symbols;
+
+            var symbolIdx = symbols.FindIndex((s) => s == Settings.Currency);
+            currencyItem.SelectedItemIndex = Math.Max(symbolIdx, 0);
+
+            currencyItem.IsBusy = false;
+        }
 
         #region Private
 
@@ -87,7 +110,13 @@ namespace TokenTracker.ViewModels
 
         private void OnCurrencyChanged(int selectedIndex)
         {
-            
+            if (selectedIndex == -1) { return; }
+
+            if (currencyItem.Items.Count() > 0 && selectedIndex < currencyItem.Items.Count())
+            {
+                var currencySymbol = currencyItem.Items[selectedIndex];
+                Settings.Currency = currencySymbol;
+            }
         }
 
         private void OnThemeChanged(int selectedIndex)

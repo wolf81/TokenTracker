@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using TokenTracker.Models;
+using System.Linq;
 
 namespace TokenTracker.Services
 {
@@ -139,7 +140,9 @@ namespace TokenTracker.Services
                 Console.WriteLine($"{response.StatusCode} {result}");
             }
 
-            return result;
+            var rates = result.Where((t) => t.Type == "fiat" || t.Symbol == "BTC").OrderBy((t) => t.Symbol);
+            
+            return rates;
         }
 
         #endregion

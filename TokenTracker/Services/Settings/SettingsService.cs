@@ -14,6 +14,7 @@ namespace TokenTracker.Services
             public const string UseMocks = "use_mocks";
             public const string IsFirstRun = "is_first_run";
             public const string SortOrder = "sort_order";
+            public const string Currency = "currency";
         }
 
         public bool UseMocks
@@ -28,6 +29,12 @@ namespace TokenTracker.Services
             set => AddOrUpdateValue(Keys.IsFirstRun, value);
         }
 
+        public string Currency
+        {
+            get => GetValueOrDefault(Keys.Currency, "USD");
+            set => AddOrUpdateValue(Keys.Currency, value);
+        }
+
         public SortOrder SortOrder
         {
             get => (SortOrder)GetValueOrDefault(Keys.SortOrder, (int)SortOrder.Rank);
@@ -40,8 +47,10 @@ namespace TokenTracker.Services
 
         #region Private
 
+        private Task AddOrUpdateValue(string key, string value) => AddOrUpdateValueInternal(key, value);
         private Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
         private Task AddOrUpdateValue(string key, int value) => AddOrUpdateValueInternal(key, value);
+        private string GetValueOrDefault(string key, string defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
         private bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
         private int GetValueOrDefault(string key, int defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
 

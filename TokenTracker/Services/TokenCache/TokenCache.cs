@@ -80,10 +80,10 @@ namespace TokenTracker.Services
             return await database.Table<Token>().Where((t) => t.Id == id).FirstOrDefaultAsync();            
         }
 
-        public async Task AddRatesAsync(IEnumerable<Rate> rates)
+        public async Task UpdateRatesAsync(IEnumerable<Rate> rates)
         {
             await database.DeleteAllAsync<Rate>();
-            await database.InsertAllAsync(rates);
+            await database.InsertAllAsync(rates);            
         }
 
         public async Task<Rate> GetRateAsync(string id)

@@ -2,7 +2,13 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:TokenTracker.Converters"
     x:Class="TokenTracker.Controls.SettingItemChooserView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
         <StackLayout
             Spacing="0"
@@ -30,6 +36,7 @@
                     VerticalOptions="Center"
                     x:Name="picker"
                     WidthRequest="120"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"
                     ItemsSource="{Binding Items}"
                     HorizontalOptions="End"
                     SelectedIndexChanged="Picker_SelectedIndexChanged"
