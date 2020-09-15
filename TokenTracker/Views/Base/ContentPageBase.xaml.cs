@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
@@ -15,8 +16,8 @@ namespace TokenTracker.Views.Base
             set { showConnectionStatusView = value; OnPropertyChanged(nameof(ShowConnectionStatusView)); }
         }
 
-        private ToolbarItem rightNavigationItem;
-        public ToolbarItem RightNavigationItem {
+        private NavigationMenuItem rightNavigationItem;
+        public NavigationMenuItem RightNavigationItem {
             get => rightNavigationItem;
             set { rightNavigationItem = value; Update(); OnPropertyChanged(nameof(RightNavigationItem)); }
         }
@@ -34,6 +35,8 @@ namespace TokenTracker.Views.Base
             {
                 TokenInfoService.StartTokenUpdates();
             }
+
+            connectionStatusView.ConnectionState = TokenInfoService.State;
 
             TokenInfoService.ConnectionStateChanged += TokenInfoService_ConnectionStateChanged;
         }
@@ -54,19 +57,28 @@ namespace TokenTracker.Views.Base
 
         private void Update()
         {
+            foreach (var child in rightButtonContainer.Children)
+            {
+                if (child is Button button)
+                {
+                    button.Clicked -= Handle_RightNavigationButton_Clicked;
+                }
+            }
+
             rightButtonContainer.Children.Clear();
 
-            if (RightNavigationItem is ToolbarItem item)
+            if (RightNavigationItem is NavigationMenuItem item)
             {
-                var button = new Button { ImageSource = item.IconImageSource, Text = item.Text };
-                button.Clicked += Handle_RightNavigationButton_Clicked;
-                button.Style = (Style)Application.Current.Resources["navigationButtonStyle"];                
+                var button = new Button { ImageSource = item.IconImageSource, Text = item.Text };                
+                button.Clicked += Handle_RightNavigationButton_Clicked;                
+                button.Style = (Style)Application.Current.Resources["navigationButtonStyle"];
                 rightButtonContainer.Children.Add(button);
             }
         }
 
-        private void Handle_RightNavigationButton_Clicked(object sender, System.EventArgs e)
+        private void Handle_RightNavigationButton_Clicked(object sender, EventArgs e)
         {
+            RightNavigationItem.Click();
         }
 
         #endregion

@@ -11,6 +11,8 @@ namespace TokenTracker.Services
 {
     public class CoinCapTokenInfoService : ITokenInfoService
     {
+        private static void Log(string message) { Console.WriteLine($"[WS] {message}"); }
+
         private const string API_ENDPOINT = "https://api.coincap.io/v2";
         private const string WS_ENDPOINT = "wss://ws.coincap.io";
 
@@ -20,11 +22,11 @@ namespace TokenTracker.Services
 
         public event EventHandler<ConnectionState> ConnectionStateChanged;
 
-        public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
-
         public bool IsConfigured => webSocket != null;
 
         #region ITokenInfoService
+
+        public ConnectionState State { get; private set; } = ConnectionState.Disconnected;
 
         public void StartTokenUpdates()
         {            
@@ -115,7 +117,10 @@ namespace TokenTracker.Services
             var query = string.Join(',', tokenIds);
             if (query.Length > 0)
             {
-                webSocket = new WebSocket($"{WS_ENDPOINT}/prices?assets={query}");
+                webSocket = new WebSocket($"{WS_ENDPOINT}/prices?assets={query}")
+                {
+                    WaitTime = TimeSpan.FromMilliseconds(3_000),                    
+                };
                 webSocket.OnMessage += Handle_WebSocket_OnMessage;
                 webSocket.OnOpen += Handle_WebSocket_OnOpen;
                 webSocket.OnClose += Handle_WebSocket_OnClose;
@@ -160,7 +165,7 @@ namespace TokenTracker.Services
             return result;
         }
 
-        private HttpClient CreateHttpClient()
+        private static HttpClient CreateHttpClient()
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -169,29 +174,33 @@ namespace TokenTracker.Services
 
         private void Handle_WebSocket_OnMessage(object sender, MessageEventArgs e)
         {
-            Console.WriteLine($"[WS] message: {e.Data}");
+            Log($"message: {e.Data}");
 
             var tokenPriceInfo = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(e.Data);            
             OnTokensUpdated(tokenPriceInfo);
         }
 
-        private void Handle_WebSocket_OnOpen(object sender, EventArgs e)
+        private async void Handle_WebSocket_OnOpen(object sender, EventArgs e)
         {
-            Console.WriteLine("[WS] open");
+            Log("open");
 
             OnConnectionStateChanged(ConnectionState.Connected);
+
+            await MonitorConnectionAsync();
         }
 
-        private void Handle_WebSocket_OnClose(object sender, CloseEventArgs e)
+        private async void Handle_WebSocket_OnClose(object sender, CloseEventArgs e)
         {
-            Console.WriteLine("[WS] close");
+            Log("close");
 
             OnConnectionStateChanged(ConnectionState.Disconnected);
+
+            await TryReconnectAsync();
         }
 
         private void Handle_WebSocket_OnError(object sender, ErrorEventArgs e)
         {
-            Console.WriteLine($"[WS] error {e?.Message}");
+            Log($"error: {e?.Message}");
         }
 
         private void OnConnectionStateChanged(ConnectionState state)
@@ -236,6 +245,41 @@ namespace TokenTracker.Services
 
             [JsonProperty("timestamp")]
             public long Timestamp { get; set; }
+        }
+
+        private async Task MonitorConnectionAsync()
+        {
+            while (true)
+            {
+                if (!webSocket.IsAlive) {
+                    if (webSocket.ReadyState != WebSocketState.Closed)
+                    {
+                        Log("closing ...");
+                        webSocket.Close();
+                    }
+
+                    break;
+                }
+
+                await Task.Delay(3_000);
+            }
+        }
+
+        private async Task TryReconnectAsync()
+        {
+            await Task.Delay(5_000);
+
+            while (true)
+            {
+                if (webSocket != null && webSocket.IsAlive) {
+                    Log("connected");
+                    break;
+                }
+
+                StartTokenUpdates();
+
+                await Task.Delay(3_000);
+            }
         }
 
         #endregion

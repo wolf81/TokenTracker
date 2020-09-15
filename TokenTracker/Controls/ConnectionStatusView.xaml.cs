@@ -33,7 +33,6 @@ namespace TokenTracker.Controls
             if (Parent != null)
             {
                 await AnimationLoop();
-                //statusIcon.ColorTo
             }
             else
             {
@@ -64,7 +63,7 @@ namespace TokenTracker.Controls
             {
                 case ConnectionState.Busy:
                     fromColor = Color.Yellow;
-                    toColor = Color.Yellow.WithLuminosity(0.6);
+                    toColor = Color.Yellow.WithLuminosity(0.3);
                     break;
                 case ConnectionState.Connected:
                     fromColor = Color.Green;

@@ -20,102 +20,164 @@
         </ResourceDictionary>
     </base:ContentPageBase.Resources>
     <base:ContentPageBase.Content>
-        <controls:KeyboardAdjustingGrid>
-            <StackLayout>
-                <SearchBar
-                    x:Name="searchBar"
-                    Placeholder="Enter name or symbol"
-                    IsSpellCheckEnabled="False"
-                    TextChanged="Handle_SearchBar_TextChanged"
-                    SearchCommand="{Binding SearchTokenCommand}"
-                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
-                <Grid
-                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Finished}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
-                    <ListView
-                        IsVisible="{Binding HasResults}"
-                        BackgroundColor="Transparent"
-                        SelectionMode="None"
-                        ItemsSource="{Binding Tokens}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <controls:TokenListViewCell
-                                    Token="{Binding .}"
-                                    Command="{Binding AddTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenSearchViewModel}}}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.Footer>
-                            <ContentView />
-                        </ListView.Footer>
-                    </ListView>
-                    <Grid
-                        IsVisible="{Binding HasResults, Converter={StaticResource InverseBooleanConverter}}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                        <StackLayout
-                            VerticalOptions="Center"
-                            Orientation="Vertical"
-                            Margin="10">
-                            <Image
-                                Source="{local:ImageResource TokenTracker.Resources.ic_info_b.png}"
-                                Opacity="0.4" />
-                            <Label
-                                Text="No results"
-                                Opacity="0.5"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                        </StackLayout>
-                    </Grid>
-                </Grid>
-                <Grid
-                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Loading}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
+        <Grid
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <SearchBar
+                Grid.Row="0"
+                x:Name="searchBar"
+                Placeholder="Enter name or symbol"
+                IsSpellCheckEnabled="False"
+                TextChanged="Handle_SearchBar_TextChanged"
+                SearchCommand="{Binding SearchTokenCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+            <!-- Results -->
+            <ListView
+                Grid.Row="1"
+                IsVisible="{Binding HasResults}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                BackgroundColor="Transparent"
+                SelectionMode="None"
+                ItemsSource="{Binding Tokens}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TokenListViewCell
+                            Token="{Binding .}"
+                            Command="{Binding AddTokenCommand, Source={RelativeSource AncestorType={x:Type viewModels:TokenSearchViewModel}}}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ContentView />
+                </ListView.Footer>
+                <ListView.Triggers>
+                    <MultiTrigger
+                        TargetType="ListView">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition
+                                Binding="{Binding HasResults}"
+                                Value="True" />
+                            <BindingCondition
+                                Binding="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Finished}"
+                                Value="True" />
+                        </MultiTrigger.Conditions>
+                        <Setter
+                            Property="IsVisible"
+                            Value="True" />
+                    </MultiTrigger>
+                </ListView.Triggers>
+            </ListView>
+            <!-- No results -->
+            <controls:KeyboardAdjustingGrid
+                Grid.Row="1"
+                IsVisible="False"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <StackLayout
+                    VerticalOptions="Center"
+                    Orientation="Vertical"
+                    Margin="10">
+                    <Image
+                        WidthRequest="50"
+                        Aspect="AspectFit"
+                        Source="{local:ImageResource TokenTracker.Resources.ic_info_b.png}"
+                        Opacity="0.4" />
+                    <Label
+                        Text="No results"
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <Grid.Triggers>
+                    <MultiTrigger
+                        TargetType="Grid">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition
+                                Binding="{Binding HasResults}"
+                                Value="False" />
+                            <BindingCondition
+                                Binding="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Finished}"
+                                Value="True" />
+                        </MultiTrigger.Conditions>
+                        <Setter
+                            Property="IsVisible"
+                            Value="True" />
+                    </MultiTrigger>
+                </Grid.Triggers>
+            </controls:KeyboardAdjustingGrid>
+            <!-- Loading busy -->
+            <controls:KeyboardAdjustingGrid
+                Grid.Row="1"
+                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Loading}"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <StackLayout
+                    VerticalOptions="Center"
+                    Orientation="Vertical"
+                    Margin="10">
                     <ActivityIndicator
+                        WidthRequest="50"
+                        HeightRequest="50"
                         BackgroundColor="Transparent"
                         IsVisible="{Binding IsBusy}"
                         IsRunning="{Binding IsBusy}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center" />
-                </Grid>
-                <Grid
-                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.None}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
-                    <StackLayout
-                        VerticalOptions="Center"
-                        Orientation="Vertical"
-                        Margin="10">
-                        <Image
-                            Source="{local:ImageResource TokenTracker.Resources.ic_info_b.png}"
-                            Opacity="0.4" />
-                        <Label
-                            Text="Start typing to begin search ..."
-                            Opacity="0.5"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-                    </StackLayout>
-                </Grid>
-                <Grid
-                    IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Failed}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand">
-                    <StackLayout
-                        VerticalOptions="Center"
-                        Orientation="Vertical"
-                        Margin="10">
-                        <Image
-                            Source="{local:ImageResource TokenTracker.Resources.ic_warning_b.png}"
-                            Opacity="0.4" />
-                        <Label
-                            Text="{Binding ErrorMessage}"
-                            Opacity="0.5"                            
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-                    </StackLayout>
-                </Grid>
-            </StackLayout>
-        </controls:KeyboardAdjustingGrid>
+                    <Label
+                        Text="Searching ..."
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </controls:KeyboardAdjustingGrid>
+            <!-- Enter query -->
+            <controls:KeyboardAdjustingGrid
+                Grid.Row="1"
+                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.None}"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <StackLayout
+                    VerticalOptions="Center"
+                    Orientation="Vertical"
+                    Margin="10">
+                    <Image
+                        WidthRequest="50"
+                        Aspect="AspectFit"
+                        Source="{local:ImageResource TokenTracker.Resources.ic_info_b.png}"
+                        Opacity="0.4" />
+                    <Label
+                        Text="Start typing to begin search ..."
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </controls:KeyboardAdjustingGrid>
+            <!-- Loading failed -->
+            <controls:KeyboardAdjustingGrid
+                Grid.Row="1"
+                IsVisible="{Binding LoadingState, Converter={StaticResource LoadingStateToBooleanConverter}, ConverterParameter=LoadingState.Failed}"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <StackLayout
+                    VerticalOptions="Center"
+                    Orientation="Vertical"
+                    Margin="10">
+                    <Image
+                        WidthRequest="50"
+                        Aspect="AspectFit"
+                        Source="{local:ImageResource TokenTracker.Resources.ic_warning_b.png}"
+                        Opacity="0.4" />
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        Opacity="0.5"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </controls:KeyboardAdjustingGrid>
+        </Grid>
     </base:ContentPageBase.Content>
 </base:ContentPageBase>

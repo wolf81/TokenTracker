@@ -64,6 +64,7 @@ namespace TokenTracker.ViewModels
             
             IsBusy = true;
 
+            Tokens = new ObservableCollection<Token> { };
             LoadingState = LoadingState.Loading;
 
             try

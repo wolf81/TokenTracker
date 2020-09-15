@@ -6,6 +6,8 @@ namespace TokenTracker.Controls
     {
         public KeyboardAdjustingGrid()
         {
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            VerticalOptions = LayoutOptions.FillAndExpand;
         }
     }
 }

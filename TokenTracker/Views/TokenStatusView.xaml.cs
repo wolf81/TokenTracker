@@ -78,10 +78,10 @@ namespace TokenTracker.Views
             switch (ViewModel.DisplayMode)
             {
                 case DisplayMode.Edit:
-                    RightNavigationItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_checkmark_w.png") };
+                    RightNavigationItem = new NavigationMenuItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_checkmark_w.png") };
                     break;
                 case DisplayMode.View:
-                    RightNavigationItem = new ToolbarItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
+                    RightNavigationItem = new NavigationMenuItem { IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_edit_w.png") };
                     break;
             }
 

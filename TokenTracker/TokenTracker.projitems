@@ -194,6 +194,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ConnectionStatusView.xaml.cs">
       <DependentUpon>ConnectionStatusView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NavigationMenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

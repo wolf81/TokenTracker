@@ -174,7 +174,14 @@ namespace TokenTracker.ViewModels
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
             {
                 var tokenIdx = Tokens.IndexOf(matchedToken);
-                Device.BeginInvokeOnMainThread(() => Tokens[tokenIdx] = token);
+                if (tokenIdx > 0)
+                {
+                    Device.BeginInvokeOnMainThread(() => Tokens[tokenIdx] = token);
+                }
+                else
+                {
+                    Console.WriteLine($"token update failed, did not find token: {token.Id}");
+                }
             }
         }
 
