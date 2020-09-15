@@ -40,9 +40,7 @@ namespace TokenTracker.Services
 
         public Task RemoveLastFromBackStackAsync()
         {
-            var mainPage = Application.Current.MainPage as CustomNavigationView;
-
-            if (mainPage != null)
+            if (Application.Current.MainPage is CustomNavigationView mainPage)
             {
                 mainPage.Navigation.RemovePage(
                     mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2]);
@@ -83,6 +81,8 @@ namespace TokenTracker.Services
 
                 var settingsView = CreatePage(typeof(SettingsView));
                 tabbedView.Children.Add(new CustomNavigationView(settingsView));
+
+                tabbedView.CurrentPage = null;
             }
 
             return Application.Current.MainPage as TabbedView;

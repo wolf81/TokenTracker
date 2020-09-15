@@ -75,8 +75,8 @@ namespace TokenTracker.ViewModels
         {
             var sortItemName = Settings.SortOrder.ToString("g");
             sortByItem.SelectedItemIndex = sortByItem.Items.IndexOf(sortItemName);
-            suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;            
-        }
+            suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;
+        }        
 
         #region Private
 

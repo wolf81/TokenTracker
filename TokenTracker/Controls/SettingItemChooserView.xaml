@@ -21,6 +21,11 @@
                     VerticalTextAlignment="Center"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand" />
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End" />
                 <Picker
                     VerticalOptions="Center"
                     x:Name="picker"

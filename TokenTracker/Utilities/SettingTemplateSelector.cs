@@ -1,30 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using TokenTracker.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace TokenTracker
 {
-    public abstract class SettingItemBase
+    public abstract class SettingItemBase : ExtendedBindableObject
     {
-        public ImageSource IconImageSource { get; set; }
+        private string title;
+        public string Title
+        {
+            get => title;
+            set => SetProperty(ref title, value);
+        }
 
-        public string Title { get; set; }
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
+        }
 
-        public string Description { get; set; }        
+        private ImageSource iconImageSource;
+        public ImageSource IconImageSource
+        {
+            get => iconImageSource;
+            set => SetProperty(ref iconImageSource, value);
+        }
+
+        private string description;
+        public string Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
+        }
     }
 
     public class ChooserSettingItem : SettingItemBase
     {
-        public int SelectedItemIndex { get; set; } = 0;
+        private int selectedItemIndex = 0;
+        public int SelectedItemIndex
+        {
+            get => selectedItemIndex;
+            set => SetProperty(ref selectedItemIndex, value);
+        }
 
-        public List<string> Items { get; set; } = new List<string> { };
+        private List<string> items = new List<string> { };
+        public List<string> Items
+        {
+            get => items;
+            set => SetProperty(ref items, value);
+        }
 
         public Action<int> SelectedItemChanged;
     }
 
     public class SwitchSettingItem : SettingItemBase
     {
-        public bool IsSelected { get; set; } = false;
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get => isSelected;
+            set => SetProperty(ref isSelected, value);
+        } 
 
         public Action<bool> SelectionChanged;
     }

@@ -46,7 +46,7 @@ namespace TokenTracker.Views.Base
             base.OnDisappearing();
 
             TokenInfoService.ConnectionStateChanged -= TokenInfoService_ConnectionStateChanged;
-        }
+        }        
 
         #region Private
 
