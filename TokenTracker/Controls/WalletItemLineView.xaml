@@ -47,7 +47,7 @@
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Grid.Column="1"
-                Text="{Binding TotalPrice, StringFormat='{0:0.00}'}"
+                Text="{Binding Value}"
                 HorizontalOptions="End"
                 VerticalOptions="CenterAndExpand"
                 VerticalTextAlignment="Center"

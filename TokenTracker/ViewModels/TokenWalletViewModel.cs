@@ -46,6 +46,8 @@ namespace TokenTracker.ViewModels
                 new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56), CurrencySymbol = currencySymbol },
             });
 
+            totalItem.CurrencySymbol = currencySymbol;
+
             TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
 
             Update();
@@ -74,12 +76,15 @@ namespace TokenTracker.ViewModels
                 }
             }
 
-            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice };
+            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
+            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = currencySymbol };
             Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }
 
         private void Update()
         {
+            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
+
             if (DisplayMode == DisplayMode.Edit)
             {
                 var lastIdx = Items.Count - 1;
@@ -99,9 +104,9 @@ namespace TokenTracker.ViewModels
                 {
                     items.Remove(addItem);
                 }
-
+                
                 var totalPrice = Items.Sum((t) => t.Amount * t.Price);
-                totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice };
+                totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = currencySymbol };
 
                 var lastIdx = Items.Count - 1;
                 if (Items[lastIdx] is WalletViewTotalItem)

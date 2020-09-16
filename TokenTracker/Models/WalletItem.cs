@@ -47,7 +47,17 @@ namespace TokenTracker.Models
 
     public class WalletViewTotalItem : WalletItemBase
     {
-        protected override void Update() { }
+        private string value;
+        public string Value
+        {
+            get => value;
+            private set { SetProperty(ref this.value, value); }
+        }
+
+        protected override void Update()
+        {
+            Value = $"{Price:0.00} {CurrencySymbol}";
+        }
     }
 
     public class WalletViewTokenItem : WalletItemBase
@@ -66,10 +76,18 @@ namespace TokenTracker.Models
             private set { SetProperty(ref description, value); }
         }
 
+        private string value;
+        public string Value
+        {
+            get => value;
+            private set { SetProperty(ref this.value, value); }
+        }
+
         protected override void Update()
         {
             TotalPrice = Amount * Price;
             Description = $"{Amount} × {Price:0.00} {CurrencySymbol}";
+            Value = $"{TotalPrice:0.00} {CurrencySymbol}";
         }
     }
 }

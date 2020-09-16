@@ -39,7 +39,7 @@
             <Label
                 Grid.Row="1"
                 Grid.Column="1"
-                Text="{Binding Price, StringFormat='{0:0.00}'}"
+                Text="{Binding Value}"
                 FontSize="Medium"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
