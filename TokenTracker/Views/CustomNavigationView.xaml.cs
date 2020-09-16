@@ -1,9 +1,8 @@
-﻿using TokenTracker.Utilities;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace TokenTracker.Views
 {
-    public partial class CustomNavigationView : NavigationPage, ITabbedViewAppearanceAware
+    public partial class CustomNavigationView : NavigationPage
     {
         public CustomNavigationView()
         {
@@ -17,17 +16,5 @@ namespace TokenTracker.Views
             Title = root.Title;
             IconImageSource = root.IconImageSource;
         }
-
-        #region ITabbedViewAppearanceAware
-
-        public void TabSelected()
-        {
-            if (CurrentPage is ITabbedViewAppearanceAware tabbedViewAppearanceAware)
-            {
-                tabbedViewAppearanceAware.TabSelected();
-            }
-        }
-
-        #endregion
     }
 }

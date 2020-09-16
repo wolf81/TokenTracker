@@ -79,6 +79,17 @@ namespace TokenTracker.ViewModels
             TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
         }
 
+        public async Task ConfigureTokenInfoServiceAsync()
+        {
+            if (TokenInfoService.IsConfigured) { return; }
+
+            var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
+            var tokenIds = tokens.Select((t) => t.Id);
+            TokenInfoService.Configure(tokenIds);
+
+            TokenInfoService.StartTokenUpdates();
+        }
+
         public async Task RefreshTokensAsync()
         {
             var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
