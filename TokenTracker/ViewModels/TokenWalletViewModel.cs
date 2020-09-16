@@ -37,11 +37,13 @@ namespace TokenTracker.ViewModels
         {
             Title = "Wallet";
 
+            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
+
             Items = new ObservableCollection<WalletItemBase>(new List<WalletItemBase> {
-                new WalletViewTokenItem { Symbol = "BTC", Amount = 1, Price = new decimal(4556.45) },
-                new WalletViewTokenItem { Symbol = "ETH", Amount = 3, Price = new decimal(1334.555535) },
-                new WalletViewTokenItem { Symbol = "VET", Amount = 15, Price = new decimal(0.4234) },
-                new WalletViewTokenItem { Symbol = "OMG", Amount = 300, Price = new decimal(6.56) },
+                new WalletViewTokenItem { TokenSymbol = "BTC", Amount = 1, Price = new decimal(4556.45), CurrencySymbol = currencySymbol },
+                new WalletViewTokenItem { TokenSymbol = "ETH", Amount = 3, Price = new decimal(1334.555535), CurrencySymbol = currencySymbol },
+                new WalletViewTokenItem { TokenSymbol = "VET", Amount = 15, Price = new decimal(0.4234), CurrencySymbol = currencySymbol },
+                new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56), CurrencySymbol = currencySymbol },
             });
 
             TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
@@ -56,7 +58,7 @@ namespace TokenTracker.ViewModels
             if (DisplayMode == DisplayMode.Edit) { return; }
 
             // enumerate over a copy, to prevent crashes if the collection would change
-            if (Items.ToList().FirstOrDefault((t) => t.Symbol == token.Symbol) is WalletItemBase walletItem)
+            if (Items.ToList().FirstOrDefault((t) => t.TokenSymbol == token.Symbol) is WalletItemBase walletItem)
             {
                 var tokenIdx = Items.IndexOf(walletItem);
                 walletItem.Price = token.PriceUSD;

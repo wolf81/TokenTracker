@@ -1,28 +1,75 @@
 ﻿using SQLite;
+using TokenTracker.ViewModels.Base;
 
 namespace TokenTracker.Models
 {
-    public abstract class WalletItemBase
+    public abstract class WalletItemBase : ExtendedBindableObject
     {
         [PrimaryKey]
         [AutoIncrement]
         public int Id { get; set; }
 
-        public string Symbol { get; set; }
+        private string tokenSymbol;
+        public string TokenSymbol
+        {
+            get => tokenSymbol;
+            set { SetProperty(ref tokenSymbol, value); Update(); }
+        }
 
-        public int Amount { get; set; }
+        private string currencySymbol;
+        public string CurrencySymbol
+        {
+            get => currencySymbol;
+            set { SetProperty(ref currencySymbol, value); Update(); }
+        }
 
-        public decimal Price { get; set; }
+        private int amount;
+        public int Amount
+        {
+            get => amount;
+            set { SetProperty(ref amount, value); Update(); }
+        }
+
+        private decimal price;
+        public decimal Price
+        {
+            get => price;
+            set { SetProperty(ref price, value); Update(); }
+        }
+
+        protected abstract void Update();
     }
 
-    public class WalletAddTokenItem : WalletItemBase { }
+    public class WalletAddTokenItem : WalletItemBase
+    {
+        protected override void Update() { }
+    }
 
-    public class WalletViewTotalItem : WalletItemBase { }
+    public class WalletViewTotalItem : WalletItemBase
+    {
+        protected override void Update() { }
+    }
 
     public class WalletViewTokenItem : WalletItemBase
     {
-        public decimal TotalPrice => Amount * Price;
+        private decimal totalPrice;
+        public decimal TotalPrice
+        {
+            get => totalPrice;
+            set => SetProperty(ref totalPrice, value);
+        } 
 
-        public string Description => $"{Amount} × {Price:0.00}";
+        private string description;
+        public string Description
+        {
+            get => description;
+            private set { SetProperty(ref description, value); }
+        }
+
+        protected override void Update()
+        {
+            TotalPrice = Amount * Price;
+            Description = $"{Amount} × {Price:0.00} {CurrencySymbol}";
+        }
     }
 }
