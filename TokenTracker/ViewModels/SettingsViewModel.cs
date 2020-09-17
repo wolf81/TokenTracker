@@ -16,7 +16,7 @@ namespace TokenTracker.ViewModels
 
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
-        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+        private ICache Cache => ViewModelLocator.Resolve<ICache>();
 
         private readonly ChooserSettingItem currencyItem = new ChooserSettingItem
         {
@@ -89,7 +89,7 @@ namespace TokenTracker.ViewModels
             suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;
 
             var rates = await TokenInfoService.GetRatesAsync();
-            await TokenCache.UpdateRatesAsync(rates);
+            await Cache.UpdateRatesAsync(rates);
 
             var symbols = rates.Select(t => new KeyValuePair<string, string>(t.Id, t.Symbol)).ToList();
             currencyItem.Items = symbols;

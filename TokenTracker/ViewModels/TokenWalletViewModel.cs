@@ -12,7 +12,7 @@ namespace TokenTracker.ViewModels
 {
     public class TokenWalletViewModel : ViewModelBase, IDisposable
     {
-        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+        private ICache Cache => ViewModelLocator.Resolve<ICache>();
 
         private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
 
@@ -52,7 +52,7 @@ namespace TokenTracker.ViewModels
             });
 
             SettingsService.CurrencyIdChanged += Handle_SettingsService_CurrencyIdChanged;
-            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
+            Cache.TokenUpdated += Handle_Cache_TokenUpdated;
 
             Task.Run(async () => await UpdateAsync());
         }
@@ -60,14 +60,14 @@ namespace TokenTracker.ViewModels
         public void Dispose()
         {
             SettingsService.CurrencyIdChanged -= Handle_SettingsService_CurrencyIdChanged;
-            TokenCache.TokenUpdated -= Handle_TokenCache_TokenUpdated;
+            Cache.TokenUpdated -= Handle_Cache_TokenUpdated;
         }
 
         #region Private
 
         private async void Handle_SettingsService_CurrencyIdChanged(object sender, string currencyId)
         {
-            var rate = await TokenCache.GetRateAsync(currencyId);
+            var rate = await Cache.GetRateAsync(currencyId);
             multiplyFactor = decimal.Divide(1, rate.RateUSD);
 
             foreach (var item in Items)
@@ -77,7 +77,7 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private async void Handle_TokenCache_TokenUpdated(object sender, Token token)
+        private async void Handle_Cache_TokenUpdated(object sender, Token token)
         {
             if (DisplayMode == DisplayMode.Edit) { return; }
 
@@ -98,7 +98,7 @@ namespace TokenTracker.ViewModels
                 }
             }
 
-            var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
+            var rate = await Cache.GetRateAsync(SettingsService.CurrencyId) ?? Rate.Default();
             var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol};
             Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }
@@ -125,7 +125,7 @@ namespace TokenTracker.ViewModels
                     items.Remove(addItem);
                 }
 
-                var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
+                var rate = await Cache.GetRateAsync(SettingsService.CurrencyId);
                 foreach (var item in Items)
                 {
                     item.CurrencySymbol = rate.Symbol;

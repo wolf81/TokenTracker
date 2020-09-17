@@ -9,7 +9,7 @@ namespace TokenTracker
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
         private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
-        private ITokenCache TokenCache  => ViewModelLocator.Resolve<ITokenCache>();
+        private ICache Cache => ViewModelLocator.Resolve<ICache>();
 
         public App()
         {
@@ -22,7 +22,7 @@ namespace TokenTracker
         {
             if (SettingsService.IsFirstRun == true)
             {
-                TokenCache.Configure();
+                Cache.Configure();
                 SettingsService.IsFirstRun = false;
             }
 

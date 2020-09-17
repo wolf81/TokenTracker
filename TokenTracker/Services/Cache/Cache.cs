@@ -8,7 +8,7 @@ using TokenTracker.Models;
 
 namespace TokenTracker.Services
 {
-    public class TokenCache : ITokenCache
+    public class Cache : ICache
     {
         public event EventHandler<Token> TokenAdded;
 
@@ -20,7 +20,7 @@ namespace TokenTracker.Services
 
         private static readonly string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "cache.db");
 
-        public TokenCache()
+        public Cache()
         {
             Console.WriteLine($"Cache path: {filepath}");
 
@@ -110,6 +110,9 @@ namespace TokenTracker.Services
                 new Token { Id = "ripple", Symbol = "XRP", Change24 = 0, PriceUSD = 0, Rank = 3 },
             };
             database.InsertAllAsync(tokens).Wait();
+
+            database.DeleteAllAsync<Rate>().Wait();
+            database.InsertAsync(Rate.Default()).Wait();
         }
 
         #region Private

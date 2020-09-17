@@ -136,8 +136,8 @@
       <DependentUpon>TokenListViewCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Message\IMessageService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\ITokenCache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\TokenCache\TokenCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Cache\ICache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Cache\Cache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DisplayMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DisplayModeToBooleanConverter.cs" />
@@ -212,7 +212,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Message\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Services\TokenCache\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Cache\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Base\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\Base\" />

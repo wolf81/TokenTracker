@@ -10,7 +10,8 @@ namespace TokenTracker.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TokenListViewCell : ViewCell
     {
-        public Token Token {
+        public Token Token
+        {
             get => (Token)GetValue(TokenProperty);
             set => SetValue(TokenProperty, value);
         }
@@ -38,7 +39,7 @@ namespace TokenTracker.Controls
 
             if (newValue is Token token)
             {
-                var cache = ViewModelLocator.Resolve<ITokenCache>();
+                var cache = ViewModelLocator.Resolve<ICache>();
                 isCached = await cache.GetTokenAsync(token.Id) != null;
             }
 

@@ -19,7 +19,7 @@ namespace TokenTracker.ViewModels
 
         private IMessageService MessageService => DependencyService.Get<IMessageService>();
 
-        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+        private ICache Cache => ViewModelLocator.Resolve<ICache>();
 
         public ICommand ReloadCommand => new Command(async () => await RefreshTokensAsync());
 
@@ -74,16 +74,16 @@ namespace TokenTracker.ViewModels
 
             SettingsService.SortOrderChanged += Handle_SettingsService_SortOrderChanged;
             TokenInfoService.TokensUpdated += Handle_TokenInfoService_TokensUpdated;
-            TokenCache.TokenAdded += Handle_TokenCache_TokenAdded;
-            TokenCache.TokenRemoved += Handle_TokenCache_TokenRemoved;
-            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
+            Cache.TokenAdded += Handle_Cache_TokenAdded;
+            Cache.TokenRemoved += Handle_Cache_TokenRemoved;
+            Cache.TokenUpdated += Handle_Cache_TokenUpdated;
         }
 
         public async Task ConfigureTokenInfoServiceAsync()
         {
             if (TokenInfoService.IsConfigured) { return; }
 
-            var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
+            var tokens = await Cache.GetTokensAsync(SettingsService.SortOrder);
             var tokenIds = tokens.Select((t) => t.Id);
             TokenInfoService.Configure(tokenIds);
 
@@ -92,7 +92,7 @@ namespace TokenTracker.ViewModels
 
         public async Task RefreshTokensAsync()
         {
-            var tokens = await TokenCache.GetTokensAsync(SettingsService.SortOrder);
+            var tokens = await Cache.GetTokensAsync(SettingsService.SortOrder);
             Tokens = new ObservableCollection<Token>(tokens);
         }
 
@@ -133,7 +133,7 @@ namespace TokenTracker.ViewModels
                     ShowChart = !ShowChart;
                     break;
                 case DisplayMode.Edit:
-                    await TokenCache.RemoveTokenAsync(token);
+                    await Cache.RemoveTokenAsync(token);
                     break;
             }
         }
@@ -149,15 +149,15 @@ namespace TokenTracker.ViewModels
 
             foreach (var kv in tokenPriceInfo)
             {
-                if (await TokenCache.GetTokenAsync(kv.Key) is Token token)
+                if (await Cache.GetTokenAsync(kv.Key) is Token token)
                 {
                     token.PriceUSD = kv.Value;
-                    await TokenCache.UpdateTokenAsync(token);
+                    await Cache.UpdateTokenAsync(token);
                 }
             }
         }
 
-        private void Handle_TokenCache_TokenRemoved(object sender, Token token)
+        private void Handle_Cache_TokenRemoved(object sender, Token token)
         {
             // enumerate over a copy, to prevent crashes if the collection would change
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) is Token matchedToken)
@@ -167,7 +167,7 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private void Handle_TokenCache_TokenAdded(object sender, Token token)
+        private void Handle_Cache_TokenAdded(object sender, Token token)
         {
             // enumerate over a copy, to prevent crashes if the collection would change
             if (Tokens.ToList().FirstOrDefault((t) => t.Id == token.Id) == null)
@@ -177,7 +177,7 @@ namespace TokenTracker.ViewModels
             }
         }
 
-        private void Handle_TokenCache_TokenUpdated(object sender, Token token)
+        private void Handle_Cache_TokenUpdated(object sender, Token token)
         {
             if (DisplayMode == DisplayMode.Edit) { return; }
 

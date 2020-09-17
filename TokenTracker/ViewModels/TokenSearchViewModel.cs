@@ -14,7 +14,7 @@ namespace TokenTracker.ViewModels
     {
         private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
-        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+        private ICache Cache => ViewModelLocator.Resolve<ICache>();
 
         public ICommand SearchTokenCommand => new Command<string>(async (q) => await SearchTokenAsync(q));
 
@@ -90,13 +90,13 @@ namespace TokenTracker.ViewModels
     
         private async Task AddTokenAsync(Token token)
         {
-            if (await TokenCache.GetTokenAsync(token.Id) == null)
+            if (await Cache.GetTokenAsync(token.Id) == null)
             {
-                await TokenCache.AddTokenAsync(token);
+                await Cache.AddTokenAsync(token);
             }
             else
             {
-                await TokenCache.RemoveTokenAsync(token);
+                await Cache.RemoveTokenAsync(token);
             }
         }
 

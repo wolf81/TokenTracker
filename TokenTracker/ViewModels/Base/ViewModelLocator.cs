@@ -38,7 +38,7 @@ namespace TokenTracker.ViewModels.Base
             _container.Register<INavigationService, NavigationService>();
             _container.Register<ISettingsService, SettingsService>();
             _container.Register<ITokenInfoService, CoinCapTokenInfoService>();
-            _container.Register<ITokenCache, TokenCache>();
+            _container.Register<ICache, Cache>();
         }
 
         public static void UpdateDependencies(bool useMockServices)

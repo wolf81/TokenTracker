@@ -5,7 +5,7 @@ using TokenTracker.Models;
 
 namespace TokenTracker.Services
 {
-    public interface ITokenCache
+    public interface ICache
     {
         event EventHandler<Token> TokenAdded;
 
