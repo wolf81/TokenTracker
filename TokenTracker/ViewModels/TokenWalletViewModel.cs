@@ -16,12 +16,15 @@ namespace TokenTracker.ViewModels
 
         private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
 
+        private decimal multiplyFactor = new decimal(1.0);
+
         private readonly WalletAddTokenItem addItem = new WalletAddTokenItem { };
 
         private WalletViewTotalItem totalItem = new WalletViewTotalItem { };
 
         private ObservableCollection<WalletItemBase> items = new ObservableCollection<WalletItemBase> { };
-        public ObservableCollection<WalletItemBase> Items {
+        public ObservableCollection<WalletItemBase> Items
+        {
             get => items;
             set => SetProperty(ref items, value);
         }
@@ -65,10 +68,12 @@ namespace TokenTracker.ViewModels
         private async void Handle_SettingsService_CurrencyIdChanged(object sender, string currencyId)
         {
             var rate = await TokenCache.GetRateAsync(currencyId);
+            multiplyFactor = decimal.Divide(1, rate.RateUSD);
 
             foreach (var item in Items)
             {
                 item.CurrencySymbol = rate.Symbol;
+                item.MultiplyFactor = multiplyFactor;
             }
         }
 
@@ -94,7 +99,7 @@ namespace TokenTracker.ViewModels
             }
 
             var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
-            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol };
+            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol};
             Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }
 
@@ -121,6 +126,10 @@ namespace TokenTracker.ViewModels
                 }
 
                 var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
+                foreach (var item in Items)
+                {
+                    item.CurrencySymbol = rate.Symbol;
+                }
 
                 var totalPrice = Items.Sum((t) => t.Amount * t.Price);
                 totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol };

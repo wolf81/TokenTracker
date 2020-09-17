@@ -23,6 +23,13 @@ namespace TokenTracker.Models
             set { SetProperty(ref currencySymbol, value); Update(); }
         }
 
+        private decimal multiplyFactor = new decimal(1.0);
+        public decimal MultiplyFactor
+        {
+            get => multiplyFactor;
+            set { SetProperty(ref multiplyFactor, value); Update(); }
+        }
+
         private int amount;
         public int Amount
         {
@@ -85,8 +92,9 @@ namespace TokenTracker.Models
 
         protected override void Update()
         {
-            TotalPrice = Amount * Price;
-            Description = $"{Amount} × {Price:0.00} {CurrencySymbol}";
+            var price = decimal.Multiply(Price, MultiplyFactor);
+            TotalPrice = Amount * price;
+            Description = $"{Amount} × {price:0.00} {CurrencySymbol}";
             Value = $"{TotalPrice:0.00} {CurrencySymbol}";
         }
     }
