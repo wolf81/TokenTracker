@@ -28,5 +28,7 @@ namespace TokenTracker.Services
         Task<Rate> GetRateAsync(string id);        
 
         void Configure();
+
+        Task ResetAsync();
     }
 }

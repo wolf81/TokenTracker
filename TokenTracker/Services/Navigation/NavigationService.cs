@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
+using TokenTracker.Utilities;
 using TokenTracker.ViewModels;
 using TokenTracker.ViewModels.Base;
 using TokenTracker.Views;
@@ -71,6 +72,7 @@ namespace TokenTracker.Services
             if (Application.Current.MainPage == null)
             {
                 var tabbedView = new TabbedView();
+                tabbedView.CurrentPageChanged += Handle_TabbedView_CurrentPageChanged;
                 Application.Current.MainPage = tabbedView;
 
                 var statusView = CreatePage(typeof(TokenStatusView));
@@ -84,6 +86,26 @@ namespace TokenTracker.Services
             }
 
             return Application.Current.MainPage as TabbedView;
+        }
+
+        private void Handle_TabbedView_CurrentPageChanged(object sender, EventArgs e)
+        {
+            var tabbedView = GetTabbedView();
+
+            foreach (var page in tabbedView.Children)
+            {
+                if (page is ITabbedViewAppearanceAware tabbedViewAppearanceAware)
+                {
+                    if (page == tabbedView.CurrentPage)
+                    {
+                        tabbedViewAppearanceAware.OnTabShown();
+                    }
+                    else
+                    {
+                        tabbedViewAppearanceAware.OnTabHidden();
+                    }
+                }
+            }
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, Dictionary<string, object> parameter)

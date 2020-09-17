@@ -7,11 +7,13 @@ namespace TokenTracker.Services
     {
         event EventHandler<SortOrder> SortOrderChanged;
 
+        event EventHandler<string> CurrencyIdChanged;
+
         bool UseMocks { get; set; }
 
         bool IsFirstRun { get; set; }
 
-        string Currency { get; set; }
+        string CurrencyId { get; set; }
 
         SortOrder SortOrder { get; set; }
     }

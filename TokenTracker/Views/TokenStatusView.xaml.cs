@@ -1,12 +1,13 @@
 ﻿using System;
 using TokenTracker.Models;
+using TokenTracker.Utilities;
 using TokenTracker.ViewModels;
 using TokenTracker.Views.Base;
 using Xamarin.Forms;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenStatusView : ContentPageBase
+    public partial class TokenStatusView : ContentPageBase, ITabbedViewAppearanceAware
     {
         private TokenStatusViewModel ViewModel => BindingContext as TokenStatusViewModel;
         
@@ -19,14 +20,18 @@ namespace TokenTracker.Views
             ShowConnectionStatusView = true;
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
+        #region ITabbedViewAppearanceAware
 
+        public async void OnTabShown()
+        {
             await ViewModel.ConfigureTokenInfoServiceAsync();
 
             UpdateModeToggleItem();
         }
+
+        public void OnTabHidden() { }
+
+        #endregion
 
         #region Private
 

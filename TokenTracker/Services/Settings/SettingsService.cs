@@ -9,12 +9,14 @@ namespace TokenTracker.Services
     {
         public event EventHandler<SortOrder> SortOrderChanged;
 
+        public event EventHandler<string> CurrencyIdChanged;
+
         private struct Keys
         {
             public const string UseMocks = "use_mocks";
             public const string IsFirstRun = "is_first_run";
             public const string SortOrder = "sort_order";
-            public const string Currency = "currency";
+            public const string CurrencyId = "currency_id";
         }
 
         public bool UseMocks
@@ -29,10 +31,14 @@ namespace TokenTracker.Services
             set => AddOrUpdateValue(Keys.IsFirstRun, value);
         }
 
-        public string Currency
+        public string CurrencyId
         {
-            get => GetValueOrDefault(Keys.Currency, "USD");
-            set => AddOrUpdateValue(Keys.Currency, value);
+            get => GetValueOrDefault(Keys.CurrencyId, Rate.DEFAULT_RATE_ID);
+            set
+            {
+                AddOrUpdateValue(Keys.CurrencyId, value);
+                OnCurrencyIdChanged(value);
+            }
         }
 
         public SortOrder SortOrder
@@ -101,6 +107,11 @@ namespace TokenTracker.Services
         private void OnSortOrderChanged(SortOrder sortOrder)
         {
             SortOrderChanged?.Invoke(this, sortOrder);
+        }
+
+        private void OnCurrencyIdChanged(string currencySymbol)
+        {
+            CurrencyIdChanged?.Invoke(this, currencySymbol);
         }
 
         #endregion

@@ -92,6 +92,14 @@ namespace TokenTracker.Services
             return rate;
         }
 
+        public async Task ResetAsync()
+        {
+            await database.DeleteAllAsync<Rate>();
+            await database.DeleteAllAsync<Token>();
+
+            await database.InsertAsync(Rate.Default());            
+        }
+
         public void Configure()
         {
             database.DeleteAllAsync<Token>().Wait();

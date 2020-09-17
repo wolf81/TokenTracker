@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using TokenTracker.Models;
 using TokenTracker.Services;
 using TokenTracker.ViewModels.Base;
@@ -11,6 +12,8 @@ namespace TokenTracker.ViewModels
     public class TokenWalletViewModel : ViewModelBase
     {
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+
+        private ISettingsService SettingsService => ViewModelLocator.Resolve<ISettingsService>();
 
         private readonly WalletAddTokenItem addItem = new WalletAddTokenItem { };
 
@@ -29,7 +32,7 @@ namespace TokenTracker.ViewModels
             set
             {
                 SetProperty(ref displayMode, value);
-                Update();
+                Task.Run(async () => await UpdateAsync());                
             }
         }
 
@@ -37,25 +40,34 @@ namespace TokenTracker.ViewModels
         {
             Title = "Wallet";
 
-            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
-
             Items = new ObservableCollection<WalletItemBase>(new List<WalletItemBase> {
-                new WalletViewTokenItem { TokenSymbol = "BTC", Amount = 1, Price = new decimal(4556.45), CurrencySymbol = currencySymbol },
-                new WalletViewTokenItem { TokenSymbol = "ETH", Amount = 3, Price = new decimal(1334.555535), CurrencySymbol = currencySymbol },
-                new WalletViewTokenItem { TokenSymbol = "VET", Amount = 15, Price = new decimal(0.4234), CurrencySymbol = currencySymbol },
-                new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56), CurrencySymbol = currencySymbol },
+                new WalletViewTokenItem { TokenSymbol = "BTC", Amount = 1, Price = new decimal(4556.45), CurrencySymbol = SettingsService.CurrencyId },
+                new WalletViewTokenItem { TokenSymbol = "ETH", Amount = 3, Price = new decimal(1334.555535), CurrencySymbol = SettingsService.CurrencyId },
+                new WalletViewTokenItem { TokenSymbol = "VET", Amount = 15, Price = new decimal(0.4234), CurrencySymbol = SettingsService.CurrencyId },
+                new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56), CurrencySymbol = SettingsService.CurrencyId },
             });
 
-            totalItem.CurrencySymbol = currencySymbol;
+            totalItem.CurrencySymbol = SettingsService.CurrencyId;
 
             TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
+            SettingsService.CurrencyIdChanged += Handle_SettingsService_CurrencyIdChanged;
 
-            Update();
+            Task.Run(async () => await UpdateAsync());
+        }
+
+        private async void Handle_SettingsService_CurrencyIdChanged(object sender, string currencyId)
+        {
+            var rate = await TokenCache.GetRateAsync(currencyId);
+            
+            foreach (var item in Items)
+            {
+                item.CurrencySymbol = rate.Symbol;
+            }
         }
 
         #region Private
 
-        private void Handle_TokenCache_TokenUpdated(object sender, Token token)
+        private async void Handle_TokenCache_TokenUpdated(object sender, Token token)
         {
             if (DisplayMode == DisplayMode.Edit) { return; }
 
@@ -76,15 +88,13 @@ namespace TokenTracker.ViewModels
                 }
             }
 
-            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
-            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = currencySymbol };
+            var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
+            var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol };
             Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }
 
-        private void Update()
+        private async Task UpdateAsync()
         {
-            var currencySymbol = ViewModelLocator.Resolve<ISettingsService>().Currency;
-
             if (DisplayMode == DisplayMode.Edit)
             {
                 var lastIdx = Items.Count - 1;
@@ -104,9 +114,11 @@ namespace TokenTracker.ViewModels
                 {
                     items.Remove(addItem);
                 }
-                
+
+                var rate = await TokenCache.GetRateAsync(SettingsService.CurrencyId);
+
                 var totalPrice = Items.Sum((t) => t.Amount * t.Price);
-                totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = currencySymbol };
+                totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol };
 
                 var lastIdx = Items.Count - 1;
                 if (Items[lastIdx] is WalletViewTotalItem)

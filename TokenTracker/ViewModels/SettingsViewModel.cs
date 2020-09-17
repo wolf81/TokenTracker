@@ -66,12 +66,12 @@ namespace TokenTracker.ViewModels
 
             Items = new List<SettingItemBase> { currencyItem, themeItem, sortByItem, suspendSleepItem, removeAdsItem, clearCacheItem };
 
-            currencyItem.Items = new List<string> { Settings.Currency };
+            currencyItem.Items = new List<string> { Settings.CurrencyId };
             currencyItem.SelectedItemIndex = 0;
 
             currencyItem.SelectedItemChanged = OnCurrencyChanged;
             sortByItem.SelectedItemChanged = OnSortByChanged;
-            themeItem.SelectedItemChanged = OnThemeChanged;
+            themeItem.SelectedItemChanged = OnThemeChanged;            
             suspendSleepItem.SelectionChanged = OnSuspendSleepChanged;
         }
 
@@ -92,10 +92,10 @@ namespace TokenTracker.ViewModels
             var cache = ViewModelLocator.Resolve<ITokenCache>();
             await cache.UpdateRatesAsync(rates);
 
-            var symbols = rates.Select(t => t.Symbol).ToList();
+            var symbols = rates.Select(t => t.Id).ToList();
             currencyItem.Items = symbols;
 
-            var symbolIdx = symbols.FindIndex((s) => s == Settings.Currency);
+            var symbolIdx = symbols.FindIndex((s) => s == Settings.CurrencyId);
             currencyItem.SelectedItemIndex = Math.Max(symbolIdx, 0);
 
             currencyItem.IsBusy = false;
@@ -115,7 +115,7 @@ namespace TokenTracker.ViewModels
             if (currencyItem.Items.Count() > 0 && selectedIndex < currencyItem.Items.Count())
             {
                 var currencySymbol = currencyItem.Items[selectedIndex];
-                Settings.Currency = currencySymbol;
+                Settings.CurrencyId = currencySymbol;
             }
         }
 

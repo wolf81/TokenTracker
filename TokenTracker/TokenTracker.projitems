@@ -195,6 +195,7 @@
       <DependentUpon>ConnectionStatusView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\NavigationMenuItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ITabbedViewAppearanceAware.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />

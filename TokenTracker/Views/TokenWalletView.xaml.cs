@@ -1,12 +1,13 @@
 ﻿using System;
 using TokenTracker.Models;
+using TokenTracker.Utilities;
 using TokenTracker.ViewModels;
 using TokenTracker.Views.Base;
 using Xamarin.Forms;
 
 namespace TokenTracker.Views
 {
-    public partial class TokenWalletView : ContentPageBase
+    public partial class TokenWalletView : ContentPageBase, ITabbedViewAppearanceAware
     {
         private TokenWalletViewModel ViewModel => BindingContext as TokenWalletViewModel;
 
@@ -17,17 +18,16 @@ namespace TokenTracker.Views
             ShowConnectionStatusView = true;
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
+        #region ITabbedViewAppearanceAware
 
-        protected override void OnAppearing()
+        public void OnTabShown()
         {
-            base.OnAppearing();
-
             UpdateModeToggleItem();
         }
+
+        public void OnTabHidden() { }
+
+        #endregion
 
         #region Private
 

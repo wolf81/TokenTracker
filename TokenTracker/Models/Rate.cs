@@ -1,9 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SQLite;
 
 namespace TokenTracker.Models
-{    
+{
     /*
     {
       "id": "barbadian-dollar",
@@ -16,6 +15,8 @@ namespace TokenTracker.Models
 
     public class Rate
     {
+        public const string DEFAULT_RATE_ID = "united-states-dollar";
+
         [PrimaryKey]
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -31,5 +32,17 @@ namespace TokenTracker.Models
 
         [JsonProperty("type")]
         public string Type { get; set; }
+
+        public static Rate Default()
+        {
+            return new Rate
+            {
+                Id = DEFAULT_RATE_ID,
+                Symbol = "USD",
+                CurrencySymbol = "$",
+                RateUSD = new decimal(1.0),
+                Type = "fiat",
+            };
+        }
     }
 }
