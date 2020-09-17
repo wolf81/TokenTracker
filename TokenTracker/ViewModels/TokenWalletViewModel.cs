@@ -70,10 +70,23 @@ namespace TokenTracker.ViewModels
             var rate = await Cache.GetRateAsync(currencyId);
             multiplyFactor = decimal.Divide(1, rate.RateUSD);
 
+            var totalPrice = new decimal(0);
             foreach (var item in Items)
             {
                 item.CurrencySymbol = rate.Symbol;
                 item.MultiplyFactor = multiplyFactor;
+
+                if (item is WalletViewTokenItem tokenItem)
+                {
+                    totalPrice += tokenItem.TotalPrice;
+                }
+            }
+
+            var lastIdx = Items.Count - 1;
+            if (Items[lastIdx] is WalletViewTotalItem)
+            {
+                var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol };
+                Device.BeginInvokeOnMainThread(() => Items[lastIdx] = totalItem);
             }
         }
 
