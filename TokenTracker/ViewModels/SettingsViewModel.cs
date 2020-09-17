@@ -14,24 +14,28 @@ namespace TokenTracker.ViewModels
     {
         private ISettingsService Settings => ViewModelLocator.Resolve<ISettingsService>();
 
+        private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
+
+        private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
+
         private readonly ChooserSettingItem currencyItem = new ChooserSettingItem
         {
             Title = "Currency",
-            Items = new List<string> { },
+            Items = new List<KeyValuePair<string, string>> { },
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_currency_b.png"),
         };
 
         private readonly ChooserSettingItem themeItem = new ChooserSettingItem
         {
-            Title = "Theme",
-            Items = new List<string> { "Light", "Dark", "Novel" },
+            Title = "Theme",            
+            Items = Enum.GetNames(typeof(Theme)).Select((t) => new KeyValuePair<string, string>(t, t)).ToList(),
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_theme_b.png"),
         };
 
         private readonly ChooserSettingItem sortByItem = new ChooserSettingItem
         {
             Title = "Sort By",
-            Items = Enum.GetNames(typeof(SortOrder)).ToList(),
+            Items = Enum.GetNames(typeof(SortOrder)).Select((s) => new KeyValuePair<string, string>(s, s)).ToList(),
             IconImageSource = ImageSource.FromResource("TokenTracker.Resources.ic_sort_b.png"),
         };
 
@@ -66,36 +70,31 @@ namespace TokenTracker.ViewModels
 
             Items = new List<SettingItemBase> { currencyItem, themeItem, sortByItem, suspendSleepItem, removeAdsItem, clearCacheItem };
 
-            currencyItem.Items = new List<string> { Settings.CurrencyId };
-            currencyItem.SelectedItemIndex = 0;
-
             currencyItem.SelectedItemChanged = OnCurrencyChanged;
             sortByItem.SelectedItemChanged = OnSortByChanged;
             themeItem.SelectedItemChanged = OnThemeChanged;            
             suspendSleepItem.SelectionChanged = OnSuspendSleepChanged;
         }
 
-        public void Update()
+        public async Task UpdateAsync()
         {
-            var sortItemName = Settings.SortOrder.ToString("g");
-            sortByItem.SelectedItemIndex = sortByItem.Items.IndexOf(sortItemName);
-            suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;
-        }
-
-        public async Task UpdateRatesAsync()
-        {
-            var tokenInfoService = ViewModelLocator.Resolve<ITokenInfoService>();
-
             currencyItem.IsBusy = true;
 
-            var rates = await tokenInfoService.GetRatesAsync();
-            var cache = ViewModelLocator.Resolve<ITokenCache>();
-            await cache.UpdateRatesAsync(rates);
+            var theme = Settings.Theme.ToString("g");
+            themeItem.SelectedItemIndex = themeItem.Items.FindIndex((t) => t.Key == theme);
 
-            var symbols = rates.Select(t => t.Id).ToList();
+            var sortOrder = Settings.SortOrder.ToString("g");
+            sortByItem.SelectedItemIndex = sortByItem.Items.FindIndex((s) => s.Key == sortOrder);
+
+            suspendSleepItem.IsSelected = DeviceDisplay.KeepScreenOn;
+
+            var rates = await TokenInfoService.GetRatesAsync();
+            await TokenCache.UpdateRatesAsync(rates);
+
+            var symbols = rates.Select(t => new KeyValuePair<string, string>(t.Id, t.Symbol)).ToList();
             currencyItem.Items = symbols;
 
-            var symbolIdx = symbols.FindIndex((s) => s == Settings.CurrencyId);
+            var symbolIdx = symbols.FindIndex((s) => s.Key == Settings.CurrencyId);
             currencyItem.SelectedItemIndex = Math.Max(symbolIdx, 0);
 
             currencyItem.IsBusy = false;
@@ -103,25 +102,19 @@ namespace TokenTracker.ViewModels
 
         #region Private
 
-        private void OnSortByChanged(int selectedIndex)
+        private void OnCurrencyChanged(KeyValuePair<string, string> item)
         {
-            Settings.SortOrder = selectedIndex == 0 ? SortOrder.Alphabet : SortOrder.Rank;
+            Settings.CurrencyId = item.Key;
         }
 
-        private void OnCurrencyChanged(int selectedIndex)
-        {
-            if (selectedIndex == -1) { return; }
-
-            if (currencyItem.Items.Count() > 0 && selectedIndex < currencyItem.Items.Count())
-            {
-                var currencySymbol = currencyItem.Items[selectedIndex];
-                Settings.CurrencyId = currencySymbol;
-            }
+        private void OnSortByChanged(KeyValuePair<string, string> item)
+        {            
+            Settings.SortOrder = (SortOrder)Enum.Parse(typeof(SortOrder), item.Key);
         }
 
-        private void OnThemeChanged(int selectedIndex)
+        private void OnThemeChanged(KeyValuePair<string, string> item)
         {
-            
+            Settings.Theme = (Theme)Enum.Parse(typeof(Theme), item.Key);
         }
 
         private void OnSuspendSleepChanged(bool isSuspendSleepEnabled)

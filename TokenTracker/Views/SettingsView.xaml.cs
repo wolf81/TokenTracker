@@ -23,9 +23,7 @@ namespace TokenTracker.Views
         {
             TokenInfoService.StopTokenUpdates();
 
-            ViewModel.Update();
-
-            await ViewModel.UpdateRatesAsync();
+            await ViewModel.UpdateAsync();
         }
 
         public void OnTabHidden()

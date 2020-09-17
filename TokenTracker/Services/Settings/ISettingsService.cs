@@ -7,6 +7,8 @@ namespace TokenTracker.Services
     {
         event EventHandler<SortOrder> SortOrderChanged;
 
+        event EventHandler<Theme> ThemeChanged;
+
         event EventHandler<string> CurrencyIdChanged;
 
         bool UseMocks { get; set; }
@@ -16,5 +18,7 @@ namespace TokenTracker.Services
         string CurrencyId { get; set; }
 
         SortOrder SortOrder { get; set; }
+
+        Theme Theme { get; set; }
     }
 }

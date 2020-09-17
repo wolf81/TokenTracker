@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using Xamarin.Forms;
 
 namespace TokenTracker.ViewModels
 {
-    public class TokenWalletViewModel : ViewModelBase
+    public class TokenWalletViewModel : ViewModelBase, IDisposable
     {
         private ITokenCache TokenCache => ViewModelLocator.Resolve<ITokenCache>();
 
@@ -41,31 +42,35 @@ namespace TokenTracker.ViewModels
             Title = "Wallet";
 
             Items = new ObservableCollection<WalletItemBase>(new List<WalletItemBase> {
-                new WalletViewTokenItem { TokenSymbol = "BTC", Amount = 1, Price = new decimal(4556.45), CurrencySymbol = SettingsService.CurrencyId },
-                new WalletViewTokenItem { TokenSymbol = "ETH", Amount = 3, Price = new decimal(1334.555535), CurrencySymbol = SettingsService.CurrencyId },
-                new WalletViewTokenItem { TokenSymbol = "VET", Amount = 15, Price = new decimal(0.4234), CurrencySymbol = SettingsService.CurrencyId },
-                new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56), CurrencySymbol = SettingsService.CurrencyId },
+                new WalletViewTokenItem { TokenSymbol = "BTC", Amount = 1, Price = new decimal(4556.45) },
+                new WalletViewTokenItem { TokenSymbol = "ETH", Amount = 3, Price = new decimal(1334.555535) },
+                new WalletViewTokenItem { TokenSymbol = "VET", Amount = 15, Price = new decimal(0.4234) },
+                new WalletViewTokenItem { TokenSymbol = "OMG", Amount = 300, Price = new decimal(6.56) },
             });
 
-            totalItem.CurrencySymbol = SettingsService.CurrencyId;
-
-            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
             SettingsService.CurrencyIdChanged += Handle_SettingsService_CurrencyIdChanged;
+            TokenCache.TokenUpdated += Handle_TokenCache_TokenUpdated;
 
             Task.Run(async () => await UpdateAsync());
         }
 
+        public void Dispose()
+        {
+            SettingsService.CurrencyIdChanged -= Handle_SettingsService_CurrencyIdChanged;
+            TokenCache.TokenUpdated -= Handle_TokenCache_TokenUpdated;
+        }
+
+        #region Private
+
         private async void Handle_SettingsService_CurrencyIdChanged(object sender, string currencyId)
         {
             var rate = await TokenCache.GetRateAsync(currencyId);
-            
+
             foreach (var item in Items)
             {
                 item.CurrencySymbol = rate.Symbol;
             }
         }
-
-        #region Private
 
         private async void Handle_TokenCache_TokenUpdated(object sender, Token token)
         {

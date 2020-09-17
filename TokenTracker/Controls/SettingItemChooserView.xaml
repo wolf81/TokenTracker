@@ -37,6 +37,7 @@
                     x:Name="picker"
                     WidthRequest="120"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"
+                    ItemDisplayBinding="{Binding Value}"
                     ItemsSource="{Binding Items}"
                     HorizontalOptions="End"
                     SelectedIndexChanged="Picker_SelectedIndexChanged"

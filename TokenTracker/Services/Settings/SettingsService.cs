@@ -9,6 +9,8 @@ namespace TokenTracker.Services
     {
         public event EventHandler<SortOrder> SortOrderChanged;
 
+        public event EventHandler<Theme> ThemeChanged;
+
         public event EventHandler<string> CurrencyIdChanged;
 
         private struct Keys
@@ -17,6 +19,7 @@ namespace TokenTracker.Services
             public const string IsFirstRun = "is_first_run";
             public const string SortOrder = "sort_order";
             public const string CurrencyId = "currency_id";
+            public const string Theme = "theme";
         }
 
         public bool UseMocks
@@ -48,6 +51,16 @@ namespace TokenTracker.Services
             {
                 AddOrUpdateValue(Keys.SortOrder, (int)value);
                 OnSortOrderChanged(value);
+            }
+        }
+
+        public Theme Theme
+        {
+            get => (Theme)GetValueOrDefault(Keys.Theme, (int)Theme.Light);
+            set
+            {
+                AddOrUpdateValue(Keys.Theme, (int)value);
+                OnThemeChanged(value);
             }
         }
 
@@ -112,6 +125,11 @@ namespace TokenTracker.Services
         private void OnCurrencyIdChanged(string currencySymbol)
         {
             CurrencyIdChanged?.Invoke(this, currencySymbol);
+        }
+
+        private void OnThemeChanged(Theme theme)
+        {
+            ThemeChanged?.Invoke(this, theme);
         }
 
         #endregion

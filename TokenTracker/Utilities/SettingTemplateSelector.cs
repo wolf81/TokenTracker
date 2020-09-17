@@ -45,14 +45,14 @@ namespace TokenTracker
             set => SetProperty(ref selectedItemIndex, value);
         }
 
-        private List<string> items = new List<string> { };
-        public List<string> Items
+        private List<KeyValuePair<string, string>> items = new List<KeyValuePair<string, string>> { };
+        public List<KeyValuePair<string, string>> Items
         {
             get => items;
             set => SetProperty(ref items, value);
         }
 
-        public Action<int> SelectedItemChanged;
+        public Action<KeyValuePair<string, string>> SelectedItemChanged;
     }
 
     public class SwitchSettingItem : SettingItemBase

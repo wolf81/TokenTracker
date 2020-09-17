@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace TokenTracker.Controls
@@ -19,7 +20,12 @@ namespace TokenTracker.Controls
 
         private void OnSelectedValueChanged(int selectedIndex)
         {
-            Item?.SelectedItemChanged(selectedIndex);
+            if (selectedIndex == -1) { return; }
+
+            if (Item?.Items[selectedIndex] is KeyValuePair<string, string> item)
+            {
+                Item?.SelectedItemChanged(item);
+            }
         }
     }
 }

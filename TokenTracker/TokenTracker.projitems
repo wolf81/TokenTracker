@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\NavigationMenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities\ITabbedViewAppearanceAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Theme.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
