@@ -53,6 +53,10 @@ namespace TokenTracker.Models
             };
         }
 
-        public static Token Dummy = new Token { Id = Guid.NewGuid().ToString(), Rank = int.MaxValue };
+        public static Token Dummy = new Token
+        {
+            Id = Guid.NewGuid().ToString(),
+            Rank = int.MaxValue
+        };
     }
 }

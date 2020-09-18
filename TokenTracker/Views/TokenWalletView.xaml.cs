@@ -1,7 +1,9 @@
 ﻿using System;
 using TokenTracker.Models;
+using TokenTracker.Services;
 using TokenTracker.Utilities;
 using TokenTracker.ViewModels;
+using TokenTracker.ViewModels.Base;
 using TokenTracker.Views.Base;
 using Xamarin.Forms;
 
@@ -10,6 +12,8 @@ namespace TokenTracker.Views
     public partial class TokenWalletView : ContentPageBase, ITabbedViewAppearanceAware
     {
         private TokenWalletViewModel ViewModel => BindingContext as TokenWalletViewModel;
+
+        private ITokenInfoService TokenInfoService => ViewModelLocator.Resolve<ITokenInfoService>();
 
         public TokenWalletView()
         {
@@ -22,6 +26,11 @@ namespace TokenTracker.Views
 
         public void OnTabShown()
         {
+            if (TokenInfoService.IsConfigured)
+            {
+                TokenInfoService.StartTokenUpdates();
+            }
+
             UpdateModeToggleItem();
         }
 

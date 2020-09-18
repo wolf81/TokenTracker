@@ -102,7 +102,7 @@ namespace TokenTracker.ViewModels
                 Device.BeginInvokeOnMainThread(() => Items[tokenIdx] = walletItem);
             }
 
-            decimal totalPrice = 0;
+            var totalPrice = new decimal(0);
             foreach (var item in Items.ToList())
             {
                 if (item is WalletViewTokenItem tokenItem)
@@ -111,7 +111,7 @@ namespace TokenTracker.ViewModels
                 }
             }
 
-            var rate = await Cache.GetRateAsync(SettingsService.CurrencyId) ?? Rate.Default();
+            var rate = await Cache.GetRateAsync(SettingsService.CurrencyId) ?? Rate.Default;
             var totalItem = new WalletViewTotalItem { Amount = 1, Price = totalPrice, CurrencySymbol = rate.Symbol};
             Device.BeginInvokeOnMainThread(() => Items[Items.Count - 1] = totalItem);
         }

@@ -97,7 +97,7 @@ namespace TokenTracker.Services
             await database.DeleteAllAsync<Rate>();
             await database.DeleteAllAsync<Token>();
 
-            await database.InsertAsync(Rate.Default());            
+            await database.InsertAsync(Rate.Default);            
         }
 
         public void Configure()
@@ -112,7 +112,7 @@ namespace TokenTracker.Services
             database.InsertAllAsync(tokens).Wait();
 
             database.DeleteAllAsync<Rate>().Wait();
-            database.InsertAsync(Rate.Default()).Wait();
+            database.InsertAsync(Rate.Default).Wait();
         }
 
         #region Private

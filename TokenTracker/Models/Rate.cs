@@ -33,16 +33,13 @@ namespace TokenTracker.Models
         [JsonProperty("type")]
         public string Type { get; set; }
 
-        public static Rate Default()
+        public static Rate Default = new Rate
         {
-            return new Rate
-            {
-                Id = DEFAULT_RATE_ID,
-                Symbol = "USD",
-                CurrencySymbol = "$",
-                RateUSD = new decimal(1.0),
-                Type = "fiat",
-            };
-        }
+            Id = DEFAULT_RATE_ID,
+            Symbol = "USD",
+            CurrencySymbol = "$",
+            RateUSD = new decimal(1.0),
+            Type = "fiat",
+        };
     }
 }

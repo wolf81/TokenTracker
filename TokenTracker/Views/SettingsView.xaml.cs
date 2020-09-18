@@ -26,13 +26,7 @@ namespace TokenTracker.Views
             await ViewModel.UpdateAsync();
         }
 
-        public void OnTabHidden()
-        {
-            if (TokenInfoService.IsConfigured)
-            {
-                TokenInfoService.StartTokenUpdates();
-            }
-        }
+        public void OnTabHidden() { }
 
         #endregion
     }
